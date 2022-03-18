@@ -1,0 +1,48 @@
+{
+  "name": "{{name}}",
+  "version": "1.0.0",
+  "description": "{{description}}",
+  "main": "lib/main.js",
+  "module": "lib/main.js",
+  "commonjs": "lib/cjs/main.cjs.js",
+  "repository": "",
+  "author": "Aiden_FE@outlook.com",
+  "license": "MIT",
+  "files": [
+    "lib",
+    "types"
+  ],
+  "publishConfig": {
+    "registry": ""
+  },
+  "scripts": {
+    "start": "npm run dev",
+    "publish:lib": "npm run build && yarn publish --no-git-tag-version",
+    "dev": "cross-env NODE_ENV=development rollup  -w -c build/rollup.config.js",
+    "build": "npm run clean && cross-env NODE_ENV=production rollup -c build/rollup.config.js",
+    "test": "jest --coverage",
+    "lint": "eslint --ext .ts,.js --ignore-path .gitignore src",
+    "clean": "rimraf lib"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^19.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@rollup/plugin-typescript": "^8.3.1",
+    "@types/jest": "^26.0.24",
+    "jest": "^27.5.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.70.1",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-sourcemaps": "^0.6.3",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-jest": "^27.1.3",
+    "tslib": "^2.3.1",
+    "typescript": "^4.6.2"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3"
+  }
+}
