@@ -1,5 +1,5 @@
 {
-  "name": "{{name}}",
+  "name": "@compass/utils",
   "version": "1.0.0",
   "description": "{{description}}",
   "main": "lib/main.js",
@@ -18,8 +18,8 @@
   "scripts": {
     "start": "npm run dev",
     "publish:lib": "npm run build && yarn publish --no-git-tag-version",
-    "dev": "cross-env NODE_ENV=development rollup  -w -c build/rollup.config.js",
-    "build": "npm run clean && cross-env NODE_ENV=production rollup -c build/rollup.config.js",
+    "dev": "cross-env NODE_ENV=development rollup  -w -c build/rollup.config.dev.js",
+    "build": "npm run clean && cross-env NODE_ENV=production rollup -c build/rollup.config.prod.js",
     "test": "jest --coverage",
     "lint": "eslint --ext .ts,.js --ignore-path .gitignore src",
     "clean": "rimraf lib"
@@ -34,7 +34,9 @@
     "rimraf": "^3.0.2",
     "rollup": "^2.70.1",
     "rollup-plugin-analyzer": "^4.0.0",
+    "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-serve": "^1.1.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",

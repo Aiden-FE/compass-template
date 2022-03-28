@@ -17,9 +17,6 @@ function entry(input, output) {
     output,
     // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
     external: ['window', 'document'],
-    watch: {
-      include: 'src/**'
-    },
     preserveSymlinks: true,
     plugins: [
       // Allow json resolution
@@ -44,16 +41,13 @@ function entry(input, output) {
       nodeResolve(),
 
       // Resolve source maps to the original source
-      sourceMaps()
-    ].concat(process.env.NODE_ENV === 'production'
-      ? [
-        // Minify
-        terser(),
-        analyze({
-          summaryOnly: true
-        })
-      ]
-      : [])
+      sourceMaps(),
+      // Minify
+      terser(),
+      analyze({
+        summaryOnly: true
+      })
+    ]
   }
 }
 

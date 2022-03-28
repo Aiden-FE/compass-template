@@ -11,7 +11,9 @@ specifiers:
   rimraf: ^3.0.2
   rollup: ^2.70.1
   rollup-plugin-analyzer: ^4.0.0
+  rollup-plugin-livereload: ^2.0.5
   rollup-plugin-peer-deps-external: ^2.2.4
+  rollup-plugin-serve: ^1.1.0
   rollup-plugin-sourcemaps: ^0.6.3
   rollup-plugin-terser: ^7.0.2
   rollup-plugin-typescript2: ^0.30.0
@@ -32,7 +34,9 @@ devDependencies:
   rimraf: r2.cnpmjs.org/rimraf/3.0.2
   rollup: 2.70.1
   rollup-plugin-analyzer: r2.cnpmjs.org/rollup-plugin-analyzer/4.0.0
+  rollup-plugin-livereload: r2.cnpmjs.org/rollup-plugin-livereload/2.0.5
   rollup-plugin-peer-deps-external: r2.cnpmjs.org/rollup-plugin-peer-deps-external/2.2.4_rollup@2.70.1
+  rollup-plugin-serve: r2.cnpmjs.org/rollup-plugin-serve/1.1.0
   rollup-plugin-sourcemaps: r2.cnpmjs.org/rollup-plugin-sourcemaps/0.6.3_rollup@2.70.1
   rollup-plugin-terser: r2.cnpmjs.org/rollup-plugin-terser/7.0.2_rollup@2.70.1
   rollup-plugin-typescript2: r2.cnpmjs.org/rollup-plugin-typescript2/0.30.0_rollup@2.70.1+typescript@4.6.2
@@ -591,6 +595,21 @@ packages:
     resolution: {integrity: sha512-xIZLh8gBm4dqNX0gkzrBeyI86J2eCjWzYAs40q88smG844YIrN4tVQl/RhquHvKEKImWWFIVh1Lxe5n1G/N+GQ==}
     dev: true
 
+  /chokidar/3.5.3:
+    resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
+    engines: {node: '>= 8.10.0'}
+    dependencies:
+      anymatch: r2.cnpmjs.org/anymatch/3.1.2
+      braces: r2.cnpmjs.org/braces/3.0.2
+      glob-parent: r2.cnpmjs.org/glob-parent/5.1.2
+      is-binary-path: r2.cnpmjs.org/is-binary-path/2.1.0
+      is-glob: r2.cnpmjs.org/is-glob/4.0.3
+      normalize-path: r2.cnpmjs.org/normalize-path/3.0.0
+      readdirp: r2.cnpmjs.org/readdirp/3.6.0
+    optionalDependencies:
+      fsevents: r2.cnpmjs.org/fsevents/2.3.2
+    dev: true
+
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
     engines: {node: '>=6.0'}
@@ -1101,6 +1120,10 @@ packages:
       - supports-color
       - ts-node
       - utf-8-validate
+    dev: true
+
+  /livereload-js/3.3.3:
+    resolution: {integrity: sha512-a7Jipme3XIBIryJluWP5LQrEAvhobDPyScBe+q+MYwxBiMT2Ck7msy4tAdF8TAa33FMdJqX4guP81Yhiu6BkmQ==}
     dev: true
 
   /magic-string/0.25.9:
@@ -1768,6 +1791,13 @@ packages:
     version: 1.0.2
     dev: true
 
+  r2.cnpmjs.org/binary-extensions/2.2.0:
+    resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz}
+    name: binary-extensions
+    version: 2.2.0
+    engines: {node: '>=8'}
+    dev: true
+
   r2.cnpmjs.org/brace-expansion/1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz}
     name: brace-expansion
@@ -2314,6 +2344,15 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  r2.cnpmjs.org/glob-parent/5.1.2:
+    resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/glob-parent/-/glob-parent-5.1.2.tgz}
+    name: glob-parent
+    version: 5.1.2
+    engines: {node: '>= 6'}
+    dependencies:
+      is-glob: r2.cnpmjs.org/is-glob/4.0.3
+    dev: true
+
   r2.cnpmjs.org/glob/7.2.0:
     resolution: {integrity: sha512-lmLf6gtyrPq8tTjSmrO94wBeQbFR3HbLHbuyD69wuyQkImp2hWqMGB47OX65FBkPffO641IP9jWa1z4ivqG26Q==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/glob/-/glob-7.2.0.tgz}
     name: glob
@@ -2441,6 +2480,22 @@ packages:
     version: 0.2.1
     dev: true
 
+  r2.cnpmjs.org/is-binary-path/2.1.0:
+    resolution: {integrity: sha512-ZMERYes6pDydyuGidse7OsHxtbI7WVeUEozgR/g7rd0xUimYNlvZRE/K2MgZTjWy725IfelLeVcEM97mmtRGXw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/is-binary-path/-/is-binary-path-2.1.0.tgz}
+    name: is-binary-path
+    version: 2.1.0
+    engines: {node: '>=8'}
+    dependencies:
+      binary-extensions: r2.cnpmjs.org/binary-extensions/2.2.0
+    dev: true
+
+  r2.cnpmjs.org/is-extglob/2.1.1:
+    resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/is-extglob/-/is-extglob-2.1.1.tgz}
+    name: is-extglob
+    version: 2.1.1
+    engines: {node: '>=0.10.0'}
+    dev: true
+
   r2.cnpmjs.org/is-fullwidth-code-point/3.0.0:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz}
     name: is-fullwidth-code-point
@@ -2453,6 +2508,15 @@ packages:
     name: is-generator-fn
     version: 2.1.0
     engines: {node: '>=6'}
+    dev: true
+
+  r2.cnpmjs.org/is-glob/4.0.3:
+    resolution: {integrity: sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/is-glob/-/is-glob-4.0.3.tgz}
+    name: is-glob
+    version: 4.0.3
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      is-extglob: r2.cnpmjs.org/is-extglob/2.1.1
     dev: true
 
   r2.cnpmjs.org/is-module/1.0.0:
@@ -2713,6 +2777,22 @@ packages:
     version: 1.2.4
     dev: true
 
+  r2.cnpmjs.org/livereload/0.9.3:
+    resolution: {integrity: sha512-q7Z71n3i4X0R9xthAryBdNGVGAO2R5X+/xXpmKeuPMrteg+W2U8VusTKV3YiJbXZwKsOlFlHe+go6uSNjfxrZw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/livereload/-/livereload-0.9.3.tgz}
+    name: livereload
+    version: 0.9.3
+    engines: {node: '>=8.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      livereload-js: 3.3.3
+      opts: r2.cnpmjs.org/opts/2.0.2
+      ws: 7.5.7
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: true
+
   r2.cnpmjs.org/locate-path/5.0.0:
     resolution: {integrity: sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/locate-path/-/locate-path-5.0.0.tgz}
     name: locate-path
@@ -2780,6 +2860,14 @@ packages:
     dependencies:
       braces: r2.cnpmjs.org/braces/3.0.2
       picomatch: 2.3.1
+    dev: true
+
+  r2.cnpmjs.org/mime/3.0.0:
+    resolution: {integrity: sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/mime/-/mime-3.0.0.tgz}
+    name: mime
+    version: 3.0.0
+    engines: {node: '>=10.0.0'}
+    hasBin: true
     dev: true
 
   r2.cnpmjs.org/mimic-fn/2.1.0:
@@ -2852,6 +2940,13 @@ packages:
       mimic-fn: r2.cnpmjs.org/mimic-fn/2.1.0
     dev: true
 
+  r2.cnpmjs.org/opener/1.5.2:
+    resolution: {integrity: sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/opener/-/opener-1.5.2.tgz}
+    name: opener
+    version: 1.5.2
+    hasBin: true
+    dev: true
+
   r2.cnpmjs.org/optionator/0.8.3:
     resolution: {integrity: sha512-+IW9pACdk3XWmmTXG8m3upGUJst5XRGzxMRjXzAuJ1XnIFNvfhjjIuYkDvysnPQ7qzqVzLt78BCruntqRhWQbA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/optionator/-/optionator-0.8.3.tgz}
     name: optionator
@@ -2864,6 +2959,12 @@ packages:
       prelude-ls: r2.cnpmjs.org/prelude-ls/1.1.2
       type-check: r2.cnpmjs.org/type-check/0.3.2
       word-wrap: r2.cnpmjs.org/word-wrap/1.2.3
+    dev: true
+
+  r2.cnpmjs.org/opts/2.0.2:
+    resolution: {integrity: sha512-k41FwbcLnlgnFh69f4qdUfvDQ+5vaSDnVPFI/y5XuhKRq97EnVVneO9F1ESVCdiVu4fCS2L8usX3mU331hB7pg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/opts/-/opts-2.0.2.tgz}
+    name: opts
+    version: 2.0.2
     dev: true
 
   r2.cnpmjs.org/p-limit/2.3.0:
@@ -3006,6 +3107,15 @@ packages:
     version: 17.0.2
     dev: true
 
+  r2.cnpmjs.org/readdirp/3.6.0:
+    resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/readdirp/-/readdirp-3.6.0.tgz}
+    name: readdirp
+    version: 3.6.0
+    engines: {node: '>=8.10.0'}
+    dependencies:
+      picomatch: 2.3.1
+    dev: true
+
   r2.cnpmjs.org/require-directory/2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/require-directory/-/require-directory-2.1.1.tgz}
     name: require-directory
@@ -3061,6 +3171,18 @@ packages:
     engines: {node: '>=8.0.0'}
     dev: true
 
+  r2.cnpmjs.org/rollup-plugin-livereload/2.0.5:
+    resolution: {integrity: sha512-vqQZ/UQowTW7VoiKEM5ouNW90wE5/GZLfdWuR0ELxyKOJUIaj+uismPZZaICU4DnWPVjnpCDDxEqwU7pcKY/PA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/rollup-plugin-livereload/-/rollup-plugin-livereload-2.0.5.tgz}
+    name: rollup-plugin-livereload
+    version: 2.0.5
+    engines: {node: '>=8.3'}
+    dependencies:
+      livereload: r2.cnpmjs.org/livereload/0.9.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+    dev: true
+
   r2.cnpmjs.org/rollup-plugin-peer-deps-external/2.2.4_rollup@2.70.1:
     resolution: {integrity: sha512-AWdukIM1+k5JDdAqV/Cxd+nejvno2FVLVeZ74NKggm3Q5s9cbbcOgUPGdbxPi4BXu7xGaZ8HG12F+thImYu/0g==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/rollup-plugin-peer-deps-external/-/rollup-plugin-peer-deps-external-2.2.4.tgz}
     id: r2.cnpmjs.org/rollup-plugin-peer-deps-external/2.2.4
@@ -3070,6 +3192,15 @@ packages:
       rollup: '*'
     dependencies:
       rollup: 2.70.1
+    dev: true
+
+  r2.cnpmjs.org/rollup-plugin-serve/1.1.0:
+    resolution: {integrity: sha512-pYkSsuA0/psKqhhictkJw1c2klya5b+LlCvipWqI9OE1aG2M97mRumZCbBlry5CMEOzYBBgSDgd1694sNbmyIw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/rollup-plugin-serve/-/rollup-plugin-serve-1.1.0.tgz}
+    name: rollup-plugin-serve
+    version: 1.1.0
+    dependencies:
+      mime: r2.cnpmjs.org/mime/3.0.0
+      opener: r2.cnpmjs.org/opener/1.5.2
     dev: true
 
   r2.cnpmjs.org/rollup-plugin-sourcemaps/0.6.3_rollup@2.70.1:
