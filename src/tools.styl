@@ -1,0 +1,30 @@
+@import ".variables";
+
+.{$domain}-clearfix {
+  zoom: 1;
+  &::after {
+    content: "";
+    height: 0;
+    visibility: hidden;
+    display: block;
+    clear: both;
+  }
+}
+
+.{$domain}-scrollbar_default {
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    background: white
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1em;
+    background: rgba(0,0,0,0.40);
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 1em;
+  }
+}

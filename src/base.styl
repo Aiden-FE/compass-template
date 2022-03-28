@@ -1,0 +1,68 @@
+/** 基础的全局样式 **/
+/* 样式书写排序规范
+ * Positioning Model > Box Model > Typographic > Visual 的顺序书写
+ * 布局,位置 相关属性包括：position / top / right / bottom / left / z-index / display / float / …
+ * 盒模型 相关属性包括：width / height / padding / margin / border / overflow / …
+ * 文本排版 相关属性包括：font / line-height / text-align / word-wrap / …
+ * 视觉外观 相关属性包括：color / background / list-style / transform / animation / transition / …
+ */
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  //-webkit-box-sizing: border-box;
+  //-moz-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: 0;
+}
+
+html {
+  font-family: PingFangSC,PingFangSC-Regular, "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
+
+html,
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: white;
+}
+
+ul,
+li,
+ol {
+  list-style: none;
+}
+
+i {
+  font-style: normal;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+  outline-style: none;
+  -webkit-appearance: none;
+}
+
+/* 移除input[type=number]加减号 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0;
+}
+
+button {
+  border: 0;
+  outline: none;
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-focus: normal;
+  -moz-user-select: none;
+  text-decoration: none;
+}
