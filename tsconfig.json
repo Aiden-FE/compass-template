@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
     "lib": [
       "ESNext",
-      "dom"
     ],
     "strict": true,
     "sourceMap": true,
@@ -18,7 +17,8 @@
     "resolveJsonModule": true,
     "outDir": "lib",
     "types": [
-      "@types/jest"
+      "@types/jest",
+      "@types/node"
     ],
     "baseUrl": ".",
     "paths": {

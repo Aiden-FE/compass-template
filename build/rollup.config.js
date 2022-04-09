@@ -7,7 +7,6 @@ import { terser } from 'rollup-plugin-terser' // 代码压缩
 import peerDepsExternal from 'rollup-plugin-peer-deps-external' // 剔除外部依赖
 import analyze from 'rollup-plugin-analyzer'
 import pkg from '../package.json'
-const {entryList}  = require('./get-all-entry')
 
 const libraryName = pkg.name
 
@@ -17,6 +16,9 @@ function entry(input, output) {
     output,
     // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
     external: ['window', 'document'],
+    watch: {
+      include: 'src/**'
+    },
     preserveSymlinks: true,
     plugins: [
       // Allow json resolution
@@ -42,39 +44,33 @@ function entry(input, output) {
 
       // Resolve source maps to the original source
       sourceMaps(),
+    ].concat(process.env.NODE_ENV !== 'production' ? [] : [
       // Minify
       terser(),
       analyze({
         summaryOnly: true
       })
-    ]
+    ])
   }
 }
 
 export default [
-  entry(entryList, [
+  entry('src/main.ts', [
+    // {
+    //   dir: 'lib',
+    //   name: libraryName,
+    //   format: 'cjs',
+    //   chunkFileNames: 'bundle/chunk.[format].[hash].js',
+    //   entryFileNames: '[name].[format].js',
+    //   sourcemap: process.env.NODE_ENV !== 'production'
+    // },
     {
       dir: 'lib',
       name: libraryName,
-      format: 'es',
-      chunkFileNames: 'bundle/chunk.[format].[hash].js',
-      entryFileNames: '[name].js',
-      sourcemap: false // process.env.NODE_ENV !== 'production'
-    },
-    {
-      dir: 'lib/cjs',
-      name: libraryName,
-      format: 'cjs',
+      format: 'esm',
       chunkFileNames: 'bundle/chunk.[format].[hash].js',
       entryFileNames: '[name].[format].js',
-      sourcemap: false // process.env.NODE_ENV !== 'production'
+      sourcemap: process.env.NODE_ENV !== 'production'
     },
   ]),
-  // IIFE
-  entry('src/compass-utils.ts', [
-    {
-      dir: 'lib',
-      format: 'iife'
-    }
-  ])
 ]
