@@ -16,6 +16,7 @@ export class CollectInfo {
         choices: [
           { name: 'style lib', value: 'styles', description: '样式包构建工程' },
           { name: 'script lib', value: 'utils', description: '通用 ES or CommonJs包构建工程' },
+          { name: 'cli lib', value: 'cli', description: '脚手架工程' },
         ]
       },
       {

@@ -1,5 +1,5 @@
 export interface CollectInfoOptions {
-  target: 'styles' | 'utils'
+  target: 'styles' | 'utils' | 'cli'
   commandOptions: {
     clone: boolean
   }
