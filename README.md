@@ -5,3 +5,4 @@ Recommended preset template.
 
 * template/utils 工具库模板
 * template/styles 样式库模板
+* template/cli 脚手架模板
