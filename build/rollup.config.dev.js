@@ -19,7 +19,6 @@ function entry(input, output) {
         watch: {
             include: 'src/**'
         },
-        preserveSymlinks: true,
         plugins: [
             // Allow json resolution
             json(),
@@ -44,7 +43,7 @@ function entry(input, output) {
             livereload(),
             serve({
                 port: 4000,
-                contentBase: '',
+                contentBase: 'src',
             })
         ]
     }
@@ -60,14 +59,14 @@ export default [
             entryFileNames: '[name].js',
             sourcemap: true // process.env.NODE_ENV !== 'production'
         },
-        {
-            dir: 'lib/cjs',
-            name: libraryName,
-            format: 'cjs',
-            chunkFileNames: 'bundle/chunk.[format].[hash].js',
-            entryFileNames: '[name].[format].js',
-            sourcemap: true // process.env.NODE_ENV !== 'production'
-        },
+        // {
+        //     dir: 'lib/cjs',
+        //     name: libraryName,
+        //     format: 'cjs',
+        //     chunkFileNames: 'bundle/chunk.[format].[hash].js',
+        //     entryFileNames: '[name].[format].js',
+        //     sourcemap: true // process.env.NODE_ENV !== 'production'
+        // },
     ]),
     // IIFE
     entry('src/compass-utils.ts', [

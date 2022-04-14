@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
     "lib": [
       "ESNext",
       "dom"
@@ -17,9 +17,6 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "outDir": "lib",
-    "types": [
-      "@types/jest"
-    ],
     "baseUrl": ".",
     "paths": {
       "~": [
@@ -29,9 +26,13 @@
         "src/*"
       ]
     },
+    "types": [
+      "@types/jest"
+    ],
     "typeRoots": [
       "src/types"
-    ]
+    ],
+    "plugins": [{ "transform": "@zerollup/ts-transform-paths" }]
   },
   "include": [
     "./src/**/*"

@@ -17,7 +17,6 @@ function entry(input, output) {
     output,
     // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
     external: ['window', 'document'],
-    preserveSymlinks: true,
     plugins: [
       // Allow json resolution
       json(),

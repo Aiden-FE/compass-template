@@ -4,8 +4,9 @@ specifiers:
   '@rollup/plugin-commonjs': ^19.0.2
   '@rollup/plugin-json': ^4.1.0
   '@rollup/plugin-node-resolve': ^13.1.3
-  '@rollup/plugin-typescript': ^8.3.1
-  '@types/jest': ^26.0.24
+  '@types/jest': ^27.4.1
+  '@types/node': ^17.0.24
+  '@zerollup/ts-transform-paths': ^1.7.18
   cross-env: ^7.0.3
   jest: ^27.5.1
   rimraf: ^3.0.2
@@ -18,7 +19,9 @@ specifiers:
   rollup-plugin-terser: ^7.0.2
   rollup-plugin-typescript2: ^0.30.0
   ts-jest: ^27.1.3
+  ts-node: ^10.7.0
   tslib: ^2.3.1
+  ttypescript: ^1.5.13
   typescript: ^4.6.2
 
 dependencies:
@@ -28,20 +31,23 @@ devDependencies:
   '@rollup/plugin-commonjs': r2.cnpmjs.org/@rollup/plugin-commonjs/19.0.2_rollup@2.70.1
   '@rollup/plugin-json': r2.cnpmjs.org/@rollup/plugin-json/4.1.0_rollup@2.70.1
   '@rollup/plugin-node-resolve': 13.1.3_rollup@2.70.1
-  '@rollup/plugin-typescript': 8.3.1_859e05ab655ea3c900a5f26a0311c0b5
-  '@types/jest': r2.cnpmjs.org/@types/jest/26.0.24
-  jest: 27.5.1
+  '@types/jest': 27.4.1
+  '@types/node': 17.0.24
+  '@zerollup/ts-transform-paths': 1.7.18_typescript@4.6.2
+  jest: 27.5.1_ts-node@10.7.0
   rimraf: r2.cnpmjs.org/rimraf/3.0.2
   rollup: 2.70.1
   rollup-plugin-analyzer: r2.cnpmjs.org/rollup-plugin-analyzer/4.0.0
   rollup-plugin-livereload: r2.cnpmjs.org/rollup-plugin-livereload/2.0.5
   rollup-plugin-peer-deps-external: r2.cnpmjs.org/rollup-plugin-peer-deps-external/2.2.4_rollup@2.70.1
   rollup-plugin-serve: r2.cnpmjs.org/rollup-plugin-serve/1.1.0
-  rollup-plugin-sourcemaps: r2.cnpmjs.org/rollup-plugin-sourcemaps/0.6.3_rollup@2.70.1
+  rollup-plugin-sourcemaps: r2.cnpmjs.org/rollup-plugin-sourcemaps/0.6.3_8a6a852eb37e88ec13bc19ce671297dd
   rollup-plugin-terser: r2.cnpmjs.org/rollup-plugin-terser/7.0.2_rollup@2.70.1
   rollup-plugin-typescript2: r2.cnpmjs.org/rollup-plugin-typescript2/0.30.0_rollup@2.70.1+typescript@4.6.2
-  ts-jest: 27.1.3_368b47f061a4910890c03068668004a5
+  ts-jest: 27.1.3_60149d457e34ffba7d4e845dde6a1263
+  ts-node: 10.7.0_dc7481160979db6549e9a1c6c308737c
   tslib: r2.cnpmjs.org/tslib/2.3.1
+  ttypescript: 1.5.13_ts-node@10.7.0+typescript@4.6.2
   typescript: 4.6.2
 
 packages:
@@ -208,7 +214,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/helper-validator-identifier': 7.16.7
-      chalk: r2.cnpmjs.org/chalk/2.4.2
+      chalk: 2.4.2
       js-tokens: r2.cnpmjs.org/js-tokens/4.0.0
     dev: true
 
@@ -263,19 +269,31 @@ packages:
       to-fast-properties: r2.cnpmjs.org/to-fast-properties/2.0.0
     dev: true
 
+  /@cspotcode/source-map-consumer/0.8.0:
+    resolution: {integrity: sha512-41qniHzTU8yAGbCp04ohlmSrZf8bkf/iJsl3V0dRGsQN/5GFfx+LbCSsCpp2gqrqjTVg/K6O8ycoV35JIwAzAg==}
+    engines: {node: '>= 12'}
+    dev: true
+
+  /@cspotcode/source-map-support/0.7.0:
+    resolution: {integrity: sha512-X4xqRHqN8ACt2aHVe51OxeA2HjbcL4MqFqXkrmQszJ1NOUuUu5u6Vqx/0lZSVNku7velL5FC/s5uEAj1lsBMhA==}
+    engines: {node: '>=12'}
+    dependencies:
+      '@cspotcode/source-map-consumer': 0.8.0
+    dev: true
+
   /@jest/console/27.5.1:
     resolution: {integrity: sha512-kZ/tNpS3NXn0mlXXXPNuDZnb4c0oZ20r4K5eemM2k30ZC3G0T02nXUvyhf5YdbXWHPEJLc9qGLxEZ216MdL+Zg==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      '@types/node': 17.0.24
+      chalk: 4.1.2
       jest-message-util: 27.5.1
       jest-util: 27.5.1
       slash: r2.cnpmjs.org/slash/3.0.0
     dev: true
 
-  /@jest/core/27.5.1:
+  /@jest/core/27.5.1_ts-node@10.7.0:
     resolution: {integrity: sha512-AK6/UTrvQD0Cd24NSqmIA6rKsu0tKIxfiCducZvqxYdmMisOYAsdItspT+fQDQYARPf8XgjAFZi0ogW2agH5nQ==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     peerDependencies:
@@ -289,14 +307,14 @@ packages:
       '@jest/test-result': 27.5.1
       '@jest/transform': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       ansi-escapes: r2.cnpmjs.org/ansi-escapes/4.3.2
       chalk: r2.cnpmjs.org/chalk/4.1.2
       emittery: r2.cnpmjs.org/emittery/0.8.1
       exit: r2.cnpmjs.org/exit/0.1.2
       graceful-fs: 4.2.9
       jest-changed-files: 27.5.1
-      jest-config: 27.5.1
+      jest-config: 27.5.1_ts-node@10.7.0
       jest-haste-map: 27.5.1
       jest-message-util: 27.5.1
       jest-regex-util: 27.5.1
@@ -326,7 +344,7 @@ packages:
     dependencies:
       '@jest/fake-timers': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       jest-mock: 27.5.1
     dev: true
 
@@ -336,7 +354,7 @@ packages:
     dependencies:
       '@jest/types': 27.5.1
       '@sinonjs/fake-timers': r2.cnpmjs.org/@sinonjs/fake-timers/8.1.0
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       jest-message-util: 27.5.1
       jest-mock: 27.5.1
       jest-util: 27.5.1
@@ -365,8 +383,8 @@ packages:
       '@jest/test-result': 27.5.1
       '@jest/transform': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      '@types/node': 17.0.24
+      chalk: 4.1.2
       collect-v8-coverage: r2.cnpmjs.org/collect-v8-coverage/1.0.1
       exit: r2.cnpmjs.org/exit/0.1.2
       glob: r2.cnpmjs.org/glob/7.2.0
@@ -427,7 +445,7 @@ packages:
       '@babel/core': 7.17.7
       '@jest/types': 27.5.1
       babel-plugin-istanbul: r2.cnpmjs.org/babel-plugin-istanbul/6.1.1
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      chalk: 4.1.2
       convert-source-map: r2.cnpmjs.org/convert-source-map/1.8.0
       fast-json-stable-stringify: r2.cnpmjs.org/fast-json-stable-stringify/2.1.0
       graceful-fs: 4.2.9
@@ -449,7 +467,7 @@ packages:
     dependencies:
       '@types/istanbul-lib-coverage': r2.cnpmjs.org/@types/istanbul-lib-coverage/2.0.4
       '@types/istanbul-reports': r2.cnpmjs.org/@types/istanbul-reports/3.0.1
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       '@types/yargs': r2.cnpmjs.org/@types/yargs/16.0.4
       chalk: r2.cnpmjs.org/chalk/4.1.2
     dev: true
@@ -485,27 +503,28 @@ packages:
       rollup: 2.70.1
     dev: true
 
-  /@rollup/plugin-typescript/8.3.1_859e05ab655ea3c900a5f26a0311c0b5:
-    resolution: {integrity: sha512-84rExe3ICUBXzqNX48WZV2Jp3OddjTMX97O2Py6D1KJaGSwWp0mDHXj+bCGNJqWHIEKDIT2U0sDjhP4czKi6cA==}
-    engines: {node: '>=8.0.0'}
-    peerDependencies:
-      rollup: ^2.14.0
-      tslib: '*'
-      typescript: '>=3.7.0'
-    dependencies:
-      '@rollup/pluginutils': r2.cnpmjs.org/@rollup/pluginutils/3.1.0_rollup@2.70.1
-      resolve: 1.22.0
-      rollup: 2.70.1
-      tslib: r2.cnpmjs.org/tslib/2.3.1
-      typescript: 4.6.2
-    dev: true
-
   /@rollup/pluginutils/4.2.0:
     resolution: {integrity: sha512-2WUyJNRkyH5p487pGnn4tWAsxhEFKN/pT8CMgHshd5H+IXkOnKvKZwsz5ZWz+YCXkleZRAU5kwbfgF8CPfDRqA==}
     engines: {node: '>= 8.0.0'}
     dependencies:
       estree-walker: r2.cnpmjs.org/estree-walker/2.0.2
       picomatch: 2.3.1
+    dev: true
+
+  /@tsconfig/node10/1.0.8:
+    resolution: {integrity: sha512-6XFfSQmMgq0CFLY1MslA/CPUfhIL919M1rMsa5lP2P097N2Wd1sSX0tx1u4olM16fLNhtHZpRhedZJphNJqmZg==}
+    dev: true
+
+  /@tsconfig/node12/1.0.9:
+    resolution: {integrity: sha512-/yBMcem+fbvhSREH+s14YJi18sp7J9jpuhYByADT2rypfajMZZN4WQ6zBGgBKp53NKmqI36wFYDb3yaMPurITw==}
+    dev: true
+
+  /@tsconfig/node14/1.0.1:
+    resolution: {integrity: sha512-509r2+yARFfHHE7T6Puu2jjkoycftovhXRqW328PDXTVGKihlb1P8Z9mMZH04ebyajfRY7dedfGynlrFHJUQCg==}
+    dev: true
+
+  /@tsconfig/node16/1.0.2:
+    resolution: {integrity: sha512-eZxlbI8GZscaGS7kkc/trHTT5xgrjH3/1n2JDwusC9iahPKWMRvRjJSAN5mCXviuTGQ/lHnhvv8Q1YTpnfz9gA==}
     dev: true
 
   /@types/babel__core/7.1.18:
@@ -522,8 +541,15 @@ packages:
     resolution: {integrity: sha512-CuPgU6f3eT/XgKKPqKd/gLZV1Xmvf1a2R5POBOGQa6uv82xpls89HU5zKeVoyR8XzHd1RGNOlQlvUe3CFkjWNQ==}
     dev: true
 
-  /@types/node/17.0.21:
-    resolution: {integrity: sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==}
+  /@types/jest/27.4.1:
+    resolution: {integrity: sha512-23iPJADSmicDVrWk+HT58LMJtzLAnB2AgIzplQuq/bSrGaxCrlvRFjGbXmamnnk/mAmCdLStiGqggu28ocUyiw==}
+    dependencies:
+      jest-matcher-utils: 27.5.1
+      pretty-format: 27.5.1
+    dev: true
+
+  /@types/node/17.0.24:
+    resolution: {integrity: sha512-aveCYRQbgTH9Pssp1voEP7HiuWlD2jW2BO56w+bVrJn04i61yh6mRfoKO6hEYQD9vF+W8Chkwc6j1M36uPkx4g==}
     dev: true
 
   /@types/prettier/2.4.4:
@@ -532,6 +558,74 @@ packages:
 
   /@types/yargs-parser/21.0.0:
     resolution: {integrity: sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==}
+    dev: true
+
+  /@zerollup/ts-helpers/1.7.18_typescript@4.6.2:
+    resolution: {integrity: sha512-S9zN+y+i5yN/evfWquzSO3lubqPXIsPQf6p9OiPMpRxDx/0totPLF39XoRw48Dav5dSvbIE8D2eAPpXXJxvKwg==}
+    peerDependencies:
+      typescript: '>=3.7.2'
+    dependencies:
+      resolve: 1.22.0
+      typescript: 4.6.2
+    dev: true
+
+  /@zerollup/ts-transform-paths/1.7.18_typescript@4.6.2:
+    resolution: {integrity: sha512-YPVUxvWQVzRx1OBN0Pmkd58+R9FcfUJuwTaPUSoi5rKxuXMtxevTXdfi0w5mEaIH8b0DfL+wg0wFDHiJE+S2zA==}
+    peerDependencies:
+      typescript: '>=3.7.2'
+    dependencies:
+      '@zerollup/ts-helpers': 1.7.18_typescript@4.6.2
+      typescript: 4.6.2
+    dev: true
+
+  /acorn-walk/7.2.0:
+    resolution: {integrity: sha512-OPdCF6GsMIP+Az+aWfAAOEt2/+iVDKE7oy6lJ098aoe59oAmK76qV6Gw60SbZ8jHuG2wH058GF4pLFbYamYrVA==}
+    engines: {node: '>=0.4.0'}
+    dev: true
+
+  /acorn-walk/8.2.0:
+    resolution: {integrity: sha512-k+iyHEuPgSw6SbuDpGQM+06HQUa04DZ3o+F6CSzXMvvI5KMvnaEqXe+YVe555R9nn6GPt404fos4wcgpw12SDA==}
+    engines: {node: '>=0.4.0'}
+    dev: true
+
+  /acorn/7.4.1:
+    resolution: {integrity: sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+    dev: true
+
+  /acorn/8.7.0:
+    resolution: {integrity: sha512-V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+    dev: true
+
+  /ansi-regex/5.0.1:
+    resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
+    engines: {node: '>=8'}
+    dev: true
+
+  /ansi-styles/3.2.1:
+    resolution: {integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==}
+    engines: {node: '>=4'}
+    dependencies:
+      color-convert: 1.9.3
+    dev: true
+
+  /ansi-styles/4.3.0:
+    resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
+    engines: {node: '>=8'}
+    dependencies:
+      color-convert: 2.0.1
+    dev: true
+
+  /ansi-styles/5.2.0:
+    resolution: {integrity: sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==}
+    engines: {node: '>=10'}
+    dev: true
+
+  /arg/4.1.3:
+    resolution: {integrity: sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==}
     dev: true
 
   /babel-jest/27.5.1_@babel+core@7.17.7:
@@ -546,7 +640,7 @@ packages:
       '@types/babel__core': 7.1.18
       babel-plugin-istanbul: r2.cnpmjs.org/babel-plugin-istanbul/6.1.1
       babel-preset-jest: 27.5.1_@babel+core@7.17.7
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      chalk: 4.1.2
       graceful-fs: 4.2.9
       slash: r2.cnpmjs.org/slash/3.0.0
     transitivePeerDependencies:
@@ -595,6 +689,23 @@ packages:
     resolution: {integrity: sha512-xIZLh8gBm4dqNX0gkzrBeyI86J2eCjWzYAs40q88smG844YIrN4tVQl/RhquHvKEKImWWFIVh1Lxe5n1G/N+GQ==}
     dev: true
 
+  /chalk/2.4.2:
+    resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}
+    engines: {node: '>=4'}
+    dependencies:
+      ansi-styles: 3.2.1
+      escape-string-regexp: r2.cnpmjs.org/escape-string-regexp/1.0.5
+      supports-color: 5.5.0
+    dev: true
+
+  /chalk/4.1.2:
+    resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
+    engines: {node: '>=10'}
+    dependencies:
+      ansi-styles: 4.3.0
+      supports-color: 7.2.0
+    dev: true
+
   /chokidar/3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
     engines: {node: '>= 8.10.0'}
@@ -607,7 +718,32 @@ packages:
       normalize-path: r2.cnpmjs.org/normalize-path/3.0.0
       readdirp: r2.cnpmjs.org/readdirp/3.6.0
     optionalDependencies:
-      fsevents: r2.cnpmjs.org/fsevents/2.3.2
+      fsevents: 2.3.2
+    dev: true
+
+  /color-convert/1.9.3:
+    resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
+    dependencies:
+      color-name: 1.1.3
+    dev: true
+
+  /color-convert/2.0.1:
+    resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
+    engines: {node: '>=7.0.0'}
+    dependencies:
+      color-name: 1.1.4
+    dev: true
+
+  /color-name/1.1.3:
+    resolution: {integrity: sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==}
+    dev: true
+
+  /color-name/1.1.4:
+    resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+    dev: true
+
+  /create-require/1.1.1:
+    resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
     dev: true
 
   /debug/4.3.4:
@@ -627,6 +763,11 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dev: true
 
+  /diff/4.0.2:
+    resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
+    engines: {node: '>=0.3.1'}
+    dev: true
+
   /electron-to-chromium/1.4.87:
     resolution: {integrity: sha512-EXXTtDHFUKdFVkCnhauU7Xp8wmFC1ZG6GK9a1BeI2vvNhy61IwfNPo/CRexhf7mh4ajxAHJPind62BzpzVUeuQ==}
     dev: true
@@ -641,8 +782,37 @@ packages:
       jest-message-util: 27.5.1
     dev: true
 
+  /fsevents/2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /function-bind/1.1.1:
+    resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
+    dev: true
+
   /graceful-fs/4.2.9:
     resolution: {integrity: sha512-NtNxqUcXgpW2iMrfqSfR73Glt39K+BLwWsPs94yR63v45T0Wbej7eRmL5cWfwEgqXnmjQp3zaJTshdRW/qC2ZQ==}
+    dev: true
+
+  /has-flag/3.0.0:
+    resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
+    engines: {node: '>=4'}
+    dev: true
+
+  /has-flag/4.0.0:
+    resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
+    engines: {node: '>=8'}
+    dev: true
+
+  /has/1.0.3:
+    resolution: {integrity: sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      function-bind: 1.1.1
     dev: true
 
   /import-local/3.1.0:
@@ -657,7 +827,7 @@ packages:
   /is-core-module/2.8.1:
     resolution: {integrity: sha512-SdNCUs284hr40hFTFP6l0IfZ/RSrMXF3qgoRHd3/79unUTvrFO/JoXwkGm+5J/Oe3E/b5GsnG330uUNgRpu1PA==}
     dependencies:
-      has: r2.cnpmjs.org/has/1.0.3
+      has: 1.0.3
     dev: true
 
   /istanbul-reports/3.1.4:
@@ -684,8 +854,8 @@ packages:
       '@jest/environment': 27.5.1
       '@jest/test-result': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      '@types/node': 17.0.24
+      chalk: 4.1.2
       co: r2.cnpmjs.org/co/4.6.0
       dedent: r2.cnpmjs.org/dedent/0.7.0
       expect: 27.5.1
@@ -704,7 +874,7 @@ packages:
       - supports-color
     dev: true
 
-  /jest-cli/27.5.1:
+  /jest-cli/27.5.1_ts-node@10.7.0:
     resolution: {integrity: sha512-Hc6HOOwYq4/74/c62dEE3r5elx8wjYqxY0r0G/nFrLDPMFRu6RA/u8qINOIkvhxG7mMQ5EJsOGfRpI8L6eFUVw==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     hasBin: true
@@ -714,14 +884,14 @@ packages:
       node-notifier:
         optional: true
     dependencies:
-      '@jest/core': 27.5.1
+      '@jest/core': 27.5.1_ts-node@10.7.0
       '@jest/test-result': 27.5.1
       '@jest/types': 27.5.1
       chalk: r2.cnpmjs.org/chalk/4.1.2
       exit: r2.cnpmjs.org/exit/0.1.2
       graceful-fs: 4.2.9
       import-local: 3.1.0
-      jest-config: 27.5.1
+      jest-config: 27.5.1_ts-node@10.7.0
       jest-util: 27.5.1
       jest-validate: 27.5.1
       prompts: r2.cnpmjs.org/prompts/2.4.2
@@ -734,7 +904,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /jest-config/27.5.1:
+  /jest-config/27.5.1_ts-node@10.7.0:
     resolution: {integrity: sha512-5sAsjm6tGdsVbW9ahcChPAFCk4IlkQUknH5AvKjuLTSlcO/wCZKyFdn7Rg0EkC+OGgWODEy2hDpWB1PgzH0JNA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     peerDependencies:
@@ -767,6 +937,7 @@ packages:
       pretty-format: 27.5.1
       slash: r2.cnpmjs.org/slash/3.0.0
       strip-json-comments: r2.cnpmjs.org/strip-json-comments/3.1.1
+      ts-node: 10.7.0_dc7481160979db6549e9a1c6c308737c
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -778,7 +949,7 @@ packages:
     resolution: {integrity: sha512-m0NvkX55LDt9T4mctTEgnZk3fmEg3NRYutvMPWM/0iPnkFj2wIeF45O1718cMSOFO1vINkqmxqD8vE37uTEbqw==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      chalk: 4.1.2
       diff-sequences: 27.5.1
       jest-get-type: 27.5.1
       pretty-format: 27.5.1
@@ -796,7 +967,7 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.5.1
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      chalk: 4.1.2
       jest-get-type: 27.5.1
       jest-util: 27.5.1
       pretty-format: 27.5.1
@@ -809,7 +980,7 @@ packages:
       '@jest/environment': 27.5.1
       '@jest/fake-timers': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       jest-mock: 27.5.1
       jest-util: 27.5.1
       jsdom: r2.cnpmjs.org/jsdom/16.7.0
@@ -827,7 +998,7 @@ packages:
       '@jest/environment': 27.5.1
       '@jest/fake-timers': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       jest-mock: 27.5.1
       jest-util: 27.5.1
     dev: true
@@ -843,7 +1014,7 @@ packages:
     dependencies:
       '@jest/types': 27.5.1
       '@types/graceful-fs': r2.cnpmjs.org/@types/graceful-fs/4.1.5
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       anymatch: r2.cnpmjs.org/anymatch/3.1.2
       fb-watchman: r2.cnpmjs.org/fb-watchman/2.0.1
       graceful-fs: 4.2.9
@@ -854,7 +1025,7 @@ packages:
       micromatch: r2.cnpmjs.org/micromatch/4.0.4
       walker: r2.cnpmjs.org/walker/1.0.8
     optionalDependencies:
-      fsevents: r2.cnpmjs.org/fsevents/2.3.2
+      fsevents: 2.3.2
     dev: true
 
   /jest-jasmine2/27.5.1:
@@ -865,8 +1036,8 @@ packages:
       '@jest/source-map': 27.5.1
       '@jest/test-result': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      '@types/node': 17.0.24
+      chalk: 4.1.2
       co: r2.cnpmjs.org/co/4.6.0
       expect: 27.5.1
       is-generator-fn: r2.cnpmjs.org/is-generator-fn/2.1.0
@@ -894,7 +1065,7 @@ packages:
     resolution: {integrity: sha512-z2uTx/T6LBaCoNWNFWwChLBKYxTMcGBRjAt+2SbP929/Fflb9aa5LGma654Rz8z9HLxsrUaYzxE9T/EFIL/PAw==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      chalk: 4.1.2
       jest-diff: 27.5.1
       jest-get-type: 27.5.1
       pretty-format: 27.5.1
@@ -907,7 +1078,7 @@ packages:
       '@babel/code-frame': 7.16.7
       '@jest/types': 27.5.1
       '@types/stack-utils': r2.cnpmjs.org/@types/stack-utils/2.0.1
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      chalk: 4.1.2
       graceful-fs: 4.2.9
       micromatch: r2.cnpmjs.org/micromatch/4.0.4
       pretty-format: 27.5.1
@@ -920,7 +1091,7 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
     dev: true
 
   /jest-regex-util/27.5.1:
@@ -944,7 +1115,7 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.5.1
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      chalk: 4.1.2
       graceful-fs: 4.2.9
       jest-haste-map: 27.5.1
       jest-pnp-resolver: r2.cnpmjs.org/jest-pnp-resolver/1.2.2_jest-resolve@27.5.1
@@ -964,8 +1135,8 @@ packages:
       '@jest/test-result': 27.5.1
       '@jest/transform': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      '@types/node': 17.0.24
+      chalk: 4.1.2
       emittery: r2.cnpmjs.org/emittery/0.8.1
       graceful-fs: 4.2.9
       jest-docblock: 27.5.1
@@ -998,7 +1169,7 @@ packages:
       '@jest/test-result': 27.5.1
       '@jest/transform': 27.5.1
       '@jest/types': 27.5.1
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      chalk: 4.1.2
       cjs-module-lexer: r2.cnpmjs.org/cjs-module-lexer/1.2.2
       collect-v8-coverage: r2.cnpmjs.org/collect-v8-coverage/1.0.1
       execa: r2.cnpmjs.org/execa/5.1.1
@@ -1021,7 +1192,7 @@ packages:
     resolution: {integrity: sha512-jZCyo6iIxO1aqUxpuBlwTDMkzOAJS4a3eYz3YzgxxVQFwLeSA7Jfq5cbqCY+JLvTDrWirgusI/0KwxKMgrdf7w==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       graceful-fs: 4.2.9
     dev: true
 
@@ -1039,7 +1210,7 @@ packages:
       '@types/babel__traverse': r2.cnpmjs.org/@types/babel__traverse/7.14.2
       '@types/prettier': 2.4.4
       babel-preset-current-node-syntax: r2.cnpmjs.org/babel-preset-current-node-syntax/1.0.1_@babel+core@7.17.7
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      chalk: 4.1.2
       expect: 27.5.1
       graceful-fs: 4.2.9
       jest-diff: 27.5.1
@@ -1060,7 +1231,7 @@ packages:
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       chalk: r2.cnpmjs.org/chalk/4.1.2
       ci-info: r2.cnpmjs.org/ci-info/3.3.0
       graceful-fs: 4.2.9
@@ -1085,9 +1256,9 @@ packages:
     dependencies:
       '@jest/test-result': 27.5.1
       '@jest/types': 27.5.1
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       ansi-escapes: r2.cnpmjs.org/ansi-escapes/4.3.2
-      chalk: r2.cnpmjs.org/chalk/4.1.2
+      chalk: 4.1.2
       jest-util: 27.5.1
       string-length: r2.cnpmjs.org/string-length/4.0.2
     dev: true
@@ -1096,12 +1267,12 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       merge-stream: r2.cnpmjs.org/merge-stream/2.0.0
-      supports-color: r2.cnpmjs.org/supports-color/8.1.1
+      supports-color: 8.1.1
     dev: true
 
-  /jest/27.5.1:
+  /jest/27.5.1_ts-node@10.7.0:
     resolution: {integrity: sha512-Yn0mADZB89zTtjkPJEXwrac3LHudkQMR+Paqa8uxJHCBr9agxztUifWCyiYrjhMPBoUVBjyny0I7XH6ozDr7QQ==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     hasBin: true
@@ -1111,9 +1282,9 @@ packages:
       node-notifier:
         optional: true
     dependencies:
-      '@jest/core': 27.5.1
+      '@jest/core': 27.5.1_ts-node@10.7.0
       import-local: 3.1.0
-      jest-cli: 27.5.1
+      jest-cli: 27.5.1_ts-node@10.7.0
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -1130,6 +1301,10 @@ packages:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
     dependencies:
       sourcemap-codec: r2.cnpmjs.org/sourcemap-codec/1.4.8
+    dev: true
+
+  /make-error/1.3.6:
+    resolution: {integrity: sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==}
     dev: true
 
   /mime-db/1.52.0:
@@ -1154,6 +1329,10 @@ packages:
     resolution: {integrity: sha512-XxYDdcQ6eKqp/YjI+tb2C5WM2LgjnZrfYg4vgQt49EK268b6gYCHsBLrK2qvJo4FmCtqmKezb0WZFK4fkrZNsg==}
     dev: true
 
+  /path-parse/1.0.7:
+    resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
+    dev: true
+
   /picomatch/2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
@@ -1168,9 +1347,13 @@ packages:
     resolution: {integrity: sha512-Qb1gy5OrP5+zDf2Bvnzdl3jsTf1qXVMazbvCoKhtKqVs4/YK4ozX4gKQJJVyNe+cajNPn0KoC0MC3FUmaHWEmQ==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     dependencies:
-      ansi-regex: r2.cnpmjs.org/ansi-regex/5.0.1
-      ansi-styles: r2.cnpmjs.org/ansi-styles/5.2.0
-      react-is: r2.cnpmjs.org/react-is/17.0.2
+      ansi-regex: 5.0.1
+      ansi-styles: 5.2.0
+      react-is: 17.0.2
+    dev: true
+
+  /react-is/17.0.2:
+    resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
     dev: true
 
   /resolve/1.22.0:
@@ -1178,7 +1361,7 @@ packages:
     hasBin: true
     dependencies:
       is-core-module: 2.8.1
-      path-parse: r2.cnpmjs.org/path-parse/1.0.7
+      path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
     dev: true
 
@@ -1187,11 +1370,39 @@ packages:
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: r2.cnpmjs.org/fsevents/2.3.2
+      fsevents: 2.3.2
     dev: true
 
   /signal-exit/3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
+    dev: true
+
+  /source-map/0.6.1:
+    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
+    engines: {node: '>=0.10.0'}
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /supports-color/5.5.0:
+    resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
+    engines: {node: '>=4'}
+    dependencies:
+      has-flag: 3.0.0
+    dev: true
+
+  /supports-color/7.2.0:
+    resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
+    engines: {node: '>=8'}
+    dependencies:
+      has-flag: 4.0.0
+    dev: true
+
+  /supports-color/8.1.1:
+    resolution: {integrity: sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==}
+    engines: {node: '>=10'}
+    dependencies:
+      has-flag: 4.0.0
     dev: true
 
   /supports-preserve-symlinks-flag/1.0.0:
@@ -1204,13 +1415,13 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
-      acorn: r2.cnpmjs.org/acorn/8.7.0
+      acorn: 8.7.0
       commander: r2.cnpmjs.org/commander/2.20.3
       source-map: r2.cnpmjs.org/source-map/0.7.3
       source-map-support: r2.cnpmjs.org/source-map-support/0.5.21
     dev: true
 
-  /ts-jest/27.1.3_368b47f061a4910890c03068668004a5:
+  /ts-jest/27.1.3_60149d457e34ffba7d4e845dde6a1263:
     resolution: {integrity: sha512-6Nlura7s6uM9BVUAoqLH7JHyMXjz8gluryjpPXxr3IxZdAXnU6FhjvVLHFtfd1vsE1p8zD1OJfskkc0jhTSnkA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     hasBin: true
@@ -1231,10 +1442,10 @@ packages:
       esbuild:
         optional: true
     dependencies:
-      '@types/jest': r2.cnpmjs.org/@types/jest/26.0.24
+      '@types/jest': 27.4.1
       bs-logger: r2.cnpmjs.org/bs-logger/0.2.6
       fast-json-stable-stringify: r2.cnpmjs.org/fast-json-stable-stringify/2.1.0
-      jest: 27.5.1
+      jest: 27.5.1_ts-node@10.7.0
       jest-util: 27.5.1
       json5: r2.cnpmjs.org/json5/2.2.0
       lodash.memoize: r2.cnpmjs.org/lodash.memoize/4.1.2
@@ -1244,10 +1455,57 @@ packages:
       yargs-parser: r2.cnpmjs.org/yargs-parser/20.2.9
     dev: true
 
+  /ts-node/10.7.0_dc7481160979db6549e9a1c6c308737c:
+    resolution: {integrity: sha512-TbIGS4xgJoX2i3do417KSaep1uRAW/Lu+WAL2doDHC0D6ummjirVOXU5/7aiZotbQ5p1Zp9tP7U6cYhA0O7M8A==}
+    hasBin: true
+    peerDependencies:
+      '@swc/core': '>=1.2.50'
+      '@swc/wasm': '>=1.2.50'
+      '@types/node': '*'
+      typescript: '>=2.7'
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      '@swc/wasm':
+        optional: true
+    dependencies:
+      '@cspotcode/source-map-support': 0.7.0
+      '@tsconfig/node10': 1.0.8
+      '@tsconfig/node12': 1.0.9
+      '@tsconfig/node14': 1.0.1
+      '@tsconfig/node16': 1.0.2
+      '@types/node': 17.0.24
+      acorn: 8.7.0
+      acorn-walk: 8.2.0
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 4.6.2
+      v8-compile-cache-lib: 3.0.0
+      yn: 3.1.1
+    dev: true
+
+  /ttypescript/1.5.13_ts-node@10.7.0+typescript@4.6.2:
+    resolution: {integrity: sha512-KT/RBfGGlVJFqEI8cVvI3nMsmYcFvPSZh8bU0qX+pAwbi7/ABmYkzn7l/K8skw0xmYjVCoyaV6WLsBQxdadybQ==}
+    hasBin: true
+    peerDependencies:
+      ts-node: '>=8.0.2'
+      typescript: '>=3.2.2'
+    dependencies:
+      resolve: 1.22.0
+      ts-node: 10.7.0_dc7481160979db6549e9a1c6c308737c
+      typescript: 4.6.2
+    dev: true
+
   /typescript/4.6.2:
     resolution: {integrity: sha512-HM/hFigTBHZhLXshn9sN37H085+hQGeJHJ/X7LpBWLID/fbc2acUMfU+lGD98X81sKP+pFa9f0DZmCwB9GnbAg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
+    dev: true
+
+  /v8-compile-cache-lib/3.0.0:
+    resolution: {integrity: sha512-mpSYqfsFvASnSn5qMiwrr4VKfumbPyONLCOPmsR3A6pTY/r0+tSaVbgPWSAIuzbk3lCTa+FForeTiO+wBQGkjA==}
     dev: true
 
   /v8-to-istanbul/8.1.1:
@@ -1270,6 +1528,11 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+    dev: true
+
+  /yn/3.1.1:
+    resolution: {integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==}
+    engines: {node: '>=6'}
     dev: true
 
   r2.cnpmjs.org/@babel/plugin-syntax-async-generators/7.8.4_@babel+core@7.17.7:
@@ -1443,19 +1706,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  r2.cnpmjs.org/@jest/types/26.6.2:
-    resolution: {integrity: sha512-fC6QCp7Sc5sX6g8Tvbmj4XUTbyrik0akgRy03yjXbQaBWWNWGE7SGtJk98m0N8nzegD/7SggrUlivxo5ax4KWQ==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/@jest/types/-/types-26.6.2.tgz}
-    name: '@jest/types'
-    version: 26.6.2
-    engines: {node: '>= 10.14.2'}
-    dependencies:
-      '@types/istanbul-lib-coverage': r2.cnpmjs.org/@types/istanbul-lib-coverage/2.0.4
-      '@types/istanbul-reports': r2.cnpmjs.org/@types/istanbul-reports/3.0.1
-      '@types/node': 17.0.21
-      '@types/yargs': r2.cnpmjs.org/@types/yargs/15.0.14
-      chalk: r2.cnpmjs.org/chalk/4.1.2
-    dev: true
-
   r2.cnpmjs.org/@rollup/plugin-commonjs/19.0.2_rollup@2.70.1:
     resolution: {integrity: sha512-gBjarfqlC7qs0AutpRW/hrFNm+cd2/QKxhwyFa+srbg1oX7rDsEU3l+W7LAUhsAp9mPJMAkXDhLbQaVwEaE8bA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/@rollup/plugin-commonjs/-/plugin-commonjs-19.0.2.tgz}
     id: r2.cnpmjs.org/@rollup/plugin-commonjs/19.0.2
@@ -1561,7 +1811,7 @@ packages:
     name: '@types/graceful-fs'
     version: 4.1.5
     dependencies:
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
     dev: true
 
   r2.cnpmjs.org/@types/istanbul-lib-coverage/2.0.4:
@@ -1586,35 +1836,18 @@ packages:
       '@types/istanbul-lib-report': r2.cnpmjs.org/@types/istanbul-lib-report/3.0.0
     dev: true
 
-  r2.cnpmjs.org/@types/jest/26.0.24:
-    resolution: {integrity: sha512-E/X5Vib8BWqZNRlDxj9vYXhsDwPYbPINqKF9BsnSoon4RQ0D9moEuLD8txgyypFLH7J4+Lho9Nr/c8H0Fi+17w==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/@types/jest/-/jest-26.0.24.tgz}
-    name: '@types/jest'
-    version: 26.0.24
-    dependencies:
-      jest-diff: r2.cnpmjs.org/jest-diff/26.6.2
-      pretty-format: r2.cnpmjs.org/pretty-format/26.6.2
-    dev: true
-
   r2.cnpmjs.org/@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/@types/resolve/-/resolve-1.17.1.tgz}
     name: '@types/resolve'
     version: 1.17.1
     dependencies:
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
     dev: true
 
   r2.cnpmjs.org/@types/stack-utils/2.0.1:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/@types/stack-utils/-/stack-utils-2.0.1.tgz}
     name: '@types/stack-utils'
     version: 2.0.1
-    dev: true
-
-  r2.cnpmjs.org/@types/yargs/15.0.14:
-    resolution: {integrity: sha512-yEJzHoxf6SyQGhBhIYGXQDSCkJjB6HohDShto7m8vaKg9Yp0Yn8+71J9eakh2bnPg6BfsH9PRMhiRTZnd4eXGQ==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/@types/yargs/-/yargs-15.0.14.tgz}
-    name: '@types/yargs'
-    version: 15.0.14
-    dependencies:
-      '@types/yargs-parser': 21.0.0
     dev: true
 
   r2.cnpmjs.org/@types/yargs/16.0.4:
@@ -1636,31 +1869,8 @@ packages:
     name: acorn-globals
     version: 6.0.0
     dependencies:
-      acorn: r2.cnpmjs.org/acorn/7.4.1
-      acorn-walk: r2.cnpmjs.org/acorn-walk/7.2.0
-    dev: true
-
-  r2.cnpmjs.org/acorn-walk/7.2.0:
-    resolution: {integrity: sha512-OPdCF6GsMIP+Az+aWfAAOEt2/+iVDKE7oy6lJ098aoe59oAmK76qV6Gw60SbZ8jHuG2wH058GF4pLFbYamYrVA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/acorn-walk/-/acorn-walk-7.2.0.tgz}
-    name: acorn-walk
-    version: 7.2.0
-    engines: {node: '>=0.4.0'}
-    dev: true
-
-  r2.cnpmjs.org/acorn/7.4.1:
-    resolution: {integrity: sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/acorn/-/acorn-7.4.1.tgz}
-    name: acorn
-    version: 7.4.1
-    engines: {node: '>=0.4.0'}
-    hasBin: true
-    dev: true
-
-  r2.cnpmjs.org/acorn/8.7.0:
-    resolution: {integrity: sha512-V/LGr1APy+PXIwKebEWrkZPwoeoF+w1jiOBUmuxuiUIaOHtob8Qc9BTrYo7VuI5fR8tqsy+buA2WFooR5olqvQ==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/acorn/-/acorn-8.7.0.tgz}
-    name: acorn
-    version: 8.7.0
-    engines: {node: '>=0.4.0'}
-    hasBin: true
+      acorn: 7.4.1
+      acorn-walk: 7.2.0
     dev: true
 
   r2.cnpmjs.org/agent-base/6.0.2:
@@ -1690,29 +1900,13 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  r2.cnpmjs.org/ansi-styles/3.2.1:
-    resolution: {integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/ansi-styles/-/ansi-styles-3.2.1.tgz}
-    name: ansi-styles
-    version: 3.2.1
-    engines: {node: '>=4'}
-    dependencies:
-      color-convert: r2.cnpmjs.org/color-convert/1.9.3
-    dev: true
-
   r2.cnpmjs.org/ansi-styles/4.3.0:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz}
     name: ansi-styles
     version: 4.3.0
     engines: {node: '>=8'}
     dependencies:
-      color-convert: r2.cnpmjs.org/color-convert/2.0.1
-    dev: true
-
-  r2.cnpmjs.org/ansi-styles/5.2.0:
-    resolution: {integrity: sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/ansi-styles/-/ansi-styles-5.2.0.tgz}
-    name: ansi-styles
-    version: 5.2.0
-    engines: {node: '>=10'}
+      color-convert: 2.0.1
     dev: true
 
   r2.cnpmjs.org/anymatch/3.1.2:
@@ -1866,17 +2060,6 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  r2.cnpmjs.org/chalk/2.4.2:
-    resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/chalk/-/chalk-2.4.2.tgz}
-    name: chalk
-    version: 2.4.2
-    engines: {node: '>=4'}
-    dependencies:
-      ansi-styles: r2.cnpmjs.org/ansi-styles/3.2.1
-      escape-string-regexp: r2.cnpmjs.org/escape-string-regexp/1.0.5
-      supports-color: r2.cnpmjs.org/supports-color/5.5.0
-    dev: true
-
   r2.cnpmjs.org/chalk/4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/chalk/-/chalk-4.1.2.tgz}
     name: chalk
@@ -1927,35 +2110,6 @@ packages:
     resolution: {integrity: sha512-iBPtljfCNcTKNAto0KEtDfZ3qzjJvqE3aTGZsbhjSBlorqpXJlaWWtPO35D+ZImoC3KWejX64o+yPGxhWSTzfg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/collect-v8-coverage/-/collect-v8-coverage-1.0.1.tgz}
     name: collect-v8-coverage
     version: 1.0.1
-    dev: true
-
-  r2.cnpmjs.org/color-convert/1.9.3:
-    resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/color-convert/-/color-convert-1.9.3.tgz}
-    name: color-convert
-    version: 1.9.3
-    dependencies:
-      color-name: r2.cnpmjs.org/color-name/1.1.3
-    dev: true
-
-  r2.cnpmjs.org/color-convert/2.0.1:
-    resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/color-convert/-/color-convert-2.0.1.tgz}
-    name: color-convert
-    version: 2.0.1
-    engines: {node: '>=7.0.0'}
-    dependencies:
-      color-name: r2.cnpmjs.org/color-name/1.1.4
-    dev: true
-
-  r2.cnpmjs.org/color-name/1.1.3:
-    resolution: {integrity: sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/color-name/-/color-name-1.1.3.tgz}
-    name: color-name
-    version: 1.1.3
-    dev: true
-
-  r2.cnpmjs.org/color-name/1.1.4:
-    resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/color-name/-/color-name-1.1.4.tgz}
-    name: color-name
-    version: 1.1.4
     dev: true
 
   r2.cnpmjs.org/combined-stream/1.0.8:
@@ -2091,13 +2245,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  r2.cnpmjs.org/diff-sequences/26.6.2:
-    resolution: {integrity: sha512-Mv/TDa3nZ9sbc5soK+OoA74BsS3mL37yixCvUAQkiuA4Wz6YtwP/K47n2rv2ovzHZvoiQeA5FTQOschKkEwB0Q==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/diff-sequences/-/diff-sequences-26.6.2.tgz}
-    name: diff-sequences
-    version: 26.6.2
-    engines: {node: '>= 10.14.2'}
-    dev: true
-
   r2.cnpmjs.org/domexception/2.0.1:
     resolution: {integrity: sha512-yxJ2mFy/sibVQlu5qHjOkf9J3K6zgmCxgJ94u2EdvDOV09H+32LtRswEcUsmUWN72pVLOEnTSRaIVVzVQgS0dg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/domexception/-/domexception-2.0.1.tgz}
     name: domexception
@@ -2161,7 +2308,7 @@ packages:
       esutils: r2.cnpmjs.org/esutils/2.0.3
       optionator: r2.cnpmjs.org/optionator/0.8.3
     optionalDependencies:
-      source-map: r2.cnpmjs.org/source-map/0.6.1
+      source-map: 0.6.1
     dev: true
 
   r2.cnpmjs.org/esprima/4.0.1:
@@ -2300,22 +2447,6 @@ packages:
     version: 1.0.0
     dev: true
 
-  r2.cnpmjs.org/fsevents/2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/fsevents/-/fsevents-2.3.2.tgz}
-    name: fsevents
-    version: 2.3.2
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  r2.cnpmjs.org/function-bind/1.1.1:
-    resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/function-bind/-/function-bind-1.1.1.tgz}
-    name: function-bind
-    version: 1.1.1
-    dev: true
-
   r2.cnpmjs.org/gensync/1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/gensync/-/gensync-1.0.0-beta.2.tgz}
     name: gensync
@@ -2373,27 +2504,11 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  r2.cnpmjs.org/has-flag/3.0.0:
-    resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/has-flag/-/has-flag-3.0.0.tgz}
-    name: has-flag
-    version: 3.0.0
-    engines: {node: '>=4'}
-    dev: true
-
   r2.cnpmjs.org/has-flag/4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/has-flag/-/has-flag-4.0.0.tgz}
     name: has-flag
     version: 4.0.0
     engines: {node: '>=8'}
-    dev: true
-
-  r2.cnpmjs.org/has/1.0.3:
-    resolution: {integrity: sha512-f2dvO0VU6Oej7RkWJGrehjbzMAjFp5/VKPp5tTpWIV4JHHZK1/BxbFRtf/siA2SWTe09caDmVtYYzWEIbBS4zw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/has/-/has-1.0.3.tgz}
-    name: has
-    version: 1.0.3
-    engines: {node: '>= 0.4.0'}
-    dependencies:
-      function-bind: r2.cnpmjs.org/function-bind/1.1.1
     dev: true
 
   r2.cnpmjs.org/html-encoding-sniffer/2.0.1:
@@ -2594,7 +2709,7 @@ packages:
     dependencies:
       istanbul-lib-coverage: r2.cnpmjs.org/istanbul-lib-coverage/3.2.0
       make-dir: r2.cnpmjs.org/make-dir/3.1.0
-      supports-color: r2.cnpmjs.org/supports-color/7.2.0
+      supports-color: 7.2.0
     dev: true
 
   r2.cnpmjs.org/istanbul-lib-source-maps/4.0.1:
@@ -2608,25 +2723,6 @@ packages:
       source-map: r2.cnpmjs.org/source-map/0.6.1
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  r2.cnpmjs.org/jest-diff/26.6.2:
-    resolution: {integrity: sha512-6m+9Z3Gv9wN0WFVasqjCL/06+EFCMTqDEUl/b87HYK2rAPTyfz4ZIuSlPhY51PIQRWx5TaxeF1qmXKe9gfN3sA==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/jest-diff/-/jest-diff-26.6.2.tgz}
-    name: jest-diff
-    version: 26.6.2
-    engines: {node: '>= 10.14.2'}
-    dependencies:
-      chalk: r2.cnpmjs.org/chalk/4.1.2
-      diff-sequences: r2.cnpmjs.org/diff-sequences/26.6.2
-      jest-get-type: r2.cnpmjs.org/jest-get-type/26.3.0
-      pretty-format: r2.cnpmjs.org/pretty-format/26.6.2
-    dev: true
-
-  r2.cnpmjs.org/jest-get-type/26.3.0:
-    resolution: {integrity: sha512-TpfaviN1R2pQWkIihlfEanwOXK0zcxrKEE4MlU6Tn7keoXdN6/3gK/xl0yEh8DOunn5pOVGKf8hB4R9gVh04ig==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/jest-get-type/-/jest-get-type-26.3.0.tgz}
-    name: jest-get-type
-    version: 26.3.0
-    engines: {node: '>= 10.14.2'}
     dev: true
 
   r2.cnpmjs.org/jest-pnp-resolver/1.2.2_jest-resolve@27.5.1:
@@ -2650,7 +2746,7 @@ packages:
     version: 26.6.2
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 17.0.21
+      '@types/node': 17.0.24
       merge-stream: r2.cnpmjs.org/merge-stream/2.0.0
       supports-color: r2.cnpmjs.org/supports-color/7.2.0
     dev: true
@@ -2683,7 +2779,7 @@ packages:
         optional: true
     dependencies:
       abab: r2.cnpmjs.org/abab/2.0.5
-      acorn: r2.cnpmjs.org/acorn/8.7.0
+      acorn: 8.7.0
       acorn-globals: r2.cnpmjs.org/acorn-globals/6.0.0
       cssom: r2.cnpmjs.org/cssom/0.4.4
       cssstyle: r2.cnpmjs.org/cssstyle/2.3.0
@@ -3058,18 +3154,6 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  r2.cnpmjs.org/pretty-format/26.6.2:
-    resolution: {integrity: sha512-7AeGuCYNGmycyQbCqd/3PWH4eOoX/OiCa0uphp57NVTeAGdJGaAliecxwBDHYQCIvrW7aDBZCYeNTP/WX69mkg==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/pretty-format/-/pretty-format-26.6.2.tgz}
-    name: pretty-format
-    version: 26.6.2
-    engines: {node: '>= 10'}
-    dependencies:
-      '@jest/types': r2.cnpmjs.org/@jest/types/26.6.2
-      ansi-regex: r2.cnpmjs.org/ansi-regex/5.0.1
-      ansi-styles: r2.cnpmjs.org/ansi-styles/4.3.0
-      react-is: r2.cnpmjs.org/react-is/17.0.2
-    dev: true
-
   r2.cnpmjs.org/prompts/2.4.2:
     resolution: {integrity: sha512-NxNv/kLguCA7p3jE8oL2aEBsrJWgAakBpgmgK6lpPWV+WuOmY6r2/zbAVnP+T8bQlA0nzHXSJSJW0Hq7ylaD2Q==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/prompts/-/prompts-2.4.2.tgz}
     name: prompts
@@ -3099,12 +3183,6 @@ packages:
     version: 2.1.0
     dependencies:
       safe-buffer: r2.cnpmjs.org/safe-buffer/5.2.1
-    dev: true
-
-  r2.cnpmjs.org/react-is/17.0.2:
-    resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/react-is/-/react-is-17.0.2.tgz}
-    name: react-is
-    version: 17.0.2
     dev: true
 
   r2.cnpmjs.org/readdirp/3.6.0:
@@ -3203,7 +3281,7 @@ packages:
       opener: r2.cnpmjs.org/opener/1.5.2
     dev: true
 
-  r2.cnpmjs.org/rollup-plugin-sourcemaps/0.6.3_rollup@2.70.1:
+  r2.cnpmjs.org/rollup-plugin-sourcemaps/0.6.3_8a6a852eb37e88ec13bc19ce671297dd:
     resolution: {integrity: sha512-paFu+nT1xvuO1tPFYXGe+XnQvg4Hjqv/eIhG8i5EspfYYPBKL57X7iVbfv55aNVASg3dzWvES9dmWsL2KhfByw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/rollup-plugin-sourcemaps/-/rollup-plugin-sourcemaps-0.6.3.tgz}
     id: r2.cnpmjs.org/rollup-plugin-sourcemaps/0.6.3
     name: rollup-plugin-sourcemaps
@@ -3217,6 +3295,7 @@ packages:
         optional: true
     dependencies:
       '@rollup/pluginutils': r2.cnpmjs.org/@rollup/pluginutils/3.1.0_rollup@2.70.1
+      '@types/node': 17.0.24
       rollup: 2.70.1
       source-map-resolve: r2.cnpmjs.org/source-map-resolve/0.6.0
     dev: true
@@ -3445,29 +3524,11 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  r2.cnpmjs.org/supports-color/5.5.0:
-    resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/supports-color/-/supports-color-5.5.0.tgz}
-    name: supports-color
-    version: 5.5.0
-    engines: {node: '>=4'}
-    dependencies:
-      has-flag: r2.cnpmjs.org/has-flag/3.0.0
-    dev: true
-
   r2.cnpmjs.org/supports-color/7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/supports-color/-/supports-color-7.2.0.tgz}
     name: supports-color
     version: 7.2.0
     engines: {node: '>=8'}
-    dependencies:
-      has-flag: r2.cnpmjs.org/has-flag/4.0.0
-    dev: true
-
-  r2.cnpmjs.org/supports-color/8.1.1:
-    resolution: {integrity: sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==, registry: http://r.cnpmjs.org/, tarball: https://r2.cnpmjs.org/supports-color/-/supports-color-8.1.1.tgz}
-    name: supports-color
-    version: 8.1.1
-    engines: {node: '>=10'}
     dependencies:
       has-flag: r2.cnpmjs.org/has-flag/4.0.0
     dev: true
@@ -3478,8 +3539,8 @@ packages:
     version: 2.2.0
     engines: {node: '>=8'}
     dependencies:
-      has-flag: r2.cnpmjs.org/has-flag/4.0.0
-      supports-color: r2.cnpmjs.org/supports-color/7.2.0
+      has-flag: 4.0.0
+      supports-color: 7.2.0
     dev: true
 
   r2.cnpmjs.org/symbol-tree/3.2.4:
@@ -3693,7 +3754,7 @@ packages:
     version: 7.0.0
     engines: {node: '>=10'}
     dependencies:
-      ansi-styles: r2.cnpmjs.org/ansi-styles/4.3.0
+      ansi-styles: 4.3.0
       string-width: r2.cnpmjs.org/string-width/4.2.3
       strip-ansi: r2.cnpmjs.org/strip-ansi/6.0.1
     dev: true
