@@ -1,2 +1,2 @@
-# compass-template
-Recommended preset template.
+# {{name}}
+{{description}}
