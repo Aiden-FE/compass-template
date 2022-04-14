@@ -1,12 +1,11 @@
 {
   "name": "{{name}}",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "{{description}}",
   "bin": {
-    "tempcompass": "lib/main.es.js"
+    "compass": "lib/main.cjs.js"
   },
-  "type": "module",
-  "repository": "",
+  "repository": "https://github.com/Aiden-FE/compass-template",
   "author": "Aiden_FE@outlook.com",
   "license": "MIT",
   "files": [
@@ -14,7 +13,8 @@
     "types"
   ],
   "publishConfig": {
-    "registry": ""
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "scripts": {
     "start": "npm run dev",
@@ -29,31 +29,31 @@
     "@rollup/plugin-commonjs": "^19.0.2",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.1.3",
-    "@rollup/plugin-typescript": "^8.3.1",
     "@types/inquirer": "^8.2.1",
-    "@types/jest": "^27.0.0",
-    "@types/node": "^17.0.23",
+    "@types/jest": "^27.4.1",
+    "@types/shelljs": "^0.8.11",
     "jest": "^27.5.1",
     "rimraf": "^3.0.2",
     "rollup": "^2.70.1",
     "rollup-plugin-analyzer": "^4.0.0",
-    "rollup-plugin-livereload": "^2.0.5",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-serve": "^1.1.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
-    "ts-jest": "^27.1.3",
+    "shelljs": "^0.8.5",
+    "ts-jest": "^27.1.4",
     "tslib": "^2.3.1",
-    "typescript": "^4.6.2"
+    "typescript": "^4.6.3"
   },
   "dependencies": {
-    "chalk": "5.0.1",
+    "@compass-aiden/utils": "^1.1.1",
+    "axios": "^0.26.1",
+    "chalk": "4.1.2",
     "commander": "^9.1.0",
     "cross-env": "^7.0.3",
     "download-git-repo": "^3.0.2",
     "handlebars": "^4.7.7",
     "inquirer": "^8.2.2",
-    "ora": "^6.1.0"
+    "ora": "5.4.1"
   }
 }

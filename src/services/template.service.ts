@@ -1,11 +1,11 @@
 import ora from 'ora'
-import * as fs from "fs";
-import path from 'path'
+import * as fs from "node:fs";
+import path from 'node:path'
 import download from 'download-git-repo'
 import handlebars from 'handlebars'
-import {CollectInfoOptions} from "~/interface";
-import {LoggerService} from "~/services/logger.service";
-import {TEMPLATE_REPLACE_FILES_PATH, TEMPLATE_REPO_BRANCH_MAPPING, TEMPLATE_REPO_ROOT} from "~/config";
+import {CollectInfoOptions} from "../interface";
+import {LoggerService} from "../services/logger.service";
+import {TEMPLATE_REPLACE_FILES_PATH, TEMPLATE_REPO_BRANCH_MAPPING, TEMPLATE_REPO_ROOT} from "../config";
 
 /**
  * @description 模板服务

@@ -1,5 +1,5 @@
 import inquirer from 'inquirer'
-import {CollectInfoOptions} from "~/interface";
+import {CollectInfoOptions} from "./interface";
 
 export class CollectInfo {
   constructor(
