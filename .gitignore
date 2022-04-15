@@ -52,6 +52,7 @@ jspm_packages/
 # TypeScript v1 declaration files
 typings/
 types/
+!src/types
 
 # Optional npm cache directory
 .npm
@@ -69,7 +70,7 @@ types/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+#.env
 .env.local
 .env.*.local
 

@@ -1,21 +1,61 @@
 {
-  "name": "@compass/template",
+  "name": "compass-vue3",
+  "private": true,
   "version": "1.0.0",
   "description": "{{description}}",
-  "main": "lib/main.js",
-  "module": "lib/main.js",
-  "commonjs": "lib/cjs/main.cjs.js",
-  "repository": "",
+  "repository": "https://github.com/Aiden-FE/compass-template/tree/template/vue3-ts",
   "author": "Aiden_FE@outlook.com",
   "license": "MIT",
   "files": [
-    "lib",
+    "dist",
     "types"
   ],
-  "publishConfig": {
-    "registry": ""
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "commit": "git cz"
   },
-  "scripts": {},
-  "devDependencies": {},
-  "dependencies": {}
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "dependencies": {
+    "@vueuse/core": "^8.2.6",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.0.13",
+    "vue": "^3.2.33",
+    "vue-router": "4"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@compass-aiden/eslint-plugin": "^0.0.2",
+    "@nabla/vite-plugin-eslint": "^1.4.0",
+    "@types/node": "^17.0.24",
+    "@types/nprogress": "^0.2.0",
+    "@vitejs/plugin-legacy": "^1.8.1",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "commitizen": "^4.2.4",
+    "cz-customizable": "^6.3.0",
+    "eslint": "^8.13.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.26.0",
+    "husky": "^7.0.4",
+    "typescript": "^4.6.3",
+    "unplugin-auto-import": "^0.7.1",
+    "unplugin-icons": "^0.14.1",
+    "unplugin-vue-components": "^0.19.3",
+    "vite": "^2.9.5",
+    "vite-plugin-mock-server": "^1.0.4",
+    "vite-plugin-windicss": "^1.8.4",
+    "vue-tsc": "^0.29.8",
+    "windicss": "^3.5.1"
+  }
 }
