@@ -1,7 +1,7 @@
 {
   "name": "compass-vue3",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "{{description}}",
   "repository": "https://github.com/Aiden-FE/compass-template/tree/template/vue3-ts",
   "author": "Aiden_FE@outlook.com",
@@ -15,7 +15,8 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "commit": "git cz"
+    "commit": "git cz",
+    "release": "standard-version --no-verify -a"
   },
   "config": {
     "commitizen": {
@@ -26,6 +27,19 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "last 1 ie version"
+    ]
   },
   "dependencies": {
     "@vueuse/core": "^8.2.6",
@@ -43,13 +57,16 @@
     "@types/nprogress": "^0.2.0",
     "@vitejs/plugin-legacy": "^1.8.1",
     "@vitejs/plugin-vue": "^2.3.1",
+    "autoprefixer": "^10.4.4",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
-    "cz-customizable": "^6.3.0",
     "eslint": "^8.13.0",
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin-import": "^2.26.0",
     "husky": "^7.0.4",
+    "postcss": "^8.4.12",
+    "standard-version": "^9.3.2",
+    "stylus": "^0.57.0",
     "typescript": "^4.6.3",
     "unplugin-auto-import": "^0.7.1",
     "unplugin-icons": "^0.14.1",
