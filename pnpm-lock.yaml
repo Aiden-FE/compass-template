@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@commitlint/cli': ^16.2.3
+  '@commitlint/config-conventional': ^16.2.1
   '@compass-aiden/eslint-plugin': ^0.0.2
   '@nabla/vite-plugin-eslint': ^1.4.0
   '@types/node': ^17.0.24
@@ -10,6 +11,7 @@ specifiers:
   '@vitejs/plugin-vue': ^2.3.1
   '@vueuse/core': ^8.2.6
   commitizen: ^4.2.4
+  cz-conventional-changelog: ^3.3.0
   cz-customizable: ^6.3.0
   eslint: ^8.13.0
   eslint-import-resolver-typescript: ^2.7.1
@@ -38,6 +40,7 @@ dependencies:
 
 devDependencies:
   '@commitlint/cli': 16.2.3
+  '@commitlint/config-conventional': 16.2.1
   '@compass-aiden/eslint-plugin': 0.0.2_eslint@8.13.0+typescript@4.6.3
   '@nabla/vite-plugin-eslint': 1.4.0_eslint@8.13.0+vite@2.9.5
   '@types/node': 17.0.24
@@ -45,6 +48,7 @@ devDependencies:
   '@vitejs/plugin-legacy': 1.8.1_vite@2.9.5
   '@vitejs/plugin-vue': 2.3.1_vite@2.9.5+vue@3.2.33
   commitizen: 4.2.4
+  cz-conventional-changelog: 3.3.0
   cz-customizable: 6.3.0
   eslint: 8.13.0
   eslint-import-resolver-typescript: 2.7.1_25dbcfb8cfecb7418ebda712664abe37
@@ -144,6 +148,13 @@ packages:
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
+    dev: true
+
+  /@commitlint/config-conventional/16.2.1:
+    resolution: {integrity: sha512-cP9gArx7gnaj4IqmtCIcHdRjTYdRUi6lmGE+lOzGGjGe45qGOS8nyQQNvkNy2Ey2VqoSWuXXkD8zCUh6EHf1Ww==}
+    engines: {node: '>=v12'}
+    dependencies:
+      conventional-changelog-conventionalcommits: 4.6.3
     dev: true
 
   /@commitlint/config-validator/16.2.1:
@@ -1403,6 +1414,15 @@ packages:
       q: 1.5.1
     dev: true
 
+  /conventional-changelog-conventionalcommits/4.6.3:
+    resolution: {integrity: sha512-LTTQV4fwOM4oLPad317V/QNQ1FY4Hju5qeBIM1uTHbrnCE+Eg4CdRZ3gO2pUeR+tzWdp80M2j3qFFEDWVqOV4g==}
+    engines: {node: '>=10'}
+    dependencies:
+      compare-func: 2.0.0
+      lodash: 4.17.21
+      q: 1.5.1
+    dev: true
+
   /conventional-commit-types/3.0.0:
     resolution: {integrity: sha512-SmmCYnOniSsAa9GqWOeLqc179lfr5TRu5b4QFDkbsrJ5TZjPJx85wtOr3zn+1dbeNiXDKGPbZ72IKbPhLXh/Lg==}
     dev: true
@@ -1484,6 +1504,23 @@ packages:
 
   /cz-conventional-changelog/3.2.0:
     resolution: {integrity: sha512-yAYxeGpVi27hqIilG1nh4A9Bnx4J3Ov+eXy4koL3drrR+IO9GaWPsKjik20ht608Asqi8TQPf0mczhEeyAtMzg==}
+    engines: {node: '>= 10'}
+    dependencies:
+      chalk: 2.4.2
+      commitizen: 4.2.4
+      conventional-commit-types: 3.0.0
+      lodash.map: 4.6.0
+      longest: 2.0.1
+      word-wrap: 1.2.3
+    optionalDependencies:
+      '@commitlint/load': 16.2.3
+    transitivePeerDependencies:
+      - '@swc/core'
+      - '@swc/wasm'
+    dev: true
+
+  /cz-conventional-changelog/3.3.0:
+    resolution: {integrity: sha512-U466fIzU5U22eES5lTNiNbZ+d8dfcHcssH4o7QsdWaCcRs/feIPCxKYSWkYBNs5mny7MvEfwpTLWjvbm94hecw==}
     engines: {node: '>= 10'}
     dependencies:
       chalk: 2.4.2
