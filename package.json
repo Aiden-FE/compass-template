@@ -13,7 +13,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit --skipLibCheck && vite build",
     "preview": "vite preview",
     "commit": "git cz",
     "release": "standard-version --no-verify -a"
@@ -46,12 +46,14 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.13",
     "vue": "^3.2.33",
+    "vue-i18n": "^9.1.9",
     "vue-router": "4"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
     "@compass-aiden/eslint-plugin": "^0.0.2",
+    "@intlify/vite-plugin-vue-i18n": "^3.4.0",
     "@nabla/vite-plugin-eslint": "^1.4.0",
     "@types/node": "^17.0.24",
     "@types/nprogress": "^0.2.0",

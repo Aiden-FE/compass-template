@@ -16,7 +16,7 @@ module.exports = {
     defineExpose: true,
   },
   settings: {
-    'import/core-modules': [ 'virtual:windi.css' ],
+    'import/core-modules': [ 'virtual:windi.css', 'virtual:windi-devtools' ],
     "import/resolver": {
       "typescript": {}
     },
@@ -30,4 +30,8 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
   },
+  rules: {
+    'import/no-unresolved': 'off',
+    'import/extensions': 'off',
+  }
 }

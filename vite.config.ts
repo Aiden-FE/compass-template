@@ -10,6 +10,8 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { resolve } from 'path'
 import { VueUseComponentsResolver } from 'unplugin-vue-components/resolvers';
+import autoprefixer from "autoprefixer";
+import {vueI18n} from "@intlify/vite-plugin-vue-i18n";
 
 /**
  * https://vitejs.dev/config/
@@ -24,6 +26,11 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    vueI18n({
+      // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
+      // compositionOnly: false,
+      include: resolve(__dirname, 'src/assets/locales/**')
+    }),
     Icons({
       compiler: 'vue3',
       autoInstall: true
@@ -56,11 +63,13 @@ export default defineConfig({
     })
   ],
   css: {
+    postcss: {
+      plugins: [autoprefixer()]
+    },
     preprocessorOptions: {
       stylus: {
-        additionalData: "@import \"~/assets/styles/variables.styl\";",
-        javascriptEnabled: true,
-      }
+        imports: [resolve(__dirname, 'src/assets/styles/variables.styl')]
+      },
     }
   },
   server: {

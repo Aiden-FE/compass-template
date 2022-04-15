@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import NProgress from 'nprogress';
 
-const Home = { template: '<div>Home</div>' };
+const Home = () => import('~/views/home/index.vue')
 const About = { template: '<div>About</div>' };
 
 const routes = [
@@ -18,10 +18,10 @@ router.beforeEach((to, from, next) => {
   if (!NProgress.isStarted()) {
     NProgress.start();
   }
-  next()
+  next();
 });
 
-router.afterEach((to, from) => {
+router.afterEach(() => {
   NProgress.done();
 });
 
