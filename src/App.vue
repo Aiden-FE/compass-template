@@ -5,13 +5,14 @@ const { t } = useI18n();
 </script>
 
 <template>
-  <div class="app-test">
+  <div class="compass-app">
     <h1>{{ t('example') }}: </h1>
     <router-view />
   </div>
 </template>
 
 <style scoped lang="stylus">
-.app-test
+.compass-app
   color $font-color
+  height 2000px
 </style>

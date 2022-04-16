@@ -6,7 +6,7 @@ import injectI18n from './i18n.plugin';
 import injectTheme from './theme.plugin';
 import injectHttp from './http.plugin';
 
-export function injectPlugins(app: App<Element>) {
+export default function injectPlugins(app: App<Element>) {
   app.use(store).use(router);
   injectI18n(app);
   injectTheme(app);
