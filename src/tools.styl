@@ -11,20 +11,26 @@
   }
 }
 
-.{$domain}-scrollbar_default {
+.{$domain}-selection
+  ::selection
+    color var(--text_selection, #fff)
+    background: var(--text_selection_bg, #1890ff);
+
+.{$domain}-scrollbar {
   &::-webkit-scrollbar {
     width: 5px;
     height: 5px;
-    background: white
+    background: var(--scrollbar, white)
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 1em;
-    background: rgba(0,0,0,0.40);
+    background: var(--scrollbar_thumb, rgba(0,0,0,0.40));
     width: 4px;
   }
 
   &::-webkit-scrollbar-track {
     border-radius: 1em;
+    background: var(--scrollbar_track, white);
   }
 }
