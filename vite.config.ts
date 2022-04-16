@@ -42,7 +42,7 @@ export default defineConfig({
       }
     }),
     mockServer({
-      logLevel: 'off'
+      logLevel: 'info'
     }),
     AutoImport({
       // 全局导入
@@ -60,7 +60,7 @@ export default defineConfig({
     legacy({
       targets: ['ie >= 11'],
       additionalLegacyPolyfills: ['regenerator-runtime/runtime']
-    })
+    }),
   ],
   css: {
     postcss: {
@@ -95,5 +95,5 @@ export default defineConfig({
         drop_debugger: true,
       },
     },
-  }
+  },
 })

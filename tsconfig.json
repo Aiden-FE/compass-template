@@ -13,7 +13,8 @@
     "lib": ["esnext", "dom"],
     "types": [
       "@intlify/vite-plugin-vue-i18n/client",
-      "vue-i18n"
+      "vue-i18n",
+      "@types/jest"
     ],
     "baseUrl": ".",
     "paths": {
@@ -21,6 +22,6 @@
       "~/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

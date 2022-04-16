@@ -13,7 +13,7 @@
 * Icons 图标库支持
 * VueUse 响应式api工具
 * Vue-i18n 国际化支持
-* 主题支持
+* CSS Variables 主题支持
 * NProgress 路由切换过滤展示
 * Vite 构建
 * EsLint 支持,默认支持 aribnb 及 vue3-strongly-recommended 规范
@@ -21,6 +21,8 @@
 * Mock 支持
 * CommitLint git提交校验,默认为angular团队提交规范
 * standard-version 版本发布管理
+* Http 请求管理,基于axios封装
+* Jest 单元测试
 
 ## 项目开发
 
@@ -29,5 +31,5 @@ npm run start #进入本地开发模式
 npm run build #构建生产工程
 npm run preview #预览已构建后的工程
 npm run commit #将已暂存的变更进行git commit格式化提交
-npm run release #版本发布 doc: https://github.com/conventional-changelog/standard-version
+npm run release #版本发布: 变更版本号 生成changelog 创建commit及tag doc: https://github.com/conventional-changelog/standard-version
 ```
