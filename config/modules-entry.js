@@ -1,8 +1,10 @@
 const fs = require('fs')
 const path = require('path')
-const srcDir = path.resolve(__dirname, '../src')
+
+const modulesRootDir = path.resolve(__dirname, '../src/modules')
 
 const EXCLUDES_FILE_PREFIX = ['_', 'index']
+const EXCLUDES_FILE_SUFFIX = ['.spec.ts']
 const INCLUDES_FILE_SUFFIX = ['.ts']
 
 function validateFileName (fileName) {
@@ -10,6 +12,10 @@ function validateFileName (fileName) {
     isValid = EXCLUDES_FILE_PREFIX.reduce((previousValue, currentValue) => {
         if (!previousValue) return previousValue
         return !fileName.startsWith(currentValue)
+    }, isValid)
+    isValid = EXCLUDES_FILE_SUFFIX.reduce((previousValue, currentValue) => {
+        if (!previousValue) return previousValue
+        return !fileName.endsWith(currentValue)
     }, isValid)
     if (!isValid) return isValid
     isValid = INCLUDES_FILE_SUFFIX.reduce((previousValue, currentValue) => {
@@ -37,8 +43,6 @@ function getAllEntry(srcDir) {
     return allEntry
 }
 
-const entryList = getAllEntry(srcDir)
+const moduleList = getAllEntry(modulesRootDir)
 
-module.exports = {
-    entryList
-}
+module.exports = moduleList

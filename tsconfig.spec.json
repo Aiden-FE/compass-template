@@ -2,20 +2,5 @@
   "extends": "./tsconfig",
   "compilerOptions": {
     "declaration": false,
-    "baseUrl": ".",
-    "paths": {
-      "~": [
-        "src"
-      ],
-      "~/*": [
-        "src/*"
-      ]
-    }
-  },
-  "include": [
-    "./test/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }

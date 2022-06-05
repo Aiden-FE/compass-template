@@ -128,6 +128,7 @@ code-report
 
 # misc
 package-lock.json
+pnpm-lock.yaml
 #yarn.lock
 
 # compiled output
@@ -135,6 +136,7 @@ tmp
 out-tsc
 lib
 dist
+docs
 
 # Only exists if Bazel was run
 bazel-out

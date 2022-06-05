@@ -3,10 +3,21 @@ module.exports = {
   env: {
     browser: true
   },
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: './tsconfig.json'
+  },
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['import', '@typescript-eslint'],
   extends: [
-    'plugin:@typescript-eslint/recommended'
+    'airbnb-base',
+    'airbnb-typescript/base',
   ],
-  rules: {}
+  globals: {},
+  rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
+    'import/extensions': 'off',
+  }
 }
