@@ -1,23 +1,19 @@
-import peerDepsExternal from 'rollup-plugin-peer-deps-external' // 分离外部依赖
 import styles from "rollup-plugin-styles"; // 样式打包
-import analyze from 'rollup-plugin-analyzer' // build分析工具
 import copy from 'rollup-plugin-copy'
-import pkg from '../package.json'
 import autoprefixer from "autoprefixer";
-const { entryList } = require('./entry')
+import summary from 'rollup-plugin-summary'
+import {builtinModules} from "module";
 
-const libraryName = pkg.name
+const { entryList } = require('./entry')
+import pkg from '../package.json'
 
 function entry(input, output) {
     return {
         input,
         output,
         // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-        external: [],
+        external: [...builtinModules],
         plugins: [
-            peerDepsExternal({
-                includeDependencies: true
-            }),
             styles({
                 mode: 'extract',
                 minimize: true,
@@ -26,12 +22,10 @@ function entry(input, output) {
             }),
             copy({
                 targets: [
-                    { src: 'static', dest: 'lib' },
+                    { src: 'static', dest: 'dist' },
                 ]
             }),
-            analyze({
-                summaryOnly: true
-            })
+            summary(),
         ]
     }
 }
@@ -39,8 +33,8 @@ function entry(input, output) {
 export default [
     entry(entryList, [
         {
-            dir: 'lib',
-            name: libraryName,
+            dir: 'dist',
+            name: pkg.name,
             format: 'es',
             assetFileNames: 'assets/[name][extname]',
             sourcemap: false

@@ -2,18 +2,18 @@
   "name": "{{name}}",
   "version": "1.0.0",
   "description": "{{description}}",
-  "main": "lib/assets/main.css",
+  "main": "dist/assets/main.css",
   "repository": "https://github.com/Aiden-FE/compass-template/tree/template/styles",
-  "author": "Aiden_FE@outlook.com",
-  "license": "MIT",
-  "files": [
-    "lib",
-    "types"
-  ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
+  "author": "aiden_fe@outlook.com",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "types"
+  ],
   "scripts": {
     "start": "npm run dev",
     "publish:lib": "npm run build && yarn publish --no-git-tag-version",
@@ -38,17 +38,15 @@
     "cross-env": "^7.0.3"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.4",
-    "postcss": "^8.4.12",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
     "rimraf": "^3.0.2",
-    "rollup": "^2.70.1",
-    "rollup-plugin-analyzer": "^4.0.0",
+    "rollup": "^2.75.5",
     "rollup-plugin-copy": "^3.4.0",
-    "rollup-plugin-livereload": "^2.0.5",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-serve": "^1.1.0",
     "rollup-plugin-styles": "^4.0.0",
-    "stylelint": "^14.6.1",
+    "rollup-plugin-summary": "^1.4.3",
+    "stylelint": "^14.8.5",
     "stylelint-config-standard": "^25.0.0",
     "stylus": "^0.57.0"
   }
