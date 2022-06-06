@@ -13,13 +13,14 @@ const moduleList = require('./modules-entry')
 
 const umdPlugins = [nodeResolve({ browser: true }), commonjs()];
 const umdName = pkg.name;
+const filename = 'example'
 
 const compressionPlugins = [
     json(),
     ts(),
     compiler(),
     terser(),
-    cleanup({comments: 'all'}),
+    cleanup({comments: 'none'}),
     summary({
         totalLow: 1024 * 8,
         totalHigh: 1024 * 20,
@@ -29,46 +30,32 @@ const compressionPlugins = [
     })
 ]
 
+function entry(input, output, externalKeys = [], plugins = [...umdPlugins, ...compressionPlugins]) {
+    return {
+        input,
+        output,
+        external: [...builtinModules.concat(externalKeys)],
+        plugins,
+    }
+}
+
 export default [
-    {
-        input: './src/main.ts',
-        plugins: [...umdPlugins, ...compressionPlugins],
-        output: [{ file: pkg['umd:main'], format: 'umd', sourcemap: true, name: umdName }],
-    },
-    {
-        input: './src/main.ts',
-        plugins: [...umdPlugins, ...compressionPlugins],
-        output: [{ file: pkg.commonjs, format: 'cjs', sourcemap: true }],
-    },
-    {
-        input: './src/main.ts',
-        external: [...builtinModules],
-        plugins: [...compressionPlugins],
-        output: [{ file: pkg.module, format: 'es', sourcemap: true }],
-    },
-    {
-        input: './src/main.ts',
-        external: [...builtinModules],
-        plugins: [...compressionPlugins,],
-        output: [{ file: pkg.main, format: 'es', sourcemap: true }],
-    },
-].concat(moduleList.map(input => ({
-    input,
-    external: [...builtinModules],
-    plugins: [...umdPlugins, ...compressionPlugins,],
-    output: [{
-        dir: 'dist/es',
-        name: umdName,
-        chunkFileNames: 'es/bundle/chunk.[format].[hash].js',
-        entryFileNames: '[name].js',
-        format: 'es',
-        sourcemap: true
-    }, {
-        dir: 'dist/cjs',
+    entry('./src/main.ts', [{ file: `dist/${filename}.umd.min.js`, format: 'umd', sourcemap: false, name: umdName }]),
+    // entry('./src/main.ts', [{ file: `dist/${filename}.cjs.min.js`, format: 'cjs', sourcemap: false }]),
+    // entry('./src/main.ts', [{ file: `dist/${filename}.es.min.js`, format: 'es', sourcemap: false }]),
+    entry(moduleList, [{
+        dir: 'dist',
         name: umdName,
         format: 'cjs',
-        chunkFileNames: 'cjs/bundle/chunk.[format].[hash].js',
+        chunkFileNames: 'bundle/chunk.[format].[hash].js',
         entryFileNames: '[name].[format].js',
-        sourcemap: true
-    },],
-})))
+        sourcemap: false
+    }, {
+        dir: 'dist',
+        name: umdName,
+        chunkFileNames: 'bundle/chunk.[format].[hash].js',
+        entryFileNames: '[name].js',
+        format: 'es',
+        sourcemap: false
+    }]),
+]

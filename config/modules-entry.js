@@ -1,10 +1,11 @@
 const fs = require('fs')
 const path = require('path')
 
+const defaultRootDir = path.resolve(__dirname, '../src/main.ts')
 const modulesRootDir = path.resolve(__dirname, '../src/modules')
 
 const EXCLUDES_FILE_PREFIX = ['_', 'index']
-const EXCLUDES_FILE_SUFFIX = ['.spec.ts']
+const EXCLUDES_FILE_SUFFIX = ['.spec.ts', '.type.ts']
 const INCLUDES_FILE_SUFFIX = ['.ts']
 
 function validateFileName (fileName) {
@@ -25,8 +26,12 @@ function validateFileName (fileName) {
     return isValid
 }
 
+/**
+ * @param srcDir
+ * @return {string[]}
+ */
 function getAllEntry(srcDir) {
-    const allEntry = []
+    const allEntry = [defaultRootDir]
     const files = fs.readdirSync(srcDir)
     files.forEach(fileName => {
         const fileDir = path.join(srcDir, fileName)

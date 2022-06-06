@@ -1,18 +1,42 @@
 # {{name}}
 > {{description}}
 
+## Getting Started
+
+`npm install {{name}}` 安装依赖
+
+Browser usage
+```html
+<script src="https://cdn.jsdelivr.net/npm/{{name}}@1.0.0/dist/example.umd.min.js"></script>
+<script>
+    const _ = window['{{name}}'];
+    console.log(_);
+</script>
+```
+
+ESModule usage
+```typescript
+import {demo} from '{{name}}';
+demo();
+```
+
+Commonjs usage
+```typescript
+const {demo} = require('{{name}}/dist/main.cjs');
+demo();
+```
+
 ## 目录说明
 
 * `config` 项目配置文件
   * `modules-entry.js` 获取各模块文件入口
 * `coverage` 单测覆盖率报告
 * `dist` 构建产物
-  * `*.min.js` 入口文件
-  * `*.es.min.js` es module文件
-  * `*.cjs.min.js` commonjs 文件
-  * `*.umd.min.js` umd 文件
-  * `es` es 各模块文件
-  * `cjs` commonjs 各模块文件
+  * `*.es.min.js` es module 全量文件
+  * `*.cjs.min.js` commonjs 全量文件
+  * `*.umd.min.js` umd 全量文件
+  * `main.js` es 入口文件
+  * `main.cjs.js` commonjs 入口文件
 * `src` 源代码
   * `main.ts` 主入口文件
   * `modules` 各模块文件夹
