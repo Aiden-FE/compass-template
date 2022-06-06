@@ -1,14 +1,14 @@
+import { nodeResolve } from '@rollup/plugin-node-resolve' // 第三方模块加载
+import commonjs from '@rollup/plugin-commonjs' // cjs模块加载
 import json from '@rollup/plugin-json' // json加载
 import ts from "rollup-plugin-ts";
 import compiler from '@ampproject/rollup-plugin-closure-compiler';
 import { terser } from 'rollup-plugin-terser' // 代码压缩
 import cleanup from 'rollup-plugin-cleanup';
 import summary from 'rollup-plugin-summary'
-import { nodeResolve } from '@rollup/plugin-node-resolve' // 第三方模块加载
-import commonjs from '@rollup/plugin-commonjs' // cjs模块加载
+import {builtinModules} from "module";
 
 import pkg from '../package.json'
-import {builtinModules} from "module";
 const moduleList = require('./modules-entry')
 
 const umdPlugins = [nodeResolve({ browser: true }), commonjs()];

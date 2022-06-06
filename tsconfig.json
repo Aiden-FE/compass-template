@@ -16,7 +16,7 @@
     "emitDecoratorMetadata": true, /* 为装饰器提供元数据支持 */
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "outDir": "lib",
+    "outDir": "dist",
     "baseUrl": ".",
     "paths": {
       "~": [

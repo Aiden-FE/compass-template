@@ -15,6 +15,12 @@
     "docs",
     "types"
   ],
+  "author": "aiden_fe@outlook.com",
+  "license": "MIT",
+  "repository": "https://github.com/Aiden-FE/compass-template",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "start": "npm run dev",
     "prepublish": "npm run lint && npm run docs",
@@ -25,8 +31,6 @@
     "docs": "typedoc --tsconfig tsconfig.json",
     "clean": "rimraf dist && rimraf types && rimraf coverage && rimraf docs"
   },
-  "author": "aiden_fe@outlook.com",
-  "license": "MIT",
   "devDependencies": {
     "@ampproject/rollup-plugin-closure-compiler": "~0.27.0",
     "@rollup/plugin-commonjs": "~22.0.0",

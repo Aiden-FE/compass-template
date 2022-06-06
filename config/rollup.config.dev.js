@@ -1,8 +1,9 @@
 import json from '@rollup/plugin-json' // json加载
 import ts from "rollup-plugin-ts";
 import serve from 'rollup-plugin-serve'
-import pkg from '../package.json'
 import {builtinModules} from "module";
+
+import pkg from '../package.json'
 
 export default [
     {
