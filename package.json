@@ -1,59 +1,36 @@
 {
-  "name": "{{name}}",
-  "version": "1.1.1",
+  "name": "compass-cli",
+  "version": "1.0.0",
   "description": "{{description}}",
   "bin": {
-    "compass": "lib/main.cjs.js"
+    "cli-temp": ".bin/main.js"
   },
-  "repository": "https://github.com/Aiden-FE/compass-template",
-  "author": "Aiden_FE@outlook.com",
-  "license": "MIT",
+  "type": "commonjs",
   "files": [
-    "lib",
-    "types"
+    ".bin"
   ],
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "scripts": {
-    "start": "npm run dev",
-    "publish:lib": "npm run build && yarn publish --no-git-tag-version",
-    "dev": "cross-env NODE_ENV=development rollup -w -c build/rollup.config.js",
-    "build": "npm run clean && cross-env NODE_ENV=production rollup -c build/rollup.config.js",
-    "test": "jest --coverage",
-    "lint": "eslint --ext .ts,.js --ignore-path .gitignore src",
-    "clean": "rimraf lib"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^19.0.2",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.1.3",
-    "@types/inquirer": "^8.2.1",
-    "@types/jest": "^27.4.1",
-    "@types/shelljs": "^0.8.11",
-    "jest": "^27.5.1",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.70.1",
-    "rollup-plugin-analyzer": "^4.0.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-sourcemaps": "^0.6.3",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.30.0",
-    "shelljs": "^0.8.5",
-    "ts-jest": "^27.1.4",
-    "tslib": "^2.3.1",
-    "typescript": "^4.6.3"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aiden-FE/compass-template.git"
   },
+  "author": "aiden_fe@outlook.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Aiden-FE/compass-template/issues"
+  },
+  "homepage": "https://github.com/Aiden-FE/compass-template",
   "dependencies": {
-    "@compass-aiden/utils": "^1.1.1",
-    "axios": "^0.26.1",
-    "chalk": "4.1.2",
-    "commander": "^9.1.0",
-    "cross-env": "^7.0.3",
-    "download-git-repo": "^3.0.2",
-    "handlebars": "^4.7.7",
-    "inquirer": "^8.2.2",
-    "ora": "5.4.1"
+    "chalk": "^4.1.2",
+    "commander": "^9.3.0",
+    "inquirer": "^8.2.4",
+    "ora": "^6.1.0",
+    "shelljs": "^0.8.5"
   }
 }

@@ -1,0 +1,1 @@
+exports.Logger = require('./logger')
