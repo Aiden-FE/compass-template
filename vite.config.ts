@@ -1,17 +1,12 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import legacy from '@vitejs/plugin-legacy'
-import WindiCSS from 'vite-plugin-windicss'
-import eslintPlugin from "@nabla/vite-plugin-eslint"
-import mockServer from 'vite-plugin-mock-server'
-import Icons from 'unplugin-icons/vite'
-import IconsResolver from 'unplugin-icons/resolver'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { resolve } from 'path'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import legacy from '@vitejs/plugin-legacy';
+import eslintPlugin from '@nabla/vite-plugin-eslint';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { resolve } from 'path';
 import { VueUseComponentsResolver } from 'unplugin-vue-components/resolvers';
-import autoprefixer from "autoprefixer";
-import {vueI18n} from "@intlify/vite-plugin-vue-i18n";
+import autoprefixer from 'autoprefixer';
 
 /**
  * https://vitejs.dev/config/
@@ -20,57 +15,44 @@ import {vueI18n} from "@intlify/vite-plugin-vue-i18n";
 export default defineConfig({
   resolve: {
     alias: {
-      'vue': 'vue/dist/vue.esm-bundler.js',
+      vue: 'vue/dist/vue.esm-bundler.js',
       '~': resolve(__dirname, 'src'),
-    }
+    },
   },
   plugins: [
     vue(),
-    vueI18n({
-      // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-      // compositionOnly: false,
-      include: resolve(__dirname, 'src/assets/locales/**')
-    }),
-    Icons({
-      compiler: 'vue3',
-      autoInstall: true
-    }),
-    WindiCSS(),
     eslintPlugin({
       eslintOptions: {
-        fix: true
-      }
-    }),
-    mockServer({
-      logLevel: 'info'
+        fix: true,
+      },
     }),
     AutoImport({
       // 全局导入
-      imports: ['vue', 'pinia', 'vue-router', '@vueuse/core'],
+      imports: ['vue', 'vue-router', '@vueuse/core'],
       dts: 'src/types/auto-imports.d.ts',
       eslintrc: {
         enabled: false,
-        filepath: 'src/types/.eslintrc-auto-import.json'
-      }
+        filepath: 'src/types/.eslintrc-auto-import.json',
+      },
     }),
     Components({
       dts: 'src/types/components.d.ts',
-      resolvers: [IconsResolver(), VueUseComponentsResolver()]
+      resolvers: [VueUseComponentsResolver()],
     }),
     legacy({
       targets: ['ie >= 11'],
-      additionalLegacyPolyfills: ['regenerator-runtime/runtime']
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
     }),
   ],
   css: {
     postcss: {
-      plugins: [autoprefixer()]
+      plugins: [autoprefixer()],
     },
     preprocessorOptions: {
       stylus: {
-        imports: [resolve(__dirname, 'src/assets/styles/variables.styl')]
+        imports: [resolve(__dirname, 'src/assets/styles/variables.styl')],
       },
-    }
+    },
   },
   server: {
     host: false, // host设置为true才可以使用network的形式，以ip访问项目
@@ -96,4 +78,4 @@ export default defineConfig({
       },
     },
   },
-})
+});

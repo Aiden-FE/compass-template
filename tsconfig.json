@@ -12,8 +12,6 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "types": [
-      "@intlify/vite-plugin-vue-i18n/client",
-      "vue-i18n",
       "@types/jest"
     ],
     "baseUrl": ".",
