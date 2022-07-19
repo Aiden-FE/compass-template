@@ -1,0 +1,24 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/command-line.schema.json",
+  "commands": [
+    {
+      "name": "commitlint",
+      "commandKind": "global",
+      "summary": "Used by the pre-commit Git hook. This command invokes commitlint to ensure that the commit messages meet the conventional commit format",
+      "safeForSimultaneousRushProcesses": true,
+      "autoinstallerName": "rush-commitlint",
+      "shellCommand": "commitlint"
+    }
+  ],
+  "parameters": [
+    {
+      "parameterKind": "string",
+      "argumentName": "MESSAGE",
+      "longName": "--edit",
+      "description": "",
+      "associatedCommands": [
+        "commitlint"
+      ]
+    }
+  ]
+}
