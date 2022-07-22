@@ -1,5 +1,7 @@
 # 基于Rush管理Monorepo仓库
 
+> 本文将引导你从无到有,为特定领域的一组项目创建Monorepo仓库并合理地组织起来,从开发到部署全流程的指引
+
 ## 为什么采用Rush
 
 [为什么采用Monorepo](https://rushjs.io/zh-cn/pages/intro/why_mono/)
@@ -131,5 +133,7 @@ todo: 待补充
 `rush publish --publish --include-all` 发布所有项目
 
 ## 结尾
+
+[官方文档](https://rushjs.io/)
 
 附上[模板仓库地址](https://github.com/Aiden-FE/compass-template/tree/template/monorepo)
