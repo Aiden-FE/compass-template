@@ -10,7 +10,6 @@ module.exports = {
   },
   extends: [
     // typescript使用此配置
-    'plugin:@compass-aiden/recommended-ts',
+    '@compass-aiden/eslint-config/ts',
   ],
-  rules: {}
 }

@@ -15,4 +15,13 @@ module.exports = {
     ],
     preset: 'ts-jest',
     "rootDir": ".",
+    // 单测覆盖率限制
+    // coverageThreshold: {
+    //     "global": {
+    //         "branches": 100,
+    //         "functions": 100,
+    //         "lines": 100,
+    //         "statements": 100
+    //     }
+    // },
 }
