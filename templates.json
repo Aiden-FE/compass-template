@@ -1,0 +1,15 @@
+{
+  "author": "Aiden_FE@outlook.com",
+  "description": "预置模板列表",
+  "templates": [
+    {
+      "name": "Typescript",
+      "description": "Typescript 基础库",
+      "repo": {
+        "type": "github",
+        "branch": "master",
+        "path": "templates/utils"
+      }
+    }
+  ]
+}
