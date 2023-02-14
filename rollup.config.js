@@ -1,7 +1,7 @@
 import json from '@rollup/plugin-json'
 import ts from "rollup-plugin-ts";
 import {builtinModules} from "module";
-import { terser } from "rollup-plugin-terser";
+import terser from "@rollup/plugin-terser";
 import cleanup from "rollup-plugin-cleanup";
 import summary from "rollup-plugin-summary";
 import {nodeResolve} from "@rollup/plugin-node-resolve";
