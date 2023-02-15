@@ -23,7 +23,8 @@
   "repository": "",
   "license": "MIT",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "scripts": {
     "prepublish": "npm run lint && npm run build",
