@@ -1,0 +1,19 @@
+@import "modern-normalize/modern-normalize.css";
+@import "../static/vars";
+
+/** 基础的全局样式 **/
+/* 样式书写排序规范
+ * Positioning Model > Box Model > Typographic > Visual 的顺序书写
+ * 布局,位置 相关属性包括：position / top / right / bottom / left / z-index / display / float / …
+ * 盒模型 相关属性包括：width / height / padding / margin / border / overflow / …
+ * 文本排版 相关属性包括：font / line-height / text-align / word-wrap / …
+ * 视觉外观 相关属性包括：color / background / list-style / transform / animation / transition / …
+ */
+
+html,
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: var(@vars[pageBgColor], white);
+}
