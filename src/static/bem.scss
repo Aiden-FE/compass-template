@@ -1,0 +1,71 @@
+/**
+ * @description BEM规范封装, 参考: https://juejin.cn/post/6894265906596642829#heading-10
+ */
+
+// 业务项目再次声明可覆盖此作用域
+$domain: {{domain}} !default;
+$block-separator: '-' !default;
+$element-separator: '__' !default;
+$modifier-separator: '_' !default;
+
+// 声明变量,在内部覆盖
+$block-selector: '' !default;
+$element-selector: '' !default;
+
+/**
+ * @description 块级选择器
+ * @example
+ *   @include b(body) {}
+ *   @include b(body, cp) {}
+ */
+@mixin b($block, $scoped: $domain) {
+  $block-selector: $scoped + $block-separator + $block !global;
+  .#{$block-selector} {
+    @content;
+  }
+}
+
+/**
+ * @description 元素选择器
+ * @example
+ *   @include e(banner) {}
+ *   @include e((banner, footer)) {} // 选择多个
+ */
+@mixin e($element) {
+  $element-selector: $element !global;
+  $selector: &; // 保存当前父级
+  $currentSelector: ""; // 存储遍历后的最新选择器
+
+  // 枚举多参场景
+  @each $unit in $element {
+    $currentSelector: #{$currentSelector + "." + $block-selector + $element-separator + $unit + ","};
+  }
+
+  @at-root {
+    #{$currentSelector} {
+      @content;
+    }
+  }
+}
+
+/**
+ * @description 状态选择器
+ * @example
+ *   @include e(banner) {}
+ *   @include e((banner, footer)) {} // 选择多个
+ */
+@mixin m($modifier) {
+  $selector: &; // 保存当前父级
+  $currentSelector: ""; // 存储遍历后的最新选择器
+
+  // 枚举多参场景
+  @each $unit in $modifier {
+    $currentSelector: #{$currentSelector + & + $modifier-separator + $unit + ","};
+  }
+
+  @at-root {
+    #{$currentSelector} {
+      @content;
+    }
+  }
+}

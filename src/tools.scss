@@ -1,0 +1,32 @@
+/**
+ * @description 实用工具样式
+ */
+@import "base/vars";
+
+// CSS variables =====> Start
+// 选择区颜色
+$selection-color: --#{$domain}-selection-color;
+// 选择区背景色
+$selection-bg-color: --#{$domain}-selection-bg-color;
+// CSS variables =====> End
+
+$selection: #{$domain}-selection;
+$clearfix: #{$domain}-clearfix;
+
+// 文本选择样式
+.#{$selection} ::selection {
+  color: var($selection-color, #fff);
+  background: var($selection-bg-color, #1890ff);
+}
+
+// 浮动清除
+.#{$clearfix} {
+  zoom: 1;
+  &::after {
+    content: "";
+    height: 0;
+    visibility: hidden;
+    display: block;
+    clear: both;
+  }
+}

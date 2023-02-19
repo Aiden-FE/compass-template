@@ -5,16 +5,26 @@
 
 `npm install {{name}}` 安装依赖
 
-### Use bem.styl
+### Use bem.scss
 
 vite配置为例,其他项目类似,全局导入即可
+
+scss的可空变量如下, 可根据业务实际情况进行再次声明覆盖
+
+```scss
+$domain: {{domain}} !default;
+$block-separator: '-' !default;
+$element-separator: '__' !default;
+$modifier-separator: '_' !default;
+```
+
 ```typescript
 export default defineConfig({
   css: {
     preprocessorOptions: {
       stylus: {
         imports: [
-          '{{name}}/static/bem.styl'
+          '{{name}}/static/bem.scss'
         ]
       },
     }
@@ -25,22 +35,23 @@ export default defineConfig({
 模板内使用,以Vue为例
 ```vue
 <template>
-  <div class="cp-container">
-    <button class="cp-container__button cp-container__button_active">Test</button>
+  <div class="{{domain}}-container">
+    <button class="{{domain}}-container__button {{domain}}-container__button_active">Test</button>
   </div>
   <div class="demo-container"></div>
 </template>
 
-<style scoped lang="stylus">
-+block(container)
-  background-color #fff
-  +element(button)
-    display inline-block
-    +modifier(active)
-      color blue
+<style scoped lang="scss">
+@include b(container) {
+  @include e(button) {
+    @include m(active) {}
+  }
+  // 选择多个
+  @include e((button, input)) {}
+}
 
-+block(container, demo)
-  background-color #7f7f7f
+// 重新定义domain
+@include b(container, demo) {}
 </style>
 ```
 
@@ -50,18 +61,25 @@ export default defineConfig({
 // 导入所有css文件
 @import '{{name}}';
 // 导入特定文件
-@import '{{name}}/assets/base.css'; // 导入基础样式
-@import '{{name}}/assets/tools.css'; // 导入工具类
+@import '{{name}}/assets/base.css'; // 单独导入基础样式表
+@import '{{name}}/assets/tools.css'; // 单独导入实用工具样式表
+@import '{{name}}/assets/scrollbar.css'; // 单独导入滚动条样式表
 ```
 
-#### CSS variables for base.css
+#### CSS variables
 
-* --cp-page-background-color 页面背景颜色
+##### CSS variables for dist/assets/base.css
 
-#### CSS variables for tools.css
+* --{{domain}}-page-bg-color 页面背景颜色
 
-* --cp-text-selection 文本选中字体颜色
-* --cp-text-selection-bg 文本选中背景颜色
-* --cp-scrollbar 滚动条颜色
-* --cp-scrollbar-thumb 滚动条滑块颜色
-* --cp-scrollbar-track 滚动条滑轨颜色
+##### CSS variables for dist/assets/tools.css
+
+* --{{domain}}-selection-color 选择区颜色
+* --{{domain}}-selection-bg-color 选择区背景色
+
+##### CSS variables for dist/assets/scrollbar.css
+
+* --{{domain}}-scrollbar-bg-color 滚动条背景色
+* --{{domain}}-scrollbar-thumb-bg-color 滚动条滑块背景色
+* --{{domain}}-scrollbar-thumb-border-color 滚动条滑块边框色
+* --{{domain}}-scrollbar-track-bg-color 滚动条外层轨道背景色
