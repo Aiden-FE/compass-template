@@ -3,7 +3,6 @@
 
 ## TODO
 
-- [ ] 对接EsLint标准
 - [ ] Http封装
 - [ ] Svg loader
 

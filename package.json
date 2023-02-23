@@ -14,7 +14,7 @@
     "test:e2e": "playwright test",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "eslint compass-vue-web --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint src --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "config": {
     "commitizen": {
@@ -48,6 +48,7 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@compass-aiden/eslint-config": "^1.2.0",
     "@playwright/test": "^1.28.1",
     "@rushstack/eslint-patch": "^1.1.4",
     "@types/jsdom": "^20.0.1",
@@ -63,6 +64,7 @@
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.22.0",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-vue": "^9.3.0",
     "husky": "^8.0.3",
     "jsdom": "^20.0.3",
