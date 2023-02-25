@@ -125,9 +125,9 @@ Thumbs.db
 *.swp
 
 # misc
-#package-lock.json
-#yarn.lock
-#pnpm-lock.yaml
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
 # compiled output
 tmp
