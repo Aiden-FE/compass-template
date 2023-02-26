@@ -2,11 +2,11 @@
   "name": "{{name}}",
   "version": "0.0.1",
   "description": "{{description}}",
-  "main": "dist/utils.umd.js",
+  "main": "dist/utils.es.js",
   "module": "dist/utils.es.js",
-  "umd:main": "dist/utils.umd.js",
-  "jsdelivr": "dist/utils.umd.js",
-  "unpkg": "dist/utils.umd.js",
+  "umd:main": "dist/utils.es.js",
+  "jsdelivr": "dist/utils.es.js",
+  "unpkg": "dist/utils.es.js",
   "types": "types/utils.es.d.ts",
   "exports": {
     ".": {

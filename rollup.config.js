@@ -69,7 +69,7 @@ export default [
     input: 'src/main.ts',
     output: getOutput({
       format: 'umd',
-      file: pkg.main,
+      file: pkg.unpkg,
       name: pkg.name,
       dir: undefined,
       chunkFileNames: undefined,
@@ -78,7 +78,15 @@ export default [
     external: getExternal(),
     plugins: getPlugins(),
   },
-  {
+  isProd && {
+    input: 'src/main.ts',
+    output: getOutput({
+      entryFileNames: pkg.module.replace('dist/', ''),
+    }),
+    external: getExternal(),
+    plugins: getPlugins(),
+  },
+  !isProd && {
     input: 'src/main.ts',
     output: getOutput({
       entryFileNames: pkg.module.replace('dist/', ''),
