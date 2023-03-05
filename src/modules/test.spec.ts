@@ -1,4 +1,4 @@
-import {test, test2} from './test'
+import { test, test2 } from './test';
 
 describe('Test', () => {
   it('Test 1', async () => {

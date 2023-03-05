@@ -1,13 +1,13 @@
-import json from '@rollup/plugin-json'
-import ts from "rollup-plugin-ts";
-import {builtinModules} from "module";
-import terser from "@rollup/plugin-terser";
-import cleanup from "rollup-plugin-cleanup";
-import summary from "rollup-plugin-summary";
-import {nodeResolve} from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import serve from "rollup-plugin-serve";
-import pkg from './package.json'
+import json from '@rollup/plugin-json';
+import ts from 'rollup-plugin-ts';
+import { builtinModules } from 'module';
+import terser from '@rollup/plugin-terser';
+import cleanup from 'rollup-plugin-cleanup';
+import summary from 'rollup-plugin-summary';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import serve from 'rollup-plugin-serve';
+import pkg from './package.json';
 
 const isProd = !process.env.ROLLUP_WATCH;
 
@@ -20,21 +20,26 @@ function getPlugins(disablePlugins = []) {
   return [
     json(),
     ts(),
-    !disablePlugins.includes('serve') && !isProd && serve({
-      port: 3000,
-      contentBase: '.'
-    }),
-    !disablePlugins.includes('nodeResolve') && isProd && nodeResolve({ browser: true }),
+    !disablePlugins.includes('serve') &&
+      !isProd &&
+      serve({
+        port: 3000,
+        contentBase: '.',
+      }),
+    // 如果目标是node环境,需要提供选项{ exportConditions: ["node"] }以支持构建
+    !disablePlugins.includes('nodeResolve') && nodeResolve({ browser: true }),
     !disablePlugins.includes('commonjs') && isProd && commonjs(),
     !disablePlugins.includes('terser') && isProd && terser(),
     !disablePlugins.includes('cleanup') && isProd && cleanup({ comments: 'none' }),
-    !disablePlugins.includes('summary') && isProd && summary({
-      totalLow: 1024 * 8,
-      totalHigh: 1024 * 20,
-      showBrotliSize: true,
-      showGzippedSize: true,
-      showMinifiedSize: true,
-    }),
+    !disablePlugins.includes('summary') &&
+      isProd &&
+      summary({
+        totalLow: 1024 * 8,
+        totalHigh: 1024 * 20,
+        showBrotliSize: true,
+        showGzippedSize: true,
+        showMinifiedSize: true,
+      }),
   ];
 }
 
@@ -52,41 +57,18 @@ function getExternal(additionalExternal = []) {
  * @param options 文档: https://www.rollupjs.com/guide/big-list-of-options
  * @return {Record<string, unknown>}
  */
-function getOutput(
-  options = { format: 'es' }
-) {
+function getOutput(options = { format: 'es' }) {
   return {
     dir: 'dist',
     chunkFileNames: 'bundle/chunk.[format].[hash].js',
     entryFileNames: '[name].[format].js',
     sourcemap: isProd,
     ...options,
-  }
+  };
 }
 
 export default [
-  isProd && {
-    input: 'src/main.ts',
-    output: getOutput({
-      format: 'umd',
-      file: pkg.unpkg,
-      name: pkg.name,
-      dir: undefined,
-      chunkFileNames: undefined,
-      entryFileNames: undefined,
-    }),
-    external: getExternal(),
-    plugins: getPlugins(),
-  },
-  isProd && {
-    input: 'src/main.ts',
-    output: getOutput({
-      entryFileNames: pkg.module.replace('dist/', ''),
-    }),
-    external: getExternal(),
-    plugins: getPlugins(),
-  },
-  !isProd && {
+  {
     input: 'src/main.ts',
     output: getOutput({
       entryFileNames: pkg.module.replace('dist/', ''),
@@ -97,4 +79,17 @@ export default [
       include: ['src/**', 'index.html'],
     },
   },
-].filter(item => !!item);
+  isProd && {
+    input: 'src/main.ts',
+    output: getOutput({
+      format: 'umd',
+      file: pkg.jsdelivr,
+      name: pkg.name, // Set your library name.
+      dir: undefined,
+      chunkFileNames: undefined,
+      entryFileNames: undefined,
+    }),
+    external: getExternal(),
+    plugins: getPlugins(),
+  },
+].filter((item) => !!item);
