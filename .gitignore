@@ -141,3 +141,25 @@ bazel-out
 # profiling files
 chrome-profiler-events*.json
 speed-measure-plugin*.json
+
+# Stencil ignore
+dist/
+www/
+loader/
+
+*~
+*.sw[mnpcod]
+*.lock
+*.tmp
+*.tmp.*
+log.txt
+*.sublime-project
+
+.stencil/
+.idea/
+.vscode/
+.sass-cache/
+.versions/
+$RECYCLE.BIN/
+
+UserInterfaceState.xcuserstate
