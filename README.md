@@ -77,7 +77,10 @@ The first step for all three of these strategies is to [publish to NPM](https://
 ## TODO
 
 * [x] Eslint
-* [ ] Prettier
+* [x] Prettier
+* [x] Postcss & autoprefixer
+* [x] Scss
+* [ ] Build Vue/React/Angular Components
 * [ ] Documents of Hope
 * [ ] Config Provider
 * [ ] Theme

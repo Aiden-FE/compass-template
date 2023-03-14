@@ -1,0 +1,10 @@
+$test: red;
+
+:host {
+  display: block;
+  color: $test;
+}
+
+.container {
+  color: $test;
+}
