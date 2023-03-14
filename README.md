@@ -76,7 +76,8 @@ The first step for all three of these strategies is to [publish to NPM](https://
 
 ## TODO
 
-* [ ] Eslint
+* [x] Eslint
+* [ ] Prettier
 * [ ] Documents of Hope
 * [ ] Config Provider
 * [ ] Theme
