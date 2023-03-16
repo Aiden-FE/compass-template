@@ -1,10 +1,4 @@
-$test: red;
-
 :host {
   display: block;
-  color: $test;
-}
-
-.container {
-  color: $test;
+  color: var(--cp-demo-color, #212121);
 }

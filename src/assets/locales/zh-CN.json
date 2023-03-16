@@ -1,0 +1,6 @@
+{
+  "test": {
+    "hello": "Hello world, {{  timestamp  }}",
+    "demo": "Display demo text"
+  }
+}

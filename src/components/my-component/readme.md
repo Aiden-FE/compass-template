@@ -1,3 +1,9 @@
+---
+title: My Component
+icon: config
+permalink: /components/my-component
+---
+
 # my-component
 
 <!-- Auto Generated Below -->
@@ -10,6 +16,7 @@
 | `last`   | `last`    | The last name   | `string` | `undefined` |
 | `middle` | `middle`  | The middle name | `string` | `undefined` |
 
----
 
-_Built with [StencilJS](https://stenciljs.com/)_
+----------------------------------------------
+
+*Built with [StencilJS](https://stenciljs.com/)*

@@ -17,16 +17,18 @@ export const config: Config = {
     {
       type: 'dist',
       esmLoaderPath: '../loader',
+      transformAliasedImportPathsInCollection: true,
     },
     {
       type: 'dist-custom-elements',
+      generateTypeDeclarations: true,
     },
     {
       type: 'docs-readme',
     },
-    {
-      type: 'www',
-      serviceWorker: null, // disable service workers
-    },
+    // {
+    //   type: 'www',
+    //   serviceWorker: null, // disable service workers
+    // },
   ],
 };

@@ -1,5 +1,6 @@
 import { Component, Prop, h } from '@stencil/core';
 import { format } from '../../utils/utils';
+import { translate } from '@/utils';
 
 @Component({
   tag: 'my-component',
@@ -28,9 +29,13 @@ export class MyComponent {
 
   render() {
     return (
-      <div class={'container'}>
+      <div class="container">
         Hello, World! I&apos;m
         {this.getText()}
+        <div>
+          {translate('test.hello', { timestamp: Date.now().toString() })}
+          {translate('test.demo')}
+        </div>
       </div>
     );
   }

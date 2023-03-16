@@ -80,8 +80,8 @@ The first step for all three of these strategies is to [publish to NPM](https://
 * [x] Prettier
 * [x] Postcss & autoprefixer
 * [x] Scss
-* [ ] Build Vue/React/Angular Components
-* [ ] Documents of Hope
-* [ ] Config Provider
-* [ ] Theme
-* [ ] I18n
+* [x] Documents of Hope
+* [x] Config Provider
+* [x] I18n
+* [x] Theme (CSS Variables)
+* [ ] Unit test
