@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json.schemastore.org/nest-cli",
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/compass-service/src",
+  "compilerOptions": {
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/compass-service/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/compass-service",
+  "projects": {
+    "compass-service": {
+      "type": "application",
+      "root": "apps/compass-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/compass-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/compass-service/tsconfig.app.json"
+      }
+    },
+    "db": {
+      "type": "library",
+      "root": "libs/db",
+      "entryFile": "index",
+      "sourceRoot": "libs/db/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/db/tsconfig.lib.json"
+      }
+    },
+    "email": {
+      "type": "library",
+      "root": "libs/email",
+      "entryFile": "index",
+      "sourceRoot": "libs/email/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/email/tsconfig.lib.json"
+      }
+    },
+    "redis-manager": {
+      "type": "library",
+      "root": "libs/redis-manager",
+      "entryFile": "index",
+      "sourceRoot": "libs/redis-manager/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/redis-manager/tsconfig.lib.json"
+      }
+    }
+  }
+}
