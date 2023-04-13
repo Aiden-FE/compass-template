@@ -1,15 +1,15 @@
-# Compass Template
-> 预设模板仓库
+# {{name}}
+> {{description}}
 
-## 模板列表
+## Getting Started
+> 可用平台请参考 package 内的脚本命令
 
-|         分支          | 说明                  |
-|:-------------------:|:--------------------|
-|     temp/utils      | 纯TS的实用程序基础库模板       |
-|     temp/styles     | 通用样式库模板             |
-|    temp/vue-web     | Vue web项目基础模板       |
-| temp/vue-web-simple | Vue web项目的轻量模板      |
-|    temp/monorepo    | Monorepo 项目模板       |
-| temp/web-components | Web components组件库模板 |
-|      temp/nest      | Nestjs 后端项目模板       |
-|  temp/uni-app-vue   | UniApp vue3跨端应用模板   |
+`npm run dev:*` 运行对应平台开发环境
+
+`npm run build:*` 构建对应平台开发环境
+
+`npm run test:*` 测试对应平台开发环境,请根据实际所需安装cypress,puppeteer等测试框架,[api 参考](https://uniapp.dcloud.net.cn/worktile/auto/api.html)
+
+`npm run format` 格式化代码
+
+`npm run lint` 代码质量检查, dev启动后也会进行eslint检查

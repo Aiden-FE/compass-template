@@ -141,3 +141,9 @@ bazel-out
 # profiling files
 chrome-profiler-events*.json
 speed-measure-plugin*.json
+
+
+# Logs
+logs
+lerna-debug.log*
+*.local
