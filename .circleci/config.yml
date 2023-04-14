@@ -25,7 +25,7 @@ jobs:
           paths:
             - node_modules
           key: v2-dependencies-{{ checksum "package.json" }}
-  # FIXME: 仅做示例,如需使用请按时间情况配置
+
   build:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
@@ -42,8 +42,6 @@ jobs:
             - v2-dependencies-
       - run:
           command: |
-            apt-get update
-            apt-get -q -y install openssl
             npm config set registry https://registry.npmmirror.com/
             npm install
             npm run build
@@ -51,11 +49,12 @@ jobs:
           root: ~/compass
           paths:
             - dist
-            - libs
-            - package.json
-            - start.sh
             - Dockerfile
-  # FIXME: 仅做示例,如需使用请按时间情况配置
+            - prisma
+            - start.sh
+            - package.json
+            - README.md
+
   publish-docker:
     machine: true
     working_directory: ~/compass
@@ -64,9 +63,10 @@ jobs:
           at: .
       - run:
           command: |
-            docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-            docker build -t $DOCKERHUB_USERNAME/compass:latest . --build-arg DATABASE_URL=$DATABASE_URL --build-arg ALI_CLOUD_SMS_ACCESS_KEY_ID=$ALI_CLOUD_SMS_ACCESS_KEY_ID --build-arg ALI_CLOUD_SMS_ACCESS_KEY_SECRET=$ALI_CLOUD_SMS_ACCESS_KEY_SECRET --build-arg MY_EMAIL_AUTH_USER=$MY_EMAIL_AUTH_USER --build-arg MY_EMAIL_AUTH_PASSWORD=$MY_EMAIL_AUTH_PASSWORD
-            docker push $DOCKERHUB_USERNAME/compass:latest
+            echo "$DOCKERHUB_ACCESS_TOKEN" | docker login -u $DOCKERHUB_USERNAME --password-stdin
+            docker build -t $DOCKERHUB_USERNAME/compass:latest .
+            docker tag $DOCKERHUB_USERNAME/compass:latest $DOCKERHUB_USERNAME/compass:${CIRCLE_TAG}
+            docker push --all-tags $DOCKERHUB_USERNAME/compass
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -101,3 +101,7 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v.*/
+          context:
+            - aiden-privacy
+            - aiden-docker
+            - aiden-server

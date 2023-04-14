@@ -3,6 +3,8 @@ import { provideSwaggerPlugin, ResponseInterceptor, validationOption } from '@sh
 import { DBService } from '@app/db';
 
 export default async function providePlugins(app: INestApplication) {
+  // 统一接口前缀
+  app.setGlobalPrefix('api');
   // 接口多版本
   app.enableVersioning({
     type: VersioningType.URI,
@@ -20,7 +22,6 @@ export default async function providePlugins(app: INestApplication) {
     new ValidationPipe(validationOption),
   );
   app.useGlobalInterceptors(new ResponseInterceptor());
-
   // 断开连接前需要关闭db连接
   const dbService = app.get(DBService);
   await dbService.enableShutdownHooks(app);

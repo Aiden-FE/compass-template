@@ -2,17 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { DBService } from '@app/db';
 import {
   CompassEnv,
+  encodeMD5,
   getEnv,
   GoogleRecaptchaRequest,
   HttpResponse,
   replaceVariablesInString,
   ResponseCode,
-  SYSTEM_EMAIL_ADDRESS,
+  SYSTEM_EMAIL_FROM,
   verifyRecaptcha,
 } from '@shared';
-import { RedisManagerService, CAPTCHA_REDIS_KEY } from '@app/redis-manager';
+import { CAPTCHA_REDIS_KEY, RedisManagerService } from '@app/redis-manager';
 import { random } from 'lodash';
-import { INVITE_REGISTER_TEMPLATE } from '@app/email/templates';
+import { EMAIL_CAPTCHA_TEMPLATE } from '@app/email/templates';
 import { EmailService } from '@app/email';
 import { EMailLoginDto, TelephoneLoginDto } from './oauth.dto';
 import { UserService } from '../user/user.service';
@@ -30,15 +31,14 @@ export class OauthService {
     const code = random(100000, 999999);
     // 将code码记入缓存
     await this.redisService.set(CAPTCHA_REDIS_KEY, String(code), {
-      expiresIn: 1000 * 60 * 5,
       params: { type: 'email', account: data.email },
     });
     // 发出邮件
     return this.emailService.sendMail({
-      from: SYSTEM_EMAIL_ADDRESS,
+      from: SYSTEM_EMAIL_FROM,
       to: data.email,
-      subject: '注册验证',
-      html: replaceVariablesInString(INVITE_REGISTER_TEMPLATE, {
+      subject: '邮箱验证',
+      html: replaceVariablesInString(EMAIL_CAPTCHA_TEMPLATE, {
         context: 'Compass Service',
         code: code.toString(),
       }),
@@ -88,6 +88,13 @@ export class OauthService {
       },
     });
 
+    if (!sentCaptcha) {
+      throw new HttpResponse(null, {
+        statusCode: ResponseCode.FORBIDDEN,
+        message: '请先获取验证码',
+      });
+    }
+
     if (sentCaptcha !== body.captcha) {
       throw new HttpResponse(null, {
         statusCode: ResponseCode.FORBIDDEN,
@@ -95,7 +102,7 @@ export class OauthService {
       });
     }
 
-    const query: Partial<EMailLoginDto | TelephoneLoginDto> = { password: body.password };
+    const query: Partial<EMailLoginDto | TelephoneLoginDto> = { password: encodeMD5(body.password) };
 
     if (isEmailLogin) {
       (query as EMailLoginDto).email = (body as EMailLoginDto).email;
