@@ -13,3 +13,9 @@
 | temp/web-components | Web components组件库模板 |
 |      temp/nest      | Nestjs 后端项目模板       |
 |  temp/uni-app-vue   | UniApp vue3跨端应用模板   |
+
+## 使用模板
+
+`npm install -g @compass-aiden/commander` 全局安装脚手架
+
+`compass create my_project` 创建项目,根据提示按需选择
