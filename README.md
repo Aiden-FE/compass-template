@@ -13,6 +13,7 @@
 | temp/web-components | Web components组件库模板 |
 |      temp/nest      | Nestjs 后端项目模板       |
 |  temp/uni-app-vue   | UniApp vue3跨端应用模板   |
+|    temp/taro-vue    | Taro vue3跨端应用模板     |
 
 ## 使用模板
 
