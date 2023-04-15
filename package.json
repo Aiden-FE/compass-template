@@ -1,13 +1,8 @@
 {
-  "name": "compass-taro",
+  "name": "{{name}}",
   "version": "1.0.0",
   "private": true,
-  "description": "taro vue 模板",
-  "templateInfo": {
-    "name": "vue3-NutUI4",
-    "typescript": true,
-    "css": "sass"
-  },
+  "description": "{{description}}",
   "scripts": {
     "build:weapp": "taro build --type weapp",
     "build:swan": "taro build --type swan",

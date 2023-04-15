@@ -1,21 +1,14 @@
-# Compass Template
-> 预设模板仓库
+# {{name}}
+> {{description}}
 
-## 模板列表
+## 快速上手
 
-|         分支          | 说明                  |
-|:-------------------:|:--------------------|
-|     temp/utils      | 纯TS的实用程序基础库模板       |
-|     temp/styles     | 通用样式库模板             |
-|    temp/vue-web     | Vue web项目基础模板       |
-| temp/vue-web-simple | Vue web项目的轻量模板      |
-|    temp/monorepo    | Monorepo 项目模板       |
-| temp/web-components | Web components组件库模板 |
-|      temp/nest      | Nestjs 后端项目模板       |
-|  temp/uni-app-vue   | UniApp vue3跨端应用模板   |
+`npm install` 安装依赖
 
-## 使用模板
+`npm run dev:*` 以开发模式启动特定环境
 
-`npm install -g @compass-aiden/commander` 全局安装脚手架
+`npm run build:*` 构建项目
 
-`compass create my_project` 创建项目,根据提示按需选择
+`npm run format` 代码格式化
+
+`npm run lint` 代码质量检查
