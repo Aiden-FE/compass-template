@@ -7,9 +7,9 @@
 <p>Hello World</p>
 
 <script type="module">
-  <!-- 如果是dev环境,import异常,可以打开nodeResolve build选项 -->
-  import { demo } from './dist/main.es.js'
-  demo()
+  // 如果是dev环境,import异常,可以打开nodeResolve build选项
+  import { demo } from '/dist/main.js'
+  console.log(demo());
 </script>
 </body>
 </html>

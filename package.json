@@ -2,17 +2,22 @@
   "name": "{{name}}",
   "version": "0.0.1",
   "description": "{{description}}",
-  "main": "dist/main.es.js",
-  "module": "dist/main.es.js",
+  "main": "dist/main.js",
+  "commonjs": "dist/main.cjs",
+  "umd": "dist/main.umd.js",
   "jsdelivr": "dist/main.umd.js",
   "unpkg": "dist/main.umd.js",
-  "types": "types/main.es.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/utils.es.js",
-      "require": "./dist/utils.umd.js"
+      "types": {
+        "default": "./types/main.d.ts",
+        "require": "./types/main.d.cts"
+      },
+      "import": "./dist/main.js",
+      "require": "./dist/main.cjs"
     },
-    "./dist/": "./dist/"
+    "./dist/*": "./dist/*",
+    "./types/*": "./types/*"
   },
   "files": [
     "dist",
@@ -35,7 +40,7 @@
     "clean": "rimraf dist && rimraf types && rimraf coverage"
   },
   "devDependencies": {
-    "@compass-aiden/eslint-config": "^1.2.1",
+    "@compass-aiden/eslint-config": "^1.5.2",
     "@rollup/plugin-commonjs": "~23.0.7",
     "@rollup/plugin-json": "~5.0.2",
     "@rollup/plugin-node-resolve": "~15.0.1",

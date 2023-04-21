@@ -1,9 +1,9 @@
 module.exports = {
   root: true,
   env: {
+    es6: true,
     browser: true,
     node: true,
-    es6: true,
   },
   parserOptions: {
     project: './tsconfig.json',
@@ -15,6 +15,6 @@ module.exports = {
     'plugin:prettier/recommended'
   ],
   rules: {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
   },
 }
