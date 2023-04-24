@@ -58,9 +58,10 @@ function getExternal(additionalExternal = []) {
  * @param options 文档: https://www.rollupjs.com/guide/big-list-of-options
  * @return {Record<string, unknown>}
  */
-function getOutput(options = { format: 'es' }) {
+function getOutput(options = {}) {
   return {
     dir: 'dist',
+    format: 'es',
     chunkFileNames: 'bundle/chunk.[format].[hash].js',
     entryFileNames: '[name].[format].js',
     sourcemap: isProd,
