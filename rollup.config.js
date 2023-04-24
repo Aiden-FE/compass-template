@@ -104,6 +104,7 @@ export default [
     output: getOutput({
       format: 'cjs',
       entryFileNames: pkg.commonjs.replace('dist/', ''),
+      exports: 'auto',
     }),
     external: getExternal(),
     plugins: getPlugins(undefined, {
