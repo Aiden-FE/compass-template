@@ -40,3 +40,5 @@ pnpm-lock.yaml
 
 # output
 **/prisma/docs
+types
+.swc

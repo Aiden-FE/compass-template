@@ -70,11 +70,11 @@ export class UserService {
 
   // eslint-disable-next-line class-methods-use-this
   private handleDisplayUserInfo(user: any): UserContextDto | null {
-    if (user.roles?.length) {
+    if (user?.roles?.length) {
       // eslint-disable-next-line no-param-reassign
       user.roles = user.roles.map((role) => role.id);
     }
-    if (user.telephone) {
+    if (user?.telephone) {
       // eslint-disable-next-line no-param-reassign
       user.telephone = `*******${user.telephone.slice(user.telephone.length - 4)}`;
     }
