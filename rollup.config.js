@@ -23,24 +23,28 @@ function getPlugins(disablePlugins = [], options = {}) {
     ts(),
     !disablePlugins.includes('serve') &&
       !isProd &&
-      serve(options['serve'] || {
-        port: 3000,
-        contentBase: '.',
-      }),
+      serve(
+        options.serve || {
+          port: 3000,
+          contentBase: '.',
+        },
+      ),
     // 如果目标是node环境,需要提供选项{ exportConditions: ["node"] }以支持构建
-    !disablePlugins.includes('nodeResolve') && isProd && nodeResolve(options['nodeResolve'] || undefined),
-    !disablePlugins.includes('commonjs') && isProd && commonjs(options['commonjs'] || undefined),
-    !disablePlugins.includes('terser') && isProd && terser(options['terser'] || undefined),
-    !disablePlugins.includes('cleanup') && isProd && cleanup(options['cleanup'] || { comments: 'none' }),
+    !disablePlugins.includes('nodeResolve') && isProd && nodeResolve(options.nodeResolve || undefined),
+    !disablePlugins.includes('commonjs') && isProd && commonjs(options.commonjs || undefined),
+    !disablePlugins.includes('terser') && isProd && terser(options.terser || undefined),
+    !disablePlugins.includes('cleanup') && isProd && cleanup(options.cleanup || { comments: 'none' }),
     !disablePlugins.includes('summary') &&
       isProd &&
-      summary(options['summary'] || {
-        totalLow: 1024 * 8,
-        totalHigh: 1024 * 20,
-        showBrotliSize: true,
-        showGzippedSize: true,
-        showMinifiedSize: true,
-      }),
+      summary(
+        options.summary || {
+          totalLow: 1024 * 8,
+          totalHigh: 1024 * 20,
+          showBrotliSize: true,
+          showGzippedSize: true,
+          showMinifiedSize: true,
+        },
+      ),
   ];
 }
 
@@ -73,9 +77,7 @@ export default [
   // esm bundle
   {
     input: 'src/main.ts',
-    output: getOutput({
-      entryFileNames: pkg.main.replace('dist/', ''),
-    }),
+    output: getOutput(),
     external: getExternal(),
     plugins: getPlugins(),
     watch: {
@@ -87,15 +89,16 @@ export default [
     input: 'src/main.ts',
     output: getOutput({
       format: 'umd',
-      file: pkg.umd,
-      name: pkg.name, // Set your library name.
+      file: pkg.main,
+      name: 'Compass' || pkg.name, // Set your library name.
       dir: undefined,
       chunkFileNames: undefined,
       entryFileNames: undefined,
+      exports: 'auto',
     }),
     external: getExternal(),
     plugins: getPlugins(undefined, {
-      nodeResolve: { browser: true }
+      nodeResolve: { browser: true },
     }),
   },
   // commonjs bundle
@@ -103,7 +106,6 @@ export default [
     input: 'src/main.ts',
     output: getOutput({
       format: 'cjs',
-      entryFileNames: pkg.commonjs.replace('dist/', ''),
       exports: 'auto',
     }),
     external: getExternal(),

@@ -6,9 +6,13 @@ module.exports = {
     node: true,
   },
   parserOptions: {
-    project: './tsconfig.json',
+    project: [
+      './tsconfig.json',
+      './tsconfig.node.json'
+    ],
   },
   plugins: ["prettier"],
+  ignorePatterns: ['.eslintrc.js'],
   extends: [
     // typescript使用此配置
     '@compass-aiden/eslint-config/ts',

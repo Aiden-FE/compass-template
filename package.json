@@ -2,19 +2,20 @@
   "name": "{{name}}",
   "version": "0.0.1",
   "description": "{{description}}",
-  "main": "dist/main.js",
-  "commonjs": "dist/main.cjs",
-  "umd": "dist/main.umd.js",
+  "main": "dist/main.umd.js",
   "jsdelivr": "dist/main.umd.js",
   "unpkg": "dist/main.umd.js",
+  "types": "./types/main.es.d.ts",
   "exports": {
     ".": {
       "types": {
-        "default": "./types/main.d.ts",
-        "require": "./types/main.d.cts"
+        "default": "./types/main.umd.d.ts",
+        "import": "./types/main.es.d.ts",
+        "require": "./types/main.cjs.d.ts"
       },
-      "import": "./dist/main.js",
-      "require": "./dist/main.cjs"
+      "default": "./dist/main.umd.js",
+      "import": "./dist/main.es.js",
+      "require": "./dist/main.cjs.js"
     },
     "./dist/*": "./dist/*",
     "./types/*": "./types/*"
@@ -33,14 +34,14 @@
   "scripts": {
     "dev": "rollup -w -c rollup.config.js",
     "build": "npm run clean && rollup -c rollup.config.js",
-    "lint": "eslint src --ext .ts,.js --fix --ignore-path .gitignore",
+    "lint": "eslint src --ext .ts,.js --fix",
     "format": "prettier --write src/",
     "test": "jest --coverage",
     "prepublish": "npm run lint && npm run build",
     "clean": "rimraf dist && rimraf types && rimraf coverage"
   },
   "devDependencies": {
-    "@compass-aiden/eslint-config": "^1.5.2",
+    "@compass-aiden/eslint-config": "^1.5.3",
     "@rollup/plugin-commonjs": "~23.0.7",
     "@rollup/plugin-json": "~5.0.2",
     "@rollup/plugin-node-resolve": "~15.0.1",
