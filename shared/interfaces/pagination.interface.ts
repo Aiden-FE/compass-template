@@ -1,23 +1,22 @@
-import { Optional } from '@nestjs/common';
-import { IsNumber, IsNumberString } from 'class-validator';
+import { IsNumber, IsNumberString, IsOptional } from 'class-validator';
 import { DEFAULT_PAGE_NUM, DEFAULT_PAGE_SIZE } from '@shared';
 
 export class PaginationRequestFromURLDto {
-  @Optional()
+  @IsOptional()
   @IsNumberString()
   pageNum?: string;
 
-  @Optional()
+  @IsOptional()
   @IsNumberString()
   pageSize?: string;
 }
 
 export class PaginationRequestFromBodyDto {
-  @Optional()
+  @IsOptional()
   @IsNumber()
   pageNum?: number;
 
-  @Optional()
+  @IsOptional()
   @IsNumber()
   pageSize?: number;
 }

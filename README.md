@@ -175,8 +175,8 @@ export class ExampleController {
 当遇见多个Dto联合类型时,内置ValidationPipe失效,可按照下列示例处理:
 
 ```typescript
-import { IsNumber, IsString } from 'class-validator';
-import { Body, Optional } from '@nestjs/common';
+import { IsNumber, IsString, IsOptional } from 'class-validator';
+import { Body } from '@nestjs/common';
 import { validateMultipleDto } from '@shared';
 
 class ADto {
@@ -193,7 +193,7 @@ class CDto {
   @IsString()
   name: string;
 
-  @Optional()
+  @IsOptional()
   @IsString()
   address?: string
 }

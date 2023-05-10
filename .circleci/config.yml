@@ -12,15 +12,15 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-            keys:
-              - v2-dependencies-{{ checksum "package.json" }}
-              - v2-dependencies-
+          keys:
+            - v2-dependencies-{{ checksum "package.json" }}
+            - v2-dependencies-
       - run:
-            command: |
-              npm config set registry https://registry.npmmirror.com/
-              npm install
-              npm run lint
-              npm run test
+          command: |
+            npm config set registry https://registry.npmmirror.com/
+            npm install
+            npm run lint
+            npm run test
       - save_cache:
           paths:
             - node_modules
@@ -44,6 +44,7 @@ jobs:
           command: |
             npm config set registry https://registry.npmmirror.com/
             npm install
+            npx prisma generate
             npm run build
       - persist_to_workspace:
           root: ~/compass
