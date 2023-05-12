@@ -11,9 +11,12 @@
 
 ### 安装所有依赖
 
-`rush update` 安装所有项目依赖
+### 安装所有依赖
 
-`rush update-autoinstaller --name common-commands` 安装公共命令依赖
+**项目首次运行** 在根目录执行 `pnpm install`
+> 该步骤详情可通过根目录package.json查看,实际是commitlint的执行上下文找不到依赖包,才需要在根目录恢复此依赖
+
+后续通过 `rush update` 恢复依赖
 
 ### 管理依赖
 > https://rushjs.io/zh-cn/pages/commands/rush_add/

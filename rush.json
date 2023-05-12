@@ -42,7 +42,7 @@
    * LTS schedule: https://nodejs.org/en/about/releases/
    * LTS versions: https://nodejs.org/en/download/releases/
    */
-  "nodeSupportedVersionRange": ">=12.13.0 <13.0.0 || >=14.15.0 <15.0.0 || >=16.13.0 <17.0.0",
+  "nodeSupportedVersionRange": ">=12.13.0 <13.0.0 || >=14.15.0 <15.0.0 || >=16.13.0 <17.0.0 || >=18.0.0 <19.0.0",
 
   /**
    * If the version check above fails, Rush will display a message showing the current
@@ -171,7 +171,8 @@
      */
     // "allowedEmailRegExps": [
     //   "[^@]+@users\\.noreply\\.github\\.com",
-    //   "rush-bot@example\\.org"
+    //   "rush-bot@example\\.org",
+    //   ".*@example\\.com"
     // ],
 
     /**
@@ -188,7 +189,7 @@
      * you might configure your system's trigger to look for a special string such as "[skip-ci]"
      * in the commit message, and then customize Rush's message to contain that string.
      */
-    // "versionBumpCommitMessage": "Bump versions [skip ci]",
+     "versionBumpCommitMessage": "chore: Bump versions [skip ci]",
 
     /**
      * The commit message to use when committing changes during 'rush version'.
@@ -197,7 +198,7 @@
      * you might configure your system's trigger to look for a special string such as "[skip-ci]"
      * in the commit message, and then customize Rush's message to contain that string.
      */
-    // "changeLogUpdateCommitMessage": "Update changelogs [skip ci]",
+     "changeLogUpdateCommitMessage": "chore: Update changelogs [skip ci]"
 
     /**
      * The commit message to use when commiting changefiles during 'rush change --commit'
