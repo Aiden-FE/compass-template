@@ -15,6 +15,17 @@
 
 `rush update-autoinstaller --name common-commands` 安装公共命令依赖
 
+### 管理依赖
+> https://rushjs.io/zh-cn/pages/commands/rush_add/
+
+`rush add -p [package_name]` 在对应项目路径下执行添加依赖, --dev添加开发依赖, -m为仓库内所有项目同步一致的版本
+
+`rush remove -p [package_name]` 在对应项目路径下执行删除依赖
+
+### 执行项目内命令
+
+`rushx [script_name]` 在项目路径下执行此命令可运行项目内scripts命令
+
 ### 扩展 Rush 命令
 
 参考 common/config/rush/command-line.json 文件说明

@@ -150,7 +150,8 @@ Thumbs.db
 # misc
 package-lock.json
 yarn.lock
-pnpm-lock.yaml
+# 建议不排除,否则依赖树内包小版本更新极易引发未知异常
+#pnpm-lock.yaml
 
 # compiled output
 tmp
