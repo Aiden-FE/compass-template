@@ -14,7 +14,7 @@
 ### 安装所有依赖
 
 **项目首次运行** 在根目录执行 `pnpm install`
-> 该步骤详情可通过根目录package.json查看,实际是commitlint的执行上下文找不到依赖包,才需要在根目录恢复此依赖
+> 当不存在子项目时该命令会抛出异常,建立子项目后异常即可消失
 
 后续通过 `rush update` 恢复依赖
 
@@ -29,7 +29,7 @@
 
 `rushx [script_name]` 在项目路径下执行此命令可运行项目内scripts命令
 
-### 扩展 Rush 命令
+### 扩展 Rush cli 命令
 
 参考 common/config/rush/command-line.json 文件说明
 
@@ -42,8 +42,6 @@
 │   ├── config # 配置
 │   ├── git-hooks
 │   └── scripts # rush 脚本
-├── apps # 项目文件夹
-├── libraries # 基础设施包文件夹
 └── rush.json # rush 配置文件
 ```
 
