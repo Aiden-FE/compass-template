@@ -4,6 +4,8 @@
 ## Getting Started
 > 可用平台请参考 package 内的脚本命令
 
+`npx @dcloudio/uvm alpha` 更新uni依赖包
+
 `npm run dev:*` 运行对应平台开发环境
 
 `npm run build:*` 构建对应平台开发环境
