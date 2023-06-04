@@ -11,24 +11,16 @@
     "declarationDir": "types",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@": [
-        "src"
-      ],
       "@/*": [
         "src/*"
       ]
     },
     "types": [],
-    "typeRoots": [
-      "src/types"
-    ],
     "plugins": [{ "transform": "@zerollup/ts-transform-paths" }]
   },
   "include": [
