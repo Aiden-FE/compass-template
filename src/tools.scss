@@ -23,10 +23,10 @@ $clearfix: #{$domain}-clearfix;
 .#{$clearfix} {
   zoom: 1;
   &::after {
-    content: "";
-    height: 0;
-    visibility: hidden;
     display: block;
+    height: 0;
+    content: "";
+    visibility: hidden;
     clear: both;
   }
 }

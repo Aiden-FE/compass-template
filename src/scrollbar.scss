@@ -33,8 +33,8 @@ $scrollbar: #{$domain}-scrollbar;
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: 8px;
     border: 2px solid var($scrollbar-thumb-border-color, transparent);
+    border-radius: 8px;
     background-clip: content-box;
     background-color: var($scrollbar-thumb-bg-color, rgba(0,0,0,.5));
   }
