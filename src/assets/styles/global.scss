@@ -1,0 +1,16 @@
+@import '@compass-aiden/styles/dist/assets/scrollbar.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100vh;
+}
+
+body {
+  position: relative;
+  overflow: auto;
+  color: var(--cp-foreground-color, #212121);
+  background-color: var(--cp-background-color, #ffffff);
+}
