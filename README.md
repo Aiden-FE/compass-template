@@ -10,10 +10,9 @@ ci环境使用此命令`node common/scripts/install-run-rush.js install`
 
 #### 安装所有依赖
 
-**项目首次运行** 在根目录执行 `pnpm install`
-> 当不存在子项目时该命令会在 rush install时抛出异常,建立子项目后再次执行即恢复
+> 执行前如果仓库内没有子项目时需要先创建子项目,并在rush.json文件内配置后再执行该命令恢复依赖
 
-后续通过 `rush update` 恢复所有依赖
+通过 `rush update` 恢复所有依赖
 
 #### 管理依赖
 > https://rushjs.io/zh-cn/pages/commands/rush_add/
