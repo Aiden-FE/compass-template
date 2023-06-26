@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import App from './App.tsx';
+import App from './App';
 import './assets/styles/global.scss';
 import AppProviders from '@/stores/store';
 import EnglishJSON from '@/assets/locales/en.json';
