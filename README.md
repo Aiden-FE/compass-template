@@ -10,8 +10,8 @@
 |    temp/vue-web     | Vue web项目基础模板       |            |
 | temp/vue-web-simple | Vue web项目的轻量模板      |            |
 |    temp/monorepo    | Monorepo 项目模板       | 2023/06/24 |
-|     temp/react      | React 项目Vite Ts模板   | 2023/06/22 |
-|      temp/next      | Next 项目模板           | 2023/06/23 |
+|     temp/react      | React 项目Vite Ts模板   | 2023/06/26 |
+|      temp/next      | Next SSR server项目模板 | 2023/06/26 |
 | temp/web-components | Web components组件库模板 |            |
 |      temp/nest      | Nestjs 后端项目模板       |            |
 |  temp/uni-app-vue   | UniApp vue3跨端应用模板   |            |
