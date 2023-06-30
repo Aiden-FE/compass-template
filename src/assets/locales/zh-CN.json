@@ -1,1 +1,7 @@
-{}
+{
+  "message": {
+    "common": {
+      "currentLanguage": "当前国际化语言环境是 { lang }"
+    }
+  }
+}

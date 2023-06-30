@@ -1,0 +1,13 @@
+@import 'tailwind';
+
+html {
+  height: 100vh;
+  overflow: hidden;
+  color: var(--cp-foreground-color, #212121);
+  background-color: var(--cp-background-color, #FFFFFF);
+}
+
+body {
+  height: 100%;
+  overflow: auto;
+}

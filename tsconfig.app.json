@@ -1,18 +1,13 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": [
-    "env.d.ts",
-    "types/auto-imports.d.ts",
-    "types/components.d.ts",
-    "src/**/*",
-    "src/**/*.vue"
-  ],
-  "exclude": [
-    "src/**/__tests__/*"
-  ],
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["src/env.d.ts", "src/**/*", "src/**/*.vue"],
+  "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
-    "baseUrl": "./compass-vue-web",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "types": ["@intlify/unplugin-vue-i18n/messages", "@types/validator"],
     "paths": {
       "@/*": ["./src/*"]
     }
