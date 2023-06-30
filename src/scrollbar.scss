@@ -2,9 +2,11 @@
  * @description 滚动条样式统一
  */
 
-@import "base/vars";
+@import 'base/vars';
 
 // CSS variables =====> Start
+// 滚动条y, x的宽高
+$scrollbar-size: --#{$domain}-scrollbar-size;
 // 滚动条背景色
 $scrollbar-bg-color: --#{$domain}-scrollbar-bg-color;
 // 滚动条滑块背景色
@@ -26,34 +28,19 @@ $scrollbar: #{$domain}-scrollbar;
 //::-webkit-resizer 定义右下角拖动块的样式
 .#{$scrollbar} {
   &::-webkit-scrollbar {
-    display: none;
-    width: 12px;
-    height: 12px;
+    width: var($scrollbar-size, 10px);
+    height: var($scrollbar-size, 10px);
     background-color: var($scrollbar-bg-color, transparent);
   }
 
   &::-webkit-scrollbar-thumb {
-    border: 2px solid var($scrollbar-thumb-border-color, transparent);
     border-radius: 8px;
+    border: 2px solid var($scrollbar-thumb-border-color, transparent);
     background-clip: content-box;
-    background-color: var($scrollbar-thumb-bg-color, rgba(0,0,0,.5));
+    background-color: var($scrollbar-thumb-bg-color, rgba(0, 0, 0, 0.5));
   }
 
   &::-webkit-scrollbar-track {
     background-color: var($scrollbar-track-bg-color, transparent);
-  }
-
-  &:hover {
-    &::-webkit-scrollbar {
-      display: block;
-    }
-  }
-  &::-webkit-scrollbar:hover {
-    display: block;
-  }
-  //&::-webkit-resizer,
-  //&::-webkit-scrollbar-button,
-  &::-webkit-scrollbar-corner {
-    display: none;
   }
 }
