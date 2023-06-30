@@ -14,6 +14,13 @@ ci环境使用此命令`node common/scripts/install-run-rush.js install`
 
 通过 `rush update` 恢复所有依赖
 
+_本地初次运行在 `rush update` 后,执行_
+
+```shell
+rush update-autoinstaller --name common-commands # 安装非业务项目的开发依赖
+rush install # 安装hooks
+```
+
 #### 管理依赖
 > https://rushjs.io/zh-cn/pages/commands/rush_add/
 
@@ -30,10 +37,10 @@ ci环境使用此命令`node common/scripts/install-run-rush.js install`
 ```
 .
 ├── common
-│   ├── autoinstallers # 与业务无关的依赖或命令脚本
-│   ├── config # 配置
-│   ├── git-hooks
-│   └── scripts # rush 脚本
+│   ├── autoinstallers # 与业务无关的依赖或命令脚本
+│   ├── config # 配置
+│   ├── git-hooks
+│   └── scripts # rush 脚本
 └── rush.json # rush 配置文件
 ```
 
