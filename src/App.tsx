@@ -1,5 +1,6 @@
 import { ThemeContext, useThemeStore } from '@/stores';
 import DemoIcon from '@/assets/svg/demo.svg';
+import IconAntDesignSearchOutlined from '~icons/ant-design/search-outlined';
 import './App.scss';
 
 function App() {

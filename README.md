@@ -24,13 +24,16 @@ export default function Demo() {
 
 项目内置了 [unplugin-icons](https://github.com/antfu/unplugin-icons), 请参考文档使用
 
-所有 icon 支持自动导入,无需手动 import,依赖自动安装,类似如下方式直接使用即可:
-
 在 https://icon-sets.iconify.design/ 可以直接搜索所有 icon 资源,antd 的 icon 也一样存在
 
 更多用法参考 [unplugin-icons](https://github.com/antfu/unplugin-icons) 官方文档即可
 
+所有 icon 支持自动导入,无需手动 import,依赖自动安装,类似如下方式直接使用即可:
+
 ```typescript jsx
+// 当eslint无法正确识别时可采用手动导入,不导入也可正常使用
+import IconAntDesignSearchOutlined from '~icons/ant-design/search-outlined';
+
 export default function Demo() {
   return (
     <>

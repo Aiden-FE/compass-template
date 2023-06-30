@@ -7,8 +7,5 @@ module.exports = {
   ],
   parserOptions: {
     project: [ './tsconfig.json', './tsconfig.node.json' ],
-  },
-  "rules": {
-    "react/jsx-no-undef": "off",
   }
 }
