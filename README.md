@@ -146,6 +146,36 @@ export default function Demo() {
 }
 ```
 
+- React router
+
+预设React Router DOM支持
+
+当你需要添加一个路由时,请在`src/config/enums.ts`的AppRoutes枚举类型内新建路由字符,然后在`src/routes/index.tsx`创建该路由,参考如下:
+
+```typescript jsx
+import { createBrowserRouter } from 'react-router-dom';
+import DefaultLayout from '@/routes/layouts/default';
+import ErrorPage from '@/routes/layouts/error';
+import { AppRoutes } from '@/config';
+
+const appRouter = createBrowserRouter([
+  {
+    path: AppRoutes.HOME,
+    element: <DefaultLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        // 懒加载配置
+        lazy: async () => ({ Component: (await import('@/views/home/home')).default }),
+      },
+    ],
+  },
+]);
+
+export default appRouter;
+```
+
 - Eslint
 
 使用Airbnb Eslint规则

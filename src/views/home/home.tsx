@@ -1,9 +1,9 @@
 import { ThemeContext, useThemeStore } from '@/stores';
 import DemoIcon from '@/assets/svg/demo.svg';
 import IconAntDesignSearchOutlined from '~icons/ant-design/search-outlined';
-import './App.scss';
+import './home.scss';
 
-function App() {
+function HomePage() {
   const [count, setCount] = useState(0);
   const { theme } = useContext(ThemeContext);
   const { getThemeInstance } = useThemeStore();
@@ -34,7 +34,7 @@ function App() {
         </a>
       </div>
       当前语言环境: {i18n.language}
-      <h1>
+      <h1 className="dark:text-blue-600">
         {t('message.common.test')}: {theme}
       </h1>
       <button onClick={() => toggleTheme('default')} type="button">
@@ -70,4 +70,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomePage;

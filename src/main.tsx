@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import App from './App';
-import './assets/styles/global.scss';
+import { RouterProvider } from 'react-router-dom';
 import AppProviders from '@/stores/store';
 import EnglishJSON from '@/assets/locales/en.json';
 import ZhCNJSON from '@/assets/locales/zh-CN.json';
+import appRouter from './routes';
+import './assets/styles/global.scss';
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -27,7 +28,7 @@ i18n.use(initReactI18next).init({
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <AppProviders>
-      <App />
+      <RouterProvider router={appRouter} />
     </AppProviders>
   </React.StrictMode>,
 );

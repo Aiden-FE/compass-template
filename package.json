@@ -26,12 +26,13 @@
   },
   "dependencies": {
     "@compass-aiden/eslint-config": "^1.6.1",
-    "@compass-aiden/styles": "^1.1.0",
+    "@compass-aiden/styles": "^1.1.1",
     "@compass-aiden/utils": "^1.6.6",
     "i18next": "^23.2.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-i18next": "^13.0.1"
+    "react-i18next": "^13.0.1",
+    "react-router-dom": "^6.14.1"
   },
   "devDependencies": {
     "@iconify-json/ant-design": "^1.1.5",
