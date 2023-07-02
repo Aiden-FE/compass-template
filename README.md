@@ -82,6 +82,7 @@ export default defineConfig({
 ##### CSS variables for dist/assets/scrollbar.css
 
 > DOM Class 添加 {{domain}}-scrollbar 即可使用
+> 
 > 添加{{domain}}-scrollbar后, DOM Class 添加 {{domain}}-scrollbar_fixed 即可使用滚动条固定模式
 
 * --{{domain}}-scrollbar-bg-color 滚动条背景色
