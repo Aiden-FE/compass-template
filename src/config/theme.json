@@ -8,6 +8,7 @@
   },
   "dark": {
     "--cp-foreground-color": "#FFFFFF",
-    "--cp-background-color": "#000000"
+    "--cp-background-color": "#000000",
+    "--cp-scrollbar-thumb-bg-color": "#FFFFFF"
   }
 }

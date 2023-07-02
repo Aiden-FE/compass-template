@@ -18,7 +18,7 @@ function toggleTheme(theme: Theme) {
 </script>
 
 <template>
-  <div class='cp-home'>
+  <div class='cp-home h-[2000px]'>
     <div class='cp-home__desc'>演示自动导入@/components下的组件</div>
     <app-example />
     <div class='cp-home__desc'>演示自动安装Mdi配置表依赖并自动导入icon组件</div>
