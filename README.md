@@ -74,10 +74,15 @@ export default defineConfig({
 
 ##### CSS variables for dist/assets/tools.css
 
+> DOM Class 添加 {{domain}}-selection 即可使用文本选择颜色控制
+
 * --{{domain}}-selection-color 选择区颜色
 * --{{domain}}-selection-bg-color 选择区背景色
 
 ##### CSS variables for dist/assets/scrollbar.css
+
+> DOM Class 添加 {{domain}}-scrollbar 即可使用
+> 添加{{domain}}-scrollbar后, DOM Class 添加 {{domain}}-scrollbar_fixed 即可使用滚动条固定模式
 
 * --{{domain}}-scrollbar-bg-color 滚动条背景色
 * --{{domain}}-scrollbar-thumb-bg-color 滚动条滑块背景色

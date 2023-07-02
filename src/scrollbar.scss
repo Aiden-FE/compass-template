@@ -28,6 +28,7 @@ $scrollbar: #{$domain}-scrollbar;
 //::-webkit-resizer 定义右下角拖动块的样式
 .#{$scrollbar} {
   &::-webkit-scrollbar {
+    display: none;
     width: var($scrollbar-size, 10px);
     height: var($scrollbar-size, 10px);
     background-color: var($scrollbar-bg-color, transparent);
@@ -42,5 +43,23 @@ $scrollbar: #{$domain}-scrollbar;
 
   &::-webkit-scrollbar-track {
     background-color: var($scrollbar-track-bg-color, transparent);
+  }
+
+  &:hover {
+    &::-webkit-scrollbar {
+      display: block;
+    }
+  }
+
+  &::-webkit-resizer,
+  &::-webkit-scrollbar-button,
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
+}
+
+.#{$scrollbar}_fixed {
+  &::-webkit-scrollbar {
+    display: block;
   }
 }
