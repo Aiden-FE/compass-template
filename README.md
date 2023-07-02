@@ -212,6 +212,52 @@ once(GlobalEvents.EVENT_KEY, (data) => console.log('Data is: ', data));
 
 更多用法请查看`src/services/use-emitter.service.ts`及[emittery](https://github.com/sindresorhus/emittery)
 
+### Store使用
+
+在`src/stores`新建example.store.ts文件,文件参考如下:
+
+```typescript
+export default defineStore('example', () => {
+  const info = ref<Record<string, unknown>>(null);
+  
+  const currentInfo = computed(() => info);
+  
+  function mergeInfo(newInfo: Record<string, unknown>) {
+    info.value = {
+      ...info.value,
+      ...newInfo,
+    };
+  }
+  
+  return {
+    info,
+    currentInfo,
+    mergeInfo,
+  }
+})
+```
+
+在`src/stores/index.ts`内添加`export { default as useExampleStore } from './example.store';`导出
+
+在example.vue文件内使用:
+
+```vue
+<script lang='ts'>
+import { useExampleStore } from '@/stores';
+
+// 使用storeToRefs避免断开引用
+const { info, currentInfo } = storeToRefs(useExampleStore());
+// 函数引用无需使用storeToRefs包裹
+const { mergeInfo } = useExampleStore();
+</script>
+```
+
+### 预置工具库
+
+* dayjs 时间处理工具函数, 无需使用时执行`pnpm remove dayjs`卸载
+* @vueuse/core vue工具函数库, 无需使用时执行`pnpm remove @vueuse/core`卸载
+* lodash-es JavaScript工具函数, 无需使用时执行`pnpm remove lodash-es`卸载
+
 ## 快速开始
 
 `pnpm run dev` 开发模式启动
