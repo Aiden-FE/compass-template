@@ -15,11 +15,6 @@ export interface ConfigProviderEmits {
   (e: 'langChange', lang: Languages): void;
 }
 
-/** ConfigProvider 组件对外的事件 */
-export interface ConfigProviderEmits {
-  (e: 'langChange', lang: Languages): void;
-}
-
 /** ConfigProvider 组件实例对外的属性方法 */
 export interface ConfigProviderExpose {
   getConfig: () => Readonly<Ref<ConfigProviderOption>>;

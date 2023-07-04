@@ -1,7 +1,10 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { useCallbackBeforeUnmountService } from '@/services';
 import type {
-  ConfigProviderProps, ConfigProviderOption, ConfigProviderEmits, ConfigProviderExpose
+  ConfigProviderProps,
+  ConfigProviderOption,
+  ConfigProviderEmits,
+  ConfigProviderExpose,
 } from '@/interfaces';
 import { merge } from 'lodash-es';
 import i18next from 'i18next';
@@ -18,21 +21,33 @@ const configProviderOption = ref<ConfigProviderOption>({
   changeLanguage: (lang) => {
     configProviderOption.value.lang = lang;
     emit('langChange', lang);
-  }
+  },
 });
 
 /** readonly 禁止被子孙组件意外篡改数据 */
 provide(configSymbol, readonly(configProviderOption));
 
-addCallback(watch(props, () => {
-  configProviderOption.value = merge({}, toRaw(configProviderOption.value), toRaw(props));
-}, { immediate: true }));
+addCallback(
+  watch(
+    props,
+    () => {
+      configProviderOption.value = merge({}, toRaw(configProviderOption.value), toRaw(props));
+    },
+    { immediate: true },
+  ),
+);
 
-addCallback(watch(() => configProviderOption.value.lang, (lang) => {
-  if (i18next.language !== lang) {
-    i18next.changeLanguage(lang);
-  }
-}, { immediate: true }));
+addCallback(
+  watch(
+    () => configProviderOption.value.lang,
+    (lang) => {
+      if (i18next.language !== lang) {
+        i18next.changeLanguage(lang);
+      }
+    },
+    { immediate: true },
+  ),
+);
 
 defineExpose<ConfigProviderExpose>({
   getConfig: () => {
@@ -45,6 +60,4 @@ defineExpose<ConfigProviderExpose>({
   <slot />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

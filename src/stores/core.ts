@@ -7,10 +7,7 @@ export function getStoreById<T extends object>(id: string | symbol) {
   return undefined;
 }
 
-export function defineStore<T extends object>(
-  key: string | symbol,
-  store: () => T,
-): T {
+export function defineStore<T extends object>(key: string | symbol, store: () => T): T {
   const s = getStoreById(key) || store();
   stores.set(key, s);
   return { id: key, ...s } as T;

@@ -7,13 +7,17 @@ const emitter = new Emittery();
 export default function useEmitterService() {
   const { addCallback } = useCallbackBeforeUnmountService();
 
-  function on(eventName: GlobalEvents, callback: (data: unknown) => void, option?: {
-    destroyBeforeLeaving: boolean;
-  }) {
+  function on(
+    eventName: GlobalEvents,
+    callback: (data: unknown) => void,
+    option?: {
+      destroyBeforeLeaving: boolean;
+    },
+  ) {
     const opt = {
       destroyBeforeLeaving: true,
       ...option,
-    }
+    };
     emitter.on(eventName, callback);
     if (opt.destroyBeforeLeaving) {
       addCallback(() => {
@@ -31,7 +35,7 @@ export default function useEmitterService() {
   }
 
   function off(eventName: GlobalEvents, callback: (data: unknown) => void) {
-    return emitter.off(eventName, callback)
+    return emitter.off(eventName, callback);
   }
 
   /**

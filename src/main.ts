@@ -8,8 +8,8 @@ export default {
   install: (app: App) => {
     const { initI18n } = useI18nService();
     initI18n();
-    app.component('ai-chat', Example);
-    app.component('ai-chat-config-provider', ConfigProvider);
+    app.component('AppExample', Example);
+    app.component('AppExampleConfigProvider', ConfigProvider);
     return app;
-  }
-}
+  },
+};

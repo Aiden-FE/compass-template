@@ -4,7 +4,7 @@ import zhCN from '@/assets/locales/zh-CN.json';
 import EN from '@/assets/locales/en.json';
 
 export async function initI18n() {
-  const i18n = await i18next.init({
+  await i18next.init({
     lng: Languages.zhCN,
     resources: {
       [Languages.zhCN]: {

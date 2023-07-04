@@ -9,6 +9,7 @@ import IconsResolver from 'unplugin-icons/resolver';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import tailwindcss from 'tailwindcss';
+import eslint from 'vite-plugin-eslint'
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 
@@ -28,6 +29,11 @@ export default defineConfig({
   // },
   plugins: [
     vue(),
+    eslint({
+      fix: true,
+      failOnWarning: false,
+      failOnError: false,
+    }),
     svgLoader(),
     Icons({
       compiler: 'vue3',
