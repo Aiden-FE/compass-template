@@ -8,8 +8,6 @@
 支持免 import,自动导入以下内容相关 API:
 
 - vue
-- vue-router
-- pinia
 - @vueuse/core
 - `src/components` 路径下的组件
 - [iconify](https://icon-sets.iconify.design/) 内的所有 icon 资源
@@ -91,26 +89,20 @@ import MyIconRaw from '@/assets/svg/my-icon.svg?raw'; // 以原始xml标签方�
 
 ```vue
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-import { Languages } from '@/interfaces';
+import type { ConfigProviderOption } from '@/interfaces';
+import { configSymbol, Languages } from '@/config';
 
-const { t, locale } = useI18n();
-
-function toggleLanguage(lang: Languages) {
-  locale.value = lang;
-}
+const config = inject<ConfigProviderOption>(configSymbol);
 </script>
 
 <template>
   <div>
     <div>{{ t('message.common.currentLanguage', { lang: locale }) }}</div>
-    <button @click="toggleLanguage(Languages.EN)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>切换为英文</button>
-    <button @click="toggleLanguage(Languages.zhCN)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>切换为中文</button>
+    <button @click="config.changeLanguage(Languages.EN)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>切换为英文</button>
+    <button @click="config.changeLanguage(Languages.zhCN)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>切换为中文</button>
   </div>
 </template>
 ```
-
-更多详细用法参考 [unplugin-vite](https://github.com/intlify/bundle-tools/blob/main/packages/unplugin-vue-i18n/README.md) 与 [vue-i8n](https://vue-i18n.intlify.dev/) 文档
 
 ### SCSS 及 BEM
 
@@ -131,28 +123,6 @@ function toggleLanguage(lang: Languages) {
   }
 }
 </style>
-```
-
-### 主题使用
-
-预置主题控制,默认跟随系统, 使用示例如下:
-
-```vue
-<script setup lang='ts'>
-import { Theme } from '@/interfaces';
-import { useThemeStore } from '@/stores';
-
-const { currentTheme, currentThemeData } = storeToRefs(useThemeStore());
-const { toggle } = useThemeStore();
-</script>
-
-<template>
-  <div>当前主题是: {{ currentTheme }}</div>
-  <div>当前主题数据是: {{ currentThemeData }}</div>
-  <button @click="toggle(Theme.DEFAULT)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>默认跟随系统</button>
-  <button @click="toggle(Theme.LIGHT)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>亮色主题</button>
-  <button @click="toggle(Theme.DARK)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>暗色主题</button>
-</template>
 ```
 
 ### PostCSS autofixer tailwindcss
@@ -188,7 +158,7 @@ a.vue:
 ```vue
 <script setup lang="ts">
 import { useEmitterService } from '@/services';
-import { GlobalEvents } from '@/interfaces';
+import { GlobalEvents } from '@/config';
 
 const { emit } = useEmitterService();
 emit(GlobalEvents.EVENT_KEY, { example: 'example' });
@@ -199,7 +169,7 @@ b.vue:
 ```vue
 <script setup lang="ts">
 import { useEmitterService } from '@/services';
-import { GlobalEvents } from '@/interfaces';
+import { GlobalEvents } from '@/config';
 
 const { on, once } = useEmitterService();
 
@@ -217,24 +187,22 @@ once(GlobalEvents.EVENT_KEY, (data) => console.log('Data is: ', data));
 在`src/stores`新建example.store.ts文件,文件参考如下:
 
 ```typescript
-export default defineStore('example', () => {
-  const info = ref<Record<string, unknown>>(null);
-  
-  const currentInfo = computed(() => info);
-  
-  function mergeInfo(newInfo: Record<string, unknown>) {
-    info.value = {
-      ...info.value,
-      ...newInfo,
+import { defineStore } from '@/stores/core';
+
+export default function useExampleStore() {
+  return defineStore('example', () => {
+    const state = ref({});
+
+    function updateState(data: {}) {
+      state.value = data;
+    }
+
+    return {
+      state,
+      updateState,
     };
-  }
-  
-  return {
-    info,
-    currentInfo,
-    mergeInfo,
-  }
-})
+  });
+}
 ```
 
 在`src/stores/index.ts`内添加`export { default as useExampleStore } from './example.store';`导出
@@ -245,18 +213,16 @@ export default defineStore('example', () => {
 <script lang='ts'>
 import { useExampleStore } from '@/stores';
 
-// 使用storeToRefs避免断开引用
-const { info, currentInfo } = storeToRefs(useExampleStore());
-// 函数引用无需使用storeToRefs包裹
-const { mergeInfo } = useExampleStore();
+// 使用toRefs避免断开引用
+const { state } = toRefs(useExampleStore());
+// 函数引用无需使用toRefs包裹
+const { updateState } = useExampleStore();
 </script>
 ```
 
 ### 预置工具库
 
-* dayjs 时间处理工具函数, 无需使用时执行`pnpm remove dayjs`卸载
-* @vueuse/core vue工具函数库, 无需使用时执行`pnpm remove @vueuse/core`卸载
-* lodash-es JavaScript工具函数, 无需使用时执行`pnpm remove lodash-es`卸载
+* lodash-es JavaScript工具函数
 
 ## 快速开始
 

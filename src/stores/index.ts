@@ -1,2 +1,1 @@
-export { default as useThemeStore } from './theme.store';
-export { default as useContextStore } from './context.store';
+export { default as useExampleStore } from './example.store';

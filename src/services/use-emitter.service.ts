@@ -1,5 +1,5 @@
 import Emittery from 'emittery';
-import { GlobalEvents } from '@/interfaces';
+import { GlobalEvents } from '@/config';
 import useCallbackBeforeUnmountService from './use-callback-before-unmount.service';
 
 const emitter = new Emittery();

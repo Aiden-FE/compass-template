@@ -6,8 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
-  <body class='cp-scrollbar'>
+  <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
+    <script type="module">
+      import {createApp, defineComponent, reactive, ref} from 'vue'
+      import AIChat from './src/main';
+
+      createApp(defineComponent({
+        template: `<ai-chat-config-provider lang='en'><ai-chat /></ai-chat-config-provider>`,
+        setup: () => {
+          return {};
+        },
+      })).use(AIChat).mount('#app');
+    </script>
   </body>
 </html>

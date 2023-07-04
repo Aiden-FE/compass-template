@@ -1,7 +1,7 @@
 {
   "message": {
     "common": {
-      "currentLanguage": "The current international language environment is { lang }"
+      "currentLanguage": "The current international language environment is {{ lang }}"
     }
   }
 }

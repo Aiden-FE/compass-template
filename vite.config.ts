@@ -8,8 +8,9 @@ import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
-import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import tailwindcss from 'tailwindcss';
+
+const IS_DEV = process.env.NODE_ENV === 'development';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -33,7 +34,7 @@ export default defineConfig({
       autoInstall: true,
     }),
     AutoImport({
-      imports: ['vue', 'pinia', 'vue-router', '@vueuse/core'],
+      imports: ['vue'],
       dts: './src/auto-imports.d.ts',
       eslintrc: {
         enabled: true,
@@ -46,13 +47,13 @@ export default defineConfig({
         IconsResolver(),
       ],
     }),
-    VueI18nPlugin({
-      include: [path.resolve(__dirname, 'src/assets/locales/**')],
-    }),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
+      ...(IS_DEV ? {
+        vue: 'vue/dist/vue.esm-bundler.js',
+      } : {}),
     },
   },
   css: {
@@ -66,6 +67,21 @@ export default defineConfig({
     },
     postcss: {
       plugins: [autoprefixer(), tailwindcss()],
+    },
+  },
+  build: {
+    lib: {
+      entry: path.resolve(__dirname, './src/main.ts'),
+      name: 'AIChat',
+      fileName: (format) => `ai-chat.${format}.js`,
+    },
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        globals: {
+          vue: 'Vue',
+        },
+      },
     },
   },
 });

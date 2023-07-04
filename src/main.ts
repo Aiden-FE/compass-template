@@ -1,21 +1,15 @@
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
-import { createI18n } from 'vue-i18n';
-import messages from '@intlify/unplugin-vue-i18n/messages';
-import { Languages } from '@/interfaces';
-import App from './App.vue';
-import router from './router';
+import type { App } from 'vue';
+import Example from '@/components/app-example/app-example.vue';
+import ConfigProvider from '@/components/config-provider/config-provider.vue';
+import '@/assets/styles/global.scss';
+import { useI18nService } from '@/services';
 
-const app = createApp(App);
-
-app.use(createPinia());
-app.use(router);
-app.use(
-  createI18n({
-    locale: Languages.zhCN,
-    fallbackLocale: Languages.zhCN,
-    messages,
-  }),
-);
-
-app.mount('#app');
+export default {
+  install: (app: App) => {
+    const { initI18n } = useI18nService();
+    initI18n();
+    app.component('ai-chat', Example);
+    app.component('ai-chat-config-provider', ConfigProvider);
+    return app;
+  }
+}
