@@ -1,5 +1,5 @@
 import Emittery from 'emittery';
-import { GlobalEvents } from '@/interfaces';
+import { GlobalEvents } from '@/config';
 import useCallbackBeforeUnmountService from './use-callback-before-unmount.service';
 
 const emitter = new Emittery();
@@ -7,13 +7,17 @@ const emitter = new Emittery();
 export default function useEmitterService() {
   const { addCallback } = useCallbackBeforeUnmountService();
 
-  function on(eventName: GlobalEvents, callback: (data: unknown) => void, option?: {
-    destroyBeforeLeaving: boolean;
-  }) {
+  function on(
+    eventName: GlobalEvents,
+    callback: (data: unknown) => void,
+    option?: {
+      destroyBeforeLeaving: boolean;
+    },
+  ) {
     const opt = {
       destroyBeforeLeaving: true,
       ...option,
-    }
+    };
     emitter.on(eventName, callback);
     if (opt.destroyBeforeLeaving) {
       addCallback(() => {
@@ -31,7 +35,7 @@ export default function useEmitterService() {
   }
 
   function off(eventName: GlobalEvents, callback: (data: unknown) => void) {
-    return emitter.off(eventName, callback)
+    return emitter.off(eventName, callback);
   }
 
   /**

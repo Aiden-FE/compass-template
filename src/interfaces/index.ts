@@ -1,5 +1,1 @@
-export * from './enums';
-
-export interface ContextType {
-
-}
+export interface ContextType {}

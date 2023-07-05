@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import { ThemeConfig } from '@/config';
-import { Theme } from '@/interfaces';
+import { Theme, ThemeConfig } from '@/config';
 import { ThemeManager } from '@compass-aiden/utils';
 
 let ThemeInstance: ThemeManager;
@@ -38,7 +37,7 @@ export default defineStore('theme', () => {
             ThemeInstance.toggle('default');
           }
         },
-      }
+      },
     });
   }
 

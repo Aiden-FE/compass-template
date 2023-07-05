@@ -10,6 +10,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
 import tailwindcss from 'tailwindcss';
+import eslint from 'vite-plugin-eslint';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,6 +28,11 @@ export default defineConfig({
   // },
   plugins: [
     vue(),
+    eslint({
+      fix: true,
+      failOnWarning: false,
+      failOnError: false,
+    }),
     svgLoader(),
     Icons({
       compiler: 'vue3',

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useThemeStore } from '@/stores';
-import { ThemeConfig } from '@/config';
-import { Theme } from '@/interfaces';
+import { Theme, ThemeConfig } from '@/config';
 
 const { initializeTheme, register } = useThemeStore();
 

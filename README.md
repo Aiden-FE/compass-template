@@ -92,7 +92,7 @@ import MyIconRaw from '@/assets/svg/my-icon.svg?raw'; // 以原始xml标签方�
 ```vue
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { Languages } from '@/interfaces';
+import { Languages } from '@/config';
 
 const { t, locale } = useI18n();
 
@@ -139,7 +139,7 @@ function toggleLanguage(lang: Languages) {
 
 ```vue
 <script setup lang='ts'>
-import { Theme } from '@/interfaces';
+import { Theme } from '@/config';
 import { useThemeStore } from '@/stores';
 
 const { currentTheme, currentThemeData } = storeToRefs(useThemeStore());
@@ -188,7 +188,7 @@ a.vue:
 ```vue
 <script setup lang="ts">
 import { useEmitterService } from '@/services';
-import { GlobalEvents } from '@/interfaces';
+import { GlobalEvents } from '@/config';
 
 const { emit } = useEmitterService();
 emit(GlobalEvents.EVENT_KEY, { example: 'example' });
@@ -199,7 +199,7 @@ b.vue:
 ```vue
 <script setup lang="ts">
 import { useEmitterService } from '@/services';
-import { GlobalEvents } from '@/interfaces';
+import { GlobalEvents } from '@/config';
 
 const { on, once } = useEmitterService();
 

@@ -10,5 +10,5 @@ export enum Theme {
 }
 
 export enum GlobalEvents {
-  BEFORE_INIT = 'beforeInit'
+  BEFORE_INIT = 'beforeInit',
 }
