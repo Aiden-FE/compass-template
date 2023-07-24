@@ -19,6 +19,30 @@
       "autoinstallerName": "common-commands",
       "shellCommand": "pretty-quick --staged"
     },
+    {
+      "name": "commitlint",
+      "commandKind": "global",
+      "summary": "Used by the pre-commit Git hook. This command invokes commitlint to ensure that the commit messages meet the conventional commit format",
+      "safeForSimultaneousRushProcesses": true,
+      "autoinstallerName": "common-commands",
+      "shellCommand": "commitlint"
+    },
+    {
+      "name": "build",
+      "commandKind": "bulk",
+      "summary": "Build all projects that haven't been built, or have changed since they were last built",
+      "incremental": true,
+      "enableParallelism": true,
+      "allowWarningsInSuccessfulBuild": true
+    },
+    {
+      "name": "rebuild",
+      "commandKind": "bulk",
+      "summary": "Rebuild all projects",
+      "incremental": false,
+      "enableParallelism": true,
+      "allowWarningsInSuccessfulBuild": true
+    }
     // {
     //   /**
     //    * (Required) Determines the type of custom command.
@@ -183,14 +207,6 @@
     //    */
     //   // "autoinstallerName": "my-task"
     // }
-    {
-      "name": "commitlint",
-      "commandKind": "global",
-      "summary": "Used by the pre-commit Git hook. This command invokes commitlint to ensure that the commit messages meet the conventional commit format",
-      "safeForSimultaneousRushProcesses": true,
-      "autoinstallerName": "common-commands",
-      "shellCommand": "commitlint"
-    }
   ],
 
   /**
