@@ -1,0 +1,9 @@
+@include b(example) {
+  @apply text-base;
+  @include e(element) {
+    @apply font-bold;
+    @include m(modifier) {
+      @apply text-blue-400;
+    }
+  }
+}

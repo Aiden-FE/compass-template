@@ -1,0 +1,13 @@
+{
+  "common": {
+    "--cp-primary-color": "#00c0c9"
+  },
+  "light": {
+    "--cp-foreground-color": "#212121",
+    "--cp-background-color": "#FFFFFF"
+  },
+  "dark": {
+    "--cp-foreground-color": "#FFF",
+    "--cp-background-color": "rgb(0, 0, 0)"
+  }
+}

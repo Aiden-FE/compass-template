@@ -1,27 +1,186 @@
-# Compass Template
-> 预设模板仓库
+# {{name}}
 
-## 模板列表
+> {{description}}
 
-|         分支          | 说明                          |   最后更新时间   |
-|:-------------------:|:----------------------------|:----------:|
-|     temp/utils      | 纯TS的实用程序基础库模板               | 2023/06/30 |
-|     temp/styles     | 通用样式库模板                     | 2023/07/02 |
-|    temp/vue-web     | Vue web项目基础模板               | 2023/07/02 |
-|    temp/vue-lib     | Vue 库项目基础模板                 | 2023/07/04 |
-|    temp/monorepo    | 基于Rush的 Monorepo 项目模板       | 2023/06/30 |
-|     temp/react      | React 项目Vite TSX模板,SPA web  | 2023/07/02 |
-|      temp/next      | Next SSR server项目模板,SSR web | 2023/07/02 |
-|  temp/next-static   | Next 静态导出项目模板,SPA web       | 2023/07/17 |
-|      temp/nest      | Nestjs 后端项目模板               |            |
-| temp/web-components | Web components组件库模板         |            |
-|  temp/uni-app-vue   | UniApp vue3跨端应用模板           |            |
-|    temp/taro-vue    | Taro vue3跨端应用模板             |            |
+## Features
 
-更多模版详情请查阅对应分支README说明
+### 支持 sass,Postcss,tailwind
 
-## 使用模板
+示例如下:
 
-`npm install -g @compass-aiden/commander` 全局安装脚手架
+```tsx
+import styles from './example.module.scss';
 
-`compass create <my_project>` 创建项目,根据提示按需选择
+function ExamplePage() {
+  return (
+    <div className={`${styles.container} flex min-h-full flex-col justify-center px-6 py-12 lg:px-8`}>
+      This is example.
+    </div>
+  );
+}
+
+export default ExamplePage;
+```
+
+### 支持BEM
+
+示例如下:
+
+*index.module.scss*文件内容:
+
+```scss
+@include b(example) {
+  @apply text-base; // apply是在使用tailwind的css
+  @include e(element) {
+    @apply font-bold;
+    @include m(modifier) {
+      @apply text-blue-400;
+    }
+  }
+}
+```
+
+组件用法:
+
+```tsx
+import styles from './index.module.scss';
+
+function ExamplePage() {
+  return (
+    <div className={styles['cp-example']}>
+      Block 块级选择示例
+      <div className={styles['cp-example__element']}>
+        Element 元素选择示例
+        <div className={styles['cp-example__element_modifier']}>Modifier 状态选择示例</div>
+      </div>
+    </div>
+  );
+}
+
+export default ExamplePage;
+```
+
+> 如果需要更换 `cp` 作用域前缀请修改 `src/assets/styles/variables.scss` 文件内容的$domain值
+
+### 支持 Icon及 Svg 使用
+
+基于 [Iconify](https://iconify.design/docs/) 实现,所有[IconSets](https://icon-sets.iconify.design/)图标均可直接使用,内部按需加载,并且支持直接使用项目内部的svg文件
+
+示例如下:
+
+```tsx
+import AppIcon from "@/components/app-icon/app-icon";
+import IconSettingUrl from '@/assets/svgs/setting.svg?url';
+import Image from "next/image";
+
+function ExamplePage() {
+  return (
+    <>
+      {/* 使用 IconSets所有图标 */}
+      <AppIcon icon="mdi-light:home" />
+      {/* 使用业务特有的svg图标文件 */}
+      <Image src={IconSettingUrl} />
+    </>
+  );
+}
+
+export default ExamplePage;
+```
+
+### 支持 Stores 状态管理
+
+新建Store时,请参考`templates/example.store.ts`文件内的使用引导即可
+
+使用Store示例如下:
+
+```tsx
+import { useAppSelector, useAppDispatch, exampleActions } from '@/stores';
+
+function ExamplePage() {
+  const example = useAppSelector((state) => state.example);
+  const dispatch = useAppDispatch();
+
+  function updateStore() {
+    // 更新store
+    dispatch(exampleActions.update({}));
+  }
+
+  return <>{example.test}</>;
+}
+
+export default ExamplePage;
+```
+
+### 主题使用
+
+主题变量表存在于 `src/config/theme.json`,
+
+当需要新增一个主题时,在主题变量表新增一个 `{ [key: string]: Record<string, string | number> }` 数据即可,common为保留字段,其下的所有值在任何主题内生效
+
+当需要读取或变更主题时,参考如下:
+
+```tsx
+import { useAppSelector } from '@/stores';
+import { AvailableTheme } from '@/config';
+
+function ExamplePage() {
+  const theme = useAppSelector((state) => state.theme);
+
+  function toggleTheme(themeName: AvailableTheme) {
+    theme.themeInstance.toggle(themeName);
+  }
+
+  return (
+    <>
+      <div>当前主题: {theme?.theme}</div>
+      <div>当前主题数据: {JSON.stringify(theme?.themeData)}</div>
+      <div>
+        <button onClick={() => toggleTheme(AvailableTheme.AUTO)} type="button">
+          使用默认系统主题
+        </button>
+        <button onClick={() => toggleTheme(AvailableTheme.LIGHT)} type="button">
+          使用亮色主题
+        </button>
+        <button onClick={() => toggleTheme(AvailableTheme.DARK)} type="button">
+          使用暗色主题
+        </button>
+      </div>
+    </>
+  );
+}
+
+export default ExamplePage;
+```
+
+### 页面布局控制
+
+布局文件位于`src/components/layouts`文件夹下,index.ts内导出了布局注册表,需要扩展新布局在此注册即可.
+
+所有页面默认使用 default 布局方案,需要采用特定布局方案如下所示:
+
+```tsx
+function ExamplePage() {
+  return (
+    <>
+      Hello world
+    </>
+  );
+}
+
+// 指定取注册表内的test布局,不赋值layout或指定为default均会采用注册表内的default布局
+ExamplePage.layout = 'test';
+
+export default ExamplePage;
+```
+
+### 页面布局控制
+
+### 国际化
+
+### 支持 Eslint 更健壮的代码检查
+
+`pnpm lint` 进行检查
+
+### 支持 Prettier 格式化
+
+`pnpm format` 进行格式化

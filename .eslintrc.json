@@ -1,0 +1,6 @@
+{
+  "extends": ["@compass-aiden/eslint-config/next", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "project": ["tsconfig.json"]
+  }
+}
