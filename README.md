@@ -170,25 +170,6 @@ function ExamplePage() {
 export default ExamplePage;
 ```
 
-### 页面布局控制
-
-> FIXME: 存在问题
-
-布局文件位于`src/components/layouts`文件夹下,index.ts内导出了布局注册表,需要扩展新布局在此注册即可.
-
-所有页面默认使用 default 布局方案,需要采用特定布局方案如下所示:
-
-```tsx
-function ExamplePage() {
-  return <>Hello world</>;
-}
-
-// 指定取注册表内的test布局,不赋值layout或指定为default均会采用注册表内的default布局
-ExamplePage.layout = 'test';
-
-export default ExamplePage;
-```
-
 ### 国际化
 
 ### 支持 Eslint 更健壮的代码检查
