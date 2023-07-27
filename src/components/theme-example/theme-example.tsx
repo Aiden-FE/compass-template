@@ -1,11 +1,11 @@
 'use client';
 
-import {AvailableTheme} from "@/config";
-import {useAppSelector} from "@/stores";
+import { AvailableTheme } from '@/config';
+import { useAppSelector } from '@/stores';
 
 function ThemeExample() {
   const theme = useAppSelector((state) => state.theme);
-  
+
   function toggleTheme(themeName: AvailableTheme) {
     theme.themeInstance?.toggle(themeName);
   }

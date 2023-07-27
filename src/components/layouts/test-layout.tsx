@@ -1,7 +1,7 @@
-import {ReactElement} from "react";
+import { ReactElement } from 'react';
 
 function TestLayout(page: ReactElement) {
-  return <>test { page }</>
+  return <>test {page}</>;
 }
 
 export default TestLayout;

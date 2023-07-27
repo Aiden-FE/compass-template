@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import LoginForm from "@/components/login-form/login-form";
+import LoginForm from '@/components/login-form/login-form';
 
 function HomePage() {
   function t(key: string) {

@@ -7,6 +7,4 @@ export enum AvailableTheme {
   DARK = 'dark',
 }
 
-export {
-  ThemeConfig
-};
+export { ThemeConfig };

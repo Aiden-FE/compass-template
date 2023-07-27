@@ -1,8 +1,7 @@
+import AppIcon from '@/components/app-icon/app-icon';
+import ThemeExample from '@/components/theme-example/theme-example';
+import SvgIcon from '@/components/app-icon/svg-icon';
 import styles from './index.module.scss';
-import AppIcon from "@/components/app-icon/app-icon";
-import IconSettingUrl from '@/assets/svgs/setting.svg?url';
-import Image from "next/image";
-import ThemeExample from "@/components/theme-example/theme-example";
 
 function ExamplePage() {
   return (
@@ -12,11 +11,9 @@ function ExamplePage() {
         Element 元素选择示例
         <div className={styles['cp-example__element_modifier']}>Modifier 状态选择示例</div>
       </div>
-
       使用 Iconify 与项目内的Svg图标:
       <AppIcon icon="mdi-light:home" />
-      <Image src={IconSettingUrl} alt="setting icon" />
-  
+      <SvgIcon icon="setting" />
       <ThemeExample />
     </div>
   );
@@ -24,4 +21,4 @@ function ExamplePage() {
 
 ExamplePage.layout = 'test';
 
-export default  ExamplePage;
+export default ExamplePage;
