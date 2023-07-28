@@ -259,7 +259,7 @@ export default ExamplePage;
     isInstall ? content : originContent,
   );
 
-  log(`
+  log(`变更清单
 ${isInstall ? 'Created' : 'Deleted'}\ti18n.d.ts
 ${isInstall ? 'Created' : 'Deleted'}\tsrc/assets/locales/en.json
 ${isInstall ? 'Created' : 'Deleted'}\tsrc/assets/locales/zh-CN.json

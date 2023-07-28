@@ -76,6 +76,15 @@ function replaceContent(filePath, match, replacement) {
   }
 }
 
+function insertContent(filePath, content, position = 'start') {
+  try {
+    const fileData = fs.readFileSync(filePath, 'utf8');
+    writeFileSync(filePath, position === 'start' ? content + fileData : fileData + content);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 module.exports = {
   log,
   getArgvParam,
@@ -83,4 +92,5 @@ module.exports = {
   deleteFileSync,
   deleteDir,
   replaceContent,
+  insertContent,
 };
