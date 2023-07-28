@@ -11,8 +11,7 @@
 |    temp/vue-lib     | Vue 库项目基础模板                 | 2023/07/04 |
 |    temp/monorepo    | 基于Rush的 Monorepo 项目模板       | 2023/07/24 |
 |     temp/react      | React 项目Vite TSX模板,SPA web  | 2023/07/02 |
-|      temp/next      | Next SSR server项目模板,SSR web | 2023/07/02 |
-|  temp/next-static   | Next 静态导出项目模板,SPA web       | 2023/07/24 |
+|      temp/next      | Next 项目模板                   | 2023/07/28 |
 |      temp/nest      | Nestjs 后端项目模板               |            |
 | temp/web-components | Web components组件库模板         |            |
 |  temp/uni-app-vue   | UniApp vue3跨端应用模板           |            |
