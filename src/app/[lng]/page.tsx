@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import LoginForm from '@/components/login-form/login-form';
+import { PageProps } from '@/interfaces';
 
-function HomePage() {
+function HomePage({ params: { lng } }: PageProps) {
   function t(key: string) {
     return key;
   }
@@ -27,7 +28,7 @@ function HomePage() {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           {t('notMember')}?
-          <Link href="/example">
+          <Link href={`${lng}/example`}>
             <button
               type="button"
               className="bg-white border-0 cursor-pointer font-semibold leading-6 text-indigo-600 hover:text-indigo-500"

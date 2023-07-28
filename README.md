@@ -172,7 +172,72 @@ export default ExamplePage;
 
 ### 国际化
 
-> 如果您是SPA构建目标,请执行`pnpm i18n:spa`,如果您是SSR构建目标,请执行`pnpm i18n:ssr` 来初始化i18n相关内容
+国际化文件均位于 `src/i18n/locales/[language]/[namespace].json`
+
+扩展国际化文件:
+- 在`src/i18n/locales/`目录下新建对应命名空间的翻译文件
+- 更新`src/config/index.ts`文件内的 AvailableLanguages,AvailableLanguagesNS,Languages等变量
+
+#### 服务端渲染国际化
+
+```tsx
+import { useTranslation } from '@/i18n';
+import { ComponentProps } from '@/interfaces';
+import { AvailableLanguages } from '@/config';
+import Link from 'next/link';
+
+async function I18nExample({ lang }: ComponentProps) {
+  const { t, i18n } = await useTranslation(lang);
+
+  return (
+    <div>
+      {t('currentLanguage', { lang: i18n.resolvedLanguage })}
+      <br />
+      <div>
+        <Link href={`/${AvailableLanguages.ZH_CN}/example`}>使用中文</Link>
+        <br />
+        <Link href={`/${AvailableLanguages.EN}/example`}>Use English</Link>
+      </div>
+    </div>
+  );
+}
+
+export default I18nExample;
+```
+
+#### 客户端渲染国际化
+
+```tsx
+'use client';
+
+import { useClientTranslation } from '@/i18n/client';
+import { AvailableLanguages } from '@/config';
+
+function ClientI18nExample() {
+  const { t, i18n } = useClientTranslation();
+
+  function toggleLang(lng: AvailableLanguages) {
+    i18n.changeLanguage(lng);
+  }
+
+  return (
+    <div>
+      {t('currentLanguage', { lang: i18n.resolvedLanguage })}
+      <br />
+      <div>
+        <button onClick={() => toggleLang(AvailableLanguages.ZH_CN)} type="button">
+          使用中文
+        </button>
+        <button onClick={() => toggleLang(AvailableLanguages.EN)} type="button">
+          Use English
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default ClientI18nExample;
+```
 
 ### 支持 Eslint 更健壮的代码检查
 

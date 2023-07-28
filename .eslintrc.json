@@ -3,5 +3,8 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": ["tsconfig.json", "tsconfig.node.json"]
+  },
+  "rules": {
+    "react-hooks/rules-of-hooks": "off"
   }
 }

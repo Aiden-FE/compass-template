@@ -14,4 +14,10 @@ export enum AvailableLanguages {
   EN = 'en',
 }
 
+export enum AvailableLanguagesNS {
+  COMMON = 'common',
+}
+
+export const Languages = [AvailableLanguages.ZH_CN, AvailableLanguages.EN];
+
 export { ThemeConfig };
