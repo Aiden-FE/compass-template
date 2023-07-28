@@ -172,6 +172,8 @@ export default ExamplePage;
 
 ### 国际化
 
+> 如果您是SPA构建目标,请执行`pnpm i18n:spa`,如果您是SSR构建目标,请执行`pnpm i18n:ssr` 来初始化i18n相关内容
+
 ### 支持 Eslint 更健壮的代码检查
 
 `pnpm lint` 进行检查

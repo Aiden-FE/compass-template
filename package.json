@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint --fix",
     "i18n:spa": "node scripts/i18n-spa.js",
+    "i18n:ssr": "node scripts/i18n-ssr.js",
     "format": "prettier --ignore-path .gitignore --write ."
   },
   "dependencies": {

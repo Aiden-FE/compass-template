@@ -2,6 +2,9 @@
 
 import React, { useEffect } from 'react';
 import { initializeThemeAsync, useAppDispatch } from '@/stores';
+import providePlugins from '@/plugins';
+
+providePlugins();
 
 function InitClientWrap({ children }: { children: React.ReactNode }) {
   const dispatch = useAppDispatch();

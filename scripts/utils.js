@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 function log(str) {
-  childProcess.execSync(`echo "[Init i18n SPA]: ${str}"`, { stdio: 'inherit' });
+  childProcess.execSync(`echo "[I18n Script]: ${str}"`, { stdio: 'inherit' });
 }
 
 /**
@@ -15,15 +15,11 @@ function log(str) {
  *   validator?: (value: string) => boolean | string
  * @return {*|string|boolean}
  */
-function getArgvParam(
-  param,
-  defaultValue = undefined,
-  opt = {},
-) {
+function getArgvParam(param, defaultValue = undefined, opt = {}) {
   const option = {
     valueType: 'string',
     ...opt,
-  }
+  };
   const valueIndex = process.argv.indexOf(param);
 
   if (option.valueType === 'boolean') {
@@ -61,9 +57,30 @@ function deleteFileSync(filePath) {
   }
 }
 
+function deleteDir(filePath) {
+  try {
+    fs.rmSync(filePath, { recursive: true, force: true });
+    return true;
+  } catch {
+    return true;
+  }
+}
+
+function replaceContent(filePath, match, replacement) {
+  try {
+    const fileData = fs.readFileSync(filePath, 'utf8');
+    const result = fileData.replace(new RegExp(match, 'g'), replacement);
+    writeFileSync(filePath, result);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 module.exports = {
   log,
   getArgvParam,
   writeFileSync,
   deleteFileSync,
+  deleteDir,
+  replaceContent,
 };
