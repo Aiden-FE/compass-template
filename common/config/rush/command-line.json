@@ -28,6 +28,15 @@
       "shellCommand": "commitlint"
     },
     {
+      "name": "lint",
+      "commandKind": "bulk",
+      "summary": "Lint all projects",
+      "incremental": true,
+      "enableParallelism": true,
+      "ignoreMissingScript": true,
+      "allowWarningsInSuccessfulBuild": true
+    },
+    {
       "name": "build",
       "commandKind": "bulk",
       "summary": "Build all projects that haven't been built, or have changed since they were last built",
