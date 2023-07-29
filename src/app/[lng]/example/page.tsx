@@ -1,7 +1,6 @@
-import AppIcon from '@/components/app-icon/app-icon';
-import SvgIcon from '@/components/app-icon/svg-icon';
+import { AppIcon, SvgIcon } from '@/components/app-icon';
 import { CommonPageProps } from '@/interfaces';
-import I18nExample from '@/components/i18n-example/i18n-example';
+import I18nExample from './components/i18n-example/i18n-example';
 import ThemeExample from './components/theme-example';
 import ClientI18nExample from './components/i18n-example/client-i18n-example';
 import styles from './index.module.scss';

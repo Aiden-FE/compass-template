@@ -69,8 +69,7 @@ export default ExamplePage;
 示例如下:
 
 ```tsx
-import AppIcon from '@/components/app-icon/app-icon';
-import SvgIcon from '@/components/app-icon/svg-icon';
+import { AppIcon, SvgIcon } from '@/components/app-icon';
 
 function ExamplePage() {
   return (
