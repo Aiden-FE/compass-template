@@ -1,10 +1,10 @@
 'use client';
 
-import { useClientTranslation } from '@/i18n/client';
-import { AvailableLanguages } from '@/config';
+import { useClientTranslation, AvailableLanguages } from '@/i18n';
+import {CommonComponentProps} from "@/interfaces";
 
-function ClientI18nExample() {
-  const { t, i18n } = useClientTranslation();
+function ClientI18nExample({ lang }: CommonComponentProps) {
+  const { t, i18n } = useClientTranslation(lang);
 
   function toggleLang(lng: AvailableLanguages) {
     i18n.changeLanguage(lng);

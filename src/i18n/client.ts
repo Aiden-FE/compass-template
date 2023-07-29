@@ -5,8 +5,14 @@ import i18next, { TOptions } from 'i18next';
 import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { AvailableLanguages, AvailableLanguagesNS, Languages } from '@/config';
-import { getOptions } from './settings';
+import {
+  getI18nOptions,
+  AvailableLanguages,
+  AvailableLanguagesNS,
+  Languages,
+  DEFAULT_LANGUAGE,
+  DEFAULT_NS,
+} from './settings';
 
 const runsOnServerSide = typeof window === 'undefined';
 
@@ -15,7 +21,7 @@ i18next
   .use(LanguageDetector)
   .use(resourcesToBackend((language: string, namespace: string) => import(`./locales/${language}/${namespace}.json`)))
   .init({
-    ...getOptions(),
+    ...getI18nOptions(),
     lng: undefined, // let detect the language on client side
     detection: {
       order: ['path', 'htmlTag', 'cookie', 'navigator'],
@@ -23,10 +29,9 @@ i18next
     preload: runsOnServerSide ? Languages : [],
   });
 
-// eslint-disable-next-line import/prefer-default-export
-export function useClientTranslation(
-  lng: AvailableLanguages = AvailableLanguages.ZH_CN,
-  ns: AvailableLanguagesNS | AvailableLanguagesNS[] = AvailableLanguagesNS.COMMON,
+export default function useClientTranslation(
+  lng: AvailableLanguages = DEFAULT_LANGUAGE,
+  ns: AvailableLanguagesNS | AvailableLanguagesNS[] = DEFAULT_NS,
   options: TOptions = {},
 ) {
   const ret = useTranslationOrg(ns, options);

@@ -86,16 +86,18 @@ function ExamplePage() {
 export default ExamplePage;
 ```
 
-如果希望直接使用Svg文件而不是通过SvgIcon组件中转,请确保是在 use client 客户端渲染模式下导入,例如:
+如果希望直接使用Iconify 的Icon组件或Svg文件而不是通过AppIcon或SvgIcon组件中转,请确保是在 use client 客户端渲染模式下导入,例如:
 
 ```tsx
 'use client';
 
+import { Icon } from '@iconify/react';
 import SvgSetting from '@/assets/svgs/setting.svg';
 
 function ExamplePage() {
   return (
     <>
+      <Icon icon="mdi-light:home" />
       {/* 使用业务特有的svg图标文件 */}
       <SvgSetting />
     </>
@@ -176,17 +178,17 @@ export default ExamplePage;
 
 扩展国际化文件:
 - 在`src/i18n/locales/`目录下新建对应命名空间的翻译文件
-- 更新`src/config/index.ts`文件内的 AvailableLanguages,AvailableLanguagesNS,Languages等变量
+- 更新`src/i18n/settings.ts`文件内的 AvailableLanguages,AvailableLanguagesNS,Languages等变量
+- 默认使用zh-CN语言与common命名空间,如需调整请更新`src/i18n/settings.ts`文件内的DEFAULT_LANGUAGE,DEFAULT_NS
 
 #### 服务端渲染国际化
 
 ```tsx
-import { useTranslation } from '@/i18n';
-import { ComponentProps } from '@/interfaces';
-import { AvailableLanguages } from '@/config';
+import { useTranslation, AvailableLanguages } from '@/i18n';
+import { CommonPageProps } from '@/interfaces';
 import Link from 'next/link';
 
-async function I18nExample({ lang }: ComponentProps) {
+async function I18nExample({ lang }: CommonPageProps) {
   const { t, i18n } = await useTranslation(lang);
 
   return (
@@ -210,13 +212,14 @@ export default I18nExample;
 ```tsx
 'use client';
 
-import { useClientTranslation } from '@/i18n/client';
-import { AvailableLanguages } from '@/config';
+import { CommonComponentProps } from '@/interfaces';
+import { AvailableLanguages, useClientTranslation } from '@/i18n';
 
-function ClientI18nExample() {
-  const { t, i18n } = useClientTranslation();
+function ClientI18nExample({ lang }: CommonComponentProps) {
+  const { t, i18n } = useClientTranslation(lang);
 
   function toggleLang(lng: AvailableLanguages) {
+    // 请注意这里的切换不是切换国际化路由,而是切换客户端当前i18n单例的值
     i18n.changeLanguage(lng);
   }
 

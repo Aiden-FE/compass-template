@@ -1,6 +1,6 @@
-import React from 'react';
+import { CommonPageProps } from '@/interfaces';
 
-function ExampleLayout({ children }: { children: React.ReactNode }) {
+function ExampleLayout({ children }: CommonPageProps) {
   return (
     <section>
       <h1>Example Layout Demo</h1>

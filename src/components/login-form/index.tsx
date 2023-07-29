@@ -1,11 +1,12 @@
 'use client';
 
 import { FormEvent } from 'react';
+import { CommonComponentProps } from '@/interfaces';
+import { AvailableLanguagesNS, useClientTranslation } from '@/i18n';
 
-function LoginForm() {
-  function t(key: string) {
-    return key;
-  }
+function LoginForm({ lang }: CommonComponentProps) {
+  const { t } = useClientTranslation(lang, AvailableLanguagesNS.LOGIN);
+
   function submit(ev: FormEvent) {
     ev.preventDefault();
   }
@@ -15,7 +16,7 @@ function LoginForm() {
     <form className="space-y-6" action="" method="POST" onSubmit={(e) => submit(e)}>
       <div>
         <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-          {t('emailAddress')}
+          {t('Email address')}
         </label>
         <div className="mt-2">
           <input
@@ -32,7 +33,7 @@ function LoginForm() {
       <div>
         <div className="flex items-center justify-between">
           <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-            {t('password')}
+            {t('Password')}
           </label>
           <div className="text-sm">
             <button
@@ -40,7 +41,7 @@ function LoginForm() {
               onClick={forgotPassword}
               className="bg-white border-0 cursor-pointer font-semibold text-indigo-600 hover:text-indigo-500"
             >
-              {t('forgotPassword')}?
+              {t('Forgot password')}?
             </button>
           </div>
         </div>
@@ -61,7 +62,7 @@ function LoginForm() {
           type="submit"
           className="border-0 cursor-pointer flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          {t('signIn')}
+          {t('Sign in')}
         </button>
       </div>
     </form>

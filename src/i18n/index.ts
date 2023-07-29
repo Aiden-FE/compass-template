@@ -1,22 +1,23 @@
 import { createInstance, TOptions } from 'i18next';
 import resourcesToBackend from 'i18next-resources-to-backend';
 import { initReactI18next } from 'react-i18next/initReactI18next';
-import { AvailableLanguages, AvailableLanguagesNS } from '@/config';
-import { getOptions } from './settings';
+import { getI18nOptions, AvailableLanguages, AvailableLanguagesNS, DEFAULT_LANGUAGE, DEFAULT_NS } from './settings';
 
 const initI18next = async (lng?: AvailableLanguages, ns?: AvailableLanguagesNS | AvailableLanguagesNS[]) => {
   const i18nInstance = createInstance();
   await i18nInstance
     .use(initReactI18next)
     .use(resourcesToBackend((language: string, namespace: string) => import(`./locales/${language}/${namespace}.json`)))
-    .init(getOptions(lng, ns));
+    .init(getI18nOptions(lng, ns));
   return i18nInstance;
 };
 
-// eslint-disable-next-line import/prefer-default-export
+export * from './settings';
+export { default as useClientTranslation } from './client';
+
 export async function useTranslation(
-  lng: AvailableLanguages = AvailableLanguages.ZH_CN,
-  ns: AvailableLanguagesNS | AvailableLanguagesNS[] = AvailableLanguagesNS.COMMON,
+  lng: AvailableLanguages = DEFAULT_LANGUAGE,
+  ns: AvailableLanguagesNS | AvailableLanguagesNS[] = DEFAULT_NS,
   options: TOptions = {},
 ) {
   const i18nextInstance = await initI18next(lng, ns);
