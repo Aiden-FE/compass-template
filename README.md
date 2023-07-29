@@ -177,6 +177,7 @@ export default ExamplePage;
 国际化文件均位于 `src/i18n/locales/[language]/[namespace].json`
 
 扩展国际化文件:
+
 - 在`src/i18n/locales/`目录下新建对应命名空间的翻译文件
 - 更新`src/i18n/settings.ts`文件内的 AvailableLanguages,AvailableLanguagesNS,Languages等变量
 - 默认使用zh-CN语言与common命名空间,如需调整请更新`src/i18n/settings.ts`文件内的DEFAULT_LANGUAGE,DEFAULT_NS

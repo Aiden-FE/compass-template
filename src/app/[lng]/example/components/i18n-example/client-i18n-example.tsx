@@ -1,7 +1,7 @@
 'use client';
 
 import { useClientTranslation, AvailableLanguages } from '@/i18n';
-import {CommonComponentProps} from "@/interfaces";
+import { CommonComponentProps } from '@/interfaces';
 
 function ClientI18nExample({ lang }: CommonComponentProps) {
   const { t, i18n } = useClientTranslation(lang);

@@ -1,6 +1,6 @@
 import { useTranslation, AvailableLanguages } from '@/i18n';
 import Link from 'next/link';
-import {CommonComponentProps} from "@/interfaces";
+import { CommonComponentProps } from '@/interfaces';
 
 async function I18nExample({ lang }: CommonComponentProps) {
   const { t, i18n } = await useTranslation(lang);

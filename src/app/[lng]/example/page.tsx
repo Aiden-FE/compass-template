@@ -1,9 +1,9 @@
-import I18nExample from '@/components/i18n-example/i18n-example';
 import AppIcon from '@/components/app-icon/app-icon';
-import ThemeExample from './components/theme-example';
 import SvgIcon from '@/components/app-icon/svg-icon';
+import { CommonPageProps } from '@/interfaces';
+import I18nExample from '@/components/i18n-example/i18n-example';
+import ThemeExample from './components/theme-example';
 import ClientI18nExample from './components/i18n-example/client-i18n-example';
-import {CommonPageProps} from "@/interfaces";
 import styles from './index.module.scss';
 
 function ExamplePage({ params: { lng } }: CommonPageProps) {
