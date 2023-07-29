@@ -5,14 +5,14 @@
 
 |         分支          | 说明                          |   最后更新时间   |
 |:-------------------:|:----------------------------|:----------:|
-|     temp/utils      | 纯TS的实用程序基础库模板               | 2023/06/30 |
-|     temp/styles     | 通用样式库模板                     | 2023/07/02 |
+|    temp/monorepo    | 基于Rush的 Monorepo 项目模板       | 2023/07/24 |
+|     temp/utils      | 纯TS的实用程序基础库模板            | 2023/06/30 |
+|      temp/next      | Next 项目模板                   | 2023/07/29 |
+|     temp/react      | React 项目Vite TSX模板,SPA web  | 2023/07/02 |
 |    temp/vue-web     | Vue web项目基础模板               | 2023/07/02 |
 |    temp/vue-lib     | Vue 库项目基础模板                 | 2023/07/04 |
-|    temp/monorepo    | 基于Rush的 Monorepo 项目模板       | 2023/07/24 |
-|     temp/react      | React 项目Vite TSX模板,SPA web  | 2023/07/02 |
-|      temp/next      | Next 项目模板                   | 2023/07/28 |
 |      temp/nest      | Nestjs 后端项目模板               |            |
+|     temp/styles     | 通用样式库模板                     | 2023/07/02 |
 | temp/web-components | Web components组件库模板         |            |
 |  temp/uni-app-vue   | UniApp vue3跨端应用模板           |            |
 |    temp/taro-vue    | Taro vue3跨端应用模板             |            |
