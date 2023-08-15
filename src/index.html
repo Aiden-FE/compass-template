@@ -1,25 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <title>Stencil Component Starter</title>
 
-    <script type="module" src="/dist/compass-web-components/compass-web-components.esm.js"></script>
-    <script nomodule src="/dist/compass-web-components/compass-web-components.js"></script>
-    <script type="module">
-      // import { setupConfig } from '/dist/compass-web-components/index.esm.js';
-      console.log('test run', window);
-      // setupConfig({
-      //   locale: {
-      //     test: {
-      //       hello: "你好, {{ timestamp }}"
-      //     }
-      //   }
-      // })
-    </script>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      html {
+        background-color: #f5f5f5;
+      }
+    </style>
   </head>
   <body>
-    <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.min.js"></script>
+    <div id="app" style="height: 100vh; flex-direction: column; display: flex"></div>
+
+    <link rel='stylesheet' href='/build/web-components.css'>
+    <script type="module" src="/build/web-components.esm.js"></script>
+    <script nomodule src="/build/web-components.js"></script>
+    <script type="module">
+      const { createApp, defineComponent, ref } = Vue;
+      const app = createApp(
+        defineComponent({
+          template: `
+          <cp-example />
+          <cp-debug />
+        `,
+          setup: () => {
+
+            return {};
+          },
+        }),
+      ).mount('#app');
+    </script>
   </body>
 </html>

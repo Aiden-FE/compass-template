@@ -1,87 +1,317 @@
-[![Built With Stencil](https://img.shields.io/badge/-Built%20With%20Stencil-16161d.svg?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI%2BCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI%2BCgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU%2BCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00MjQuNywzNzMuOWMwLDM3LjYtNTUuMSw2OC42LTkyLjcsNjguNkgxODAuNGMtMzcuOSwwLTkyLjctMzAuNy05Mi43LTY4LjZ2LTMuNmgzMzYuOVYzNzMuOXoiLz4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQyNC43LDI5Mi4xSDE4MC40Yy0zNy42LDAtOTIuNy0zMS05Mi43LTY4LjZ2LTMuNkgzMzJjMzcuNiwwLDkyLjcsMzEsOTIuNyw2OC42VjI5Mi4xeiIvPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNDI0LjcsMTQxLjdIODcuN3YtMy42YzAtMzcuNiw1NC44LTY4LjYsOTIuNy02OC42SDMzMmMzNy45LDAsOTIuNywzMC43LDkyLjcsNjguNlYxNDEuN3oiLz4KPC9zdmc%2BCg%3D%3D&colorA=16161d&style=flat-square)](https://stenciljs.com)
+# {{name}}
+> {{description}}
 
-# Stencil Component Starter
+## Feature
 
-This is a starter project for building a standalone Web Component using Stencil.
+### 支持React Hooks
 
-Stencil is also great for building entire apps. For that, use the [stencil-app-starter](https://github.com/ionic-team/stencil-app-starter) instead.
+除 Context API 外可用 Hooks 均可从`@saasquatch/stencil-hooks`导入
 
-# Stencil
+示例:
 
-Stencil is a compiler for building fast web apps using Web Components.
+```tsx
+import { useEffect, useMemo, useState, withHooks } from '@saasquatch/stencil-hooks';
 
-Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than run-time tool.  Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements v1 spec.
+@Component({
+  tag: 'tree-node',
+  styleUrl: 'tree-node.scss',
+  shadow: true,
+})
+export class TreeNode {
+  @Prop() nodeData: NodeData;
 
-Stencil components are just Web Components, so they work in any major framework or with no framework at all.
+  @Prop() indentLevel = 0;
 
-## Getting Started
+  constructor() {
+    withHooks(this); // 必须提供
+  }
 
-To start building a new web component using Stencil, clone this repo to a new directory:
+  render() {
+    const [treeStore, setTreeStore] = useState<TreeStore>(null);
+    const [isExpand, setExpand] = useState(false);
+    const indent = useMemo(() => {
+      return new Array(this.indentLevel).fill(1);
+    }, [this.indentLevel]);
+    const currentId = useMemo(() => {
+      return this.nodeData[treeStore?.fieldNames?.id];
+    }, [this.nodeData, treeStore]);
 
-```bash
-git clone https://github.com/ionic-team/stencil-component-starter.git my-component
-cd my-component
-git remote rm origin
+    useEffect(() => {
+      // ...
+    }, [treeStore, currentId]);
+
+    return (
+      <Host>
+        <div>......</div>
+      </Host>
+    );
+  }
+
+  disconnectedCallback() {} // 必须提供
+}
 ```
 
-and run:
+使用 Context API:
 
-```bash
-npm install
-npm start
+在`src/stores`内新建`tree-context.tsx`文件,示例如下
+
+```tsx
+import { createContext, html } from 'haunted';
+import { FunctionalComponent, h } from '@stencil/core';
+import { TreeStore } from '@/interfaces';
+
+// 创建上下文
+const CDXPTreeContext = createContext<TreeStore>(null);
+
+// 声明可用的provider与consumer
+customElements.define('tree-provider', CDXPTreeContext.Provider);
+customElements.define('tree-consumer', CDXPTreeContext.Consumer);
+
+// 导出Provider
+export const TreeProvider: FunctionalComponent<{ store: TreeStore; style?: Partial<CSSStyleDeclaration> }> = (
+  { store, style },
+  children,
+) => {
+  return (
+    <tree-provider value={store} style={style}>
+      {children}
+    </tree-provider>
+  );
+};
+
+// 导出Consumer
+export const TreeConsumer: FunctionalComponent<{ store: (state: TreeStore) => unknown }> = ({ store }) => {
+  return (
+    <tree-consumer
+      render={(state) => {
+        store(state);
+        return html``;
+      }}
+    ></tree-consumer>
+  );
+};
 ```
 
-To build the component for production, run:
+在`src/stores/index.ts`内导出`export * from './tree-context';`
 
-```bash
-npm run build
+在父组件使用 Provider:
+
+```tsx
+import { TreeProvider } from '@/stores';
+
+@Component({
+  tag: 'tree',
+  styleUrl: 'tree.scss',
+  shadow: true,
+})
+export class Tree {
+  render() {
+    return (
+      <TreeProvider
+        store={
+          {
+            // 传入tree store
+          }
+        }
+      >
+        <div>Dom elements</div>
+      </TreeProvider>
+    );
+  }
+}
 ```
 
-To run the unit tests for the components, run:
+在子组件消费 store:
 
-```bash
-npm test
+```tsx
+import { TreeConsumer } from '@/stores';
+
+@Component({
+  tag: 'tree-node',
+  styleUrl: 'tree-node.scss',
+  shadow: true,
+})
+export class TreeNode {
+  constructor() {
+    withHooks(this);
+  }
+
+  render() {
+    // 用来接收上下文
+    const [treeStore, setTreeStore] = useState<TreeStore>(null);
+
+    return (
+      <Host>
+        <TreeConsumer store={setTreeStore}></TreeConsumer>
+        <div>Use treeStore {treeStore ? Object.keys(treeStore) : null}</div>
+      </Host>
+    );
+  }
+
+  disconnectedCallback() {}
+}
 ```
 
-Need help? Check out our docs [here](https://stenciljs.com/docs/my-first-component).
+- Stencil store
 
+[使用示例](https://github.com/ionic-team/stencil-store#example)
 
-## Naming Components
+### 支持 sass,Postcss,autoprefixer,tailwind
 
-When creating new component tags, we recommend _not_ using `stencil` in the component name (ex: `<stencil-datepicker>`). This is because the generated component has little to nothing to do with Stencil; it's just a web component!
+```tsx
+@Component({
+  tag: 'cp-example',
+  styleUrl: './cp-example.scss', // Use scss file
+  shadow: true,
+})
+export class CPExample {
+  render() {
+    return (
+      <Host>
+        {/* tailwind class */}
+        <div class={'select-none flex-1 truncate'}>Hello world</div>
+      </Host>
+    );
+  }
+}
+```
 
-Instead, use a prefix that fits your company or any name for a group of related components. For example, all of the Ionic generated web components use the prefix `ion`.
+### 支持BEM
 
+```scss
+@import 'src/assets/styles/bem.scss';
 
-## Using this component
+@include b(tree) {
+  // .cp-tree
+  display: flex;
+  @include e(node) {
+    // .cp-tree__node
+    display: flex;
+    @include m(selected) {
+      // .cp-tree__node_selected
+      background-color: aqua;
+    }
+  }
+}
+```
 
-There are three strategies we recommend for using web components built with Stencil.
+前缀默认 cp,如需更换请修改 `src/assets/styles/vars.scss` 文件内的 $domain 值
 
-The first step for all three of these strategies is to [publish to NPM](https://docs.npmjs.com/getting-started/publishing-npm-packages).
+### Icon使用
 
-### Script tag
+使用Svg图标:
 
-- Put a script tag similar to this `<script type='module' src='https://unpkg.com/my-component@0.0.1/dist/my-component.esm.js'></script>` in the head of your index.html
-- Then you can use the element anywhere in your template, JSX, html etc
+```tsx
+import { Component, Host, h } from '@stencil/core';
+import IconArrow from '../../assets/svg/arrow.svg';
 
-### Node Modules
-- Run `npm install my-component --save`
-- Put a script tag similar to this `<script type='module' src='node_modules/my-component/dist/my-component.esm.js'></script>` in the head of your index.html
-- Then you can use the element anywhere in your template, JSX, html etc
+@Component({
+  tag: 'cp-example',
+  shadow: true,
+})
+export class CpExample {
+  render() {
+    return (
+      <Host>
+        <div>
+          <h5>演示Icon使用</h5>
+          使用Svg icon: <span class="w-[24px] h-[24px] inline-block" innerHTML={IconArrow} />
+        </div>
+      </Host>
+    );
+  }
+}
+```
 
-### In a stencil-starter app
-- Run `npm install my-component --save`
-- Add an import to the npm packages `import my-component;`
-- Then you can use the element anywhere in your template, JSX, html etc
+### 状态管理
 
-## TODO
+#### 父子状态
 
-* [x] Eslint
-* [x] Prettier
-* [x] Postcss & autoprefixer
-* [x] Scss
-* [x] Documents of Hope
-* [x] Config Provider
-* [x] I18n
-* [x] Theme (CSS Variables)
-* [ ] Unit test
+通过Props与Event使用即可
+
+#### 祖先状态
+
+参考[React Hooks](#支持react-hooks)Context API用法
+
+#### 全局状态
+
+用法如下:
+
+```tsx
+import { Component, h, Host } from '@stencil/core';
+import { useEffect, useState, withHooks } from '@saasquatch/stencil-hooks';
+import { Context } from '@/interfaces';
+import { getContext, setupContext } from '@/utils';
+import { CONTEXT_CHANGED_EVENT, globalEmitter } from '@/utils/emitter';
+
+@Component({
+  tag: 'cp-example',
+  shadow: true,
+})
+export class CpExample {
+  constructor() {
+    withHooks(this);
+  }
+  render() {
+    const [context, setContext] = useState<Context>(getContext());
+
+    useEffect(() => {
+      const listenCtxChanged = (ctx) => {
+        // eslint-disable-next-line no-console
+        console.log('Debug: ', '收到上下文变更事件');
+        setContext(ctx);
+      };
+      /** 当上下文变更时同步上下文 */
+      globalEmitter.on(CONTEXT_CHANGED_EVENT, listenCtxChanged);
+      return () => globalEmitter.off(CONTEXT_CHANGED_EVENT, listenCtxChanged);
+    }, []);
+    
+    return (
+      <Host>
+        <div>
+          <h5>演示全局上下文使用</h5>
+          当前上下文: {JSON.stringify(context)}
+          <br />
+          <button onClick={() => updateContext()} type="button">
+            变更上下文
+          </button>
+        </div>
+      </Host>
+    )
+  }
+  disconnectedCallback() {}
+}
+```
+
+### 主题使用
+
+通过CSS Variables应用主题, 主题变量定义在`src/assets/styles/theme.scss`
+
+```tsx
+@Component({
+  tag: 'cp-example',
+  shadow: true,
+})
+export class CpExample {
+  render() {
+    return (
+      <div>
+        <h5 class="text-[--cp-wc-primary-color]">主题颜色</h5>
+        <button class="hover:text-[--cp-wc-primary-color]" type="button">
+          Hover display primary color
+        </button>
+      </div>
+    );
+  }
+}
+```
+
+### 国际化
+
+### 支持 Eslint 更健壮的代码检查
+
+`pnpm lint` 进行检查
+
+### 支持 Prettier 格式化
+
+`pnpm format` 进行格式化

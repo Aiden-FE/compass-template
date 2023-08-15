@@ -4,33 +4,27 @@
     "allowUnreachableCode": false,
     "declaration": false,
     "experimentalDecorators": true,
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es2017",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "jsx": "react",
     "jsxFactory": "h",
     "baseUrl": ".",
     "paths": {
-      "@": [
-        "src"
-      ],
-      "@/*": [
-        "src/*"
-      ]
+      "@": ["src"],
+      "@/*": ["src/*"]
     }
   },
-  "include": [
-    "src",
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
+  "include": ["src", "src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules", "src/**/*.d.ts"],
+  "references": [
+    {
+      "path": "tsconfig.node.json"
+    }
   ]
 }

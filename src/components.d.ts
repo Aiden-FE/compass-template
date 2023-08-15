@@ -6,56 +6,45 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface CpDebug {
+    }
+    interface CpExample {
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLCpDebugElement extends Components.CpDebug, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLCpDebugElement: {
+        prototype: HTMLCpDebugElement;
+        new (): HTMLCpDebugElement;
+    };
+    interface HTMLCpExampleElement extends Components.CpExample, HTMLStencilElement {
+    }
+    var HTMLCpExampleElement: {
+        prototype: HTMLCpExampleElement;
+        new (): HTMLCpExampleElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "cp-debug": HTMLCpDebugElement;
+        "cp-example": HTMLCpExampleElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface CpDebug {
+    }
+    interface CpExample {
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "cp-debug": CpDebug;
+        "cp-example": CpExample;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "cp-debug": LocalJSX.CpDebug & JSXBase.HTMLAttributes<HTMLCpDebugElement>;
+            "cp-example": LocalJSX.CpExample & JSXBase.HTMLAttributes<HTMLCpExampleElement>;
         }
     }
 }

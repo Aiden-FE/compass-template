@@ -1,8 +1,7 @@
 {
-  "name": "compass-web-components",
+  "name": "{{name}}",
   "version": "0.0.1",
-  "license": "MIT",
-  "description": "Stencil Component Starter",
+  "description": "{{description}}",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "es2015": "dist/esm/index.mjs",
@@ -10,10 +9,11 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/compass-web-components/compass-web-components.esm.js",
+  "unpkg": "dist/web-components/web-components.esm.js",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ionic-team/stencil-component-starter.git"
+    "url": ""
   },
   "files": [
     "dist/",
@@ -21,16 +21,13 @@
   ],
   "scripts": {
     "build": "stencil build --docs",
-    "dev": "stencil build --dev --watch --serve",
-    "lint": "eslint src --fix --ext .js,.jsx,.ts,.tsx",
-    "format": "prettier --write src",
+    "build:watch": "stencil build --docs --watch",
+    "dev": "stencil build --dev --watch --serve --no-open",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "docs:build": "vuepress build docs",
-    "docs:clean-dev": "vuepress dev docs --clean-cache",
-    "docs:dev": "vuepress dev docs",
-    "docs:update-package": "pnpm dlx vp-update"
+    "lint": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write src"
   },
   "browserslist": {
     "production": [
@@ -46,38 +43,41 @@
     ]
   },
   "dependencies": {
+    "@saasquatch/stencil-hooks": "~2.0.3",
     "@stencil/core": "^3.0.0",
-    "lodash-es": "^4.17.21",
-    "rxjs": "^7.8.0"
+    "@stencil/store": "~2.0.8",
+    "emittery": "^1.0.1",
+    "haunted": "~5.0.0",
+    "lodash-es": "~4.17.21"
   },
   "devDependencies": {
-    "@compass-aiden/eslint-config": "^1.3.1",
-    "@stencil-community/postcss": "^2.1.0",
-    "@stencil/sass": "^3.0.0",
+    "@compass-aiden/eslint-config": "^1.6.3",
+    "@stencil-community/postcss": "~2.1.0",
+    "@stencil/sass": "~3.0.4",
     "@types/jest": "^27.5.2",
-    "@types/lodash-es": "^4.17.7",
+    "@types/lodash-es": "~4.17.7",
     "@types/node": "^16.18.11",
-    "@typescript-eslint/eslint-plugin": "^5.55.0",
-    "@typescript-eslint/parser": "^5.55.0",
-    "@vuepress/client": "2.0.0-beta.61",
-    "autoprefixer": "^10.4.14",
-    "eslint": "^8.36.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
+    "autoprefixer": "~10.4.14",
+    "eslint": "^8.46.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-prettier": "^8.7.0",
-    "eslint-plugin-import": "^2.27.5",
+    "eslint-config-airbnb-typescript": "^17.1.0",
+    "eslint-config-prettier": "^8.9.0",
+    "eslint-plugin-import": "^2.28.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
     "jest": "^27.5.1",
     "jest-cli": "^27.5.1",
-    "postcss": "^8.4.21",
-    "prettier": "^2.8.4",
+    "postcss": "~8.4.24",
+    "prettier": "^3.0.0",
     "puppeteer": "^19.5.2",
-    "typescript": "^4.9.5",
-    "vue": "^3.2.47",
-    "vuepress": "2.0.0-beta.61",
-    "vuepress-theme-hope": "2.0.0-beta.193"
+    "stencil-inline-svg": "~1.1.0",
+    "stencil-tailwind-plugin": "~1.8.0",
+    "tailwindcss": "~3.3.2",
+    "typescript": "~5.1.3"
   }
 }

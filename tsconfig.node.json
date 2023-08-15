@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  },
+  "include": ["stencil.config.ts", "tailwind.config.js", ".eslintrc.js"],
+  "exclude": ["node_modules"]
+}

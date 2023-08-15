@@ -1,0 +1,9 @@
+@include b(example-b) {
+  @apply bg-blue-200;
+  @include e(e) {
+    @apply bg-blue-300;
+    @include m(m) {
+      @apply bg-blue-500;
+    }
+  }
+}
