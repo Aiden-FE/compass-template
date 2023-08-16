@@ -43,14 +43,6 @@
       "incremental": true,
       "enableParallelism": true,
       "allowWarningsInSuccessfulBuild": true
-    },
-    {
-      "name": "rebuild",
-      "commandKind": "bulk",
-      "summary": "Rebuild all projects",
-      "incremental": false,
-      "enableParallelism": true,
-      "allowWarningsInSuccessfulBuild": true
     }
     // {
     //   /**
