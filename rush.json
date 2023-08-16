@@ -189,7 +189,7 @@
      * you might configure your system's trigger to look for a special string such as "[skip-ci]"
      * in the commit message, and then customize Rush's message to contain that string.
      */
-     "versionBumpCommitMessage": "chore: Bump versions [skip ci]",
+     "versionBumpCommitMessage": "chore: bump versions",
 
     /**
      * The commit message to use when committing changes during 'rush version'.
@@ -198,7 +198,7 @@
      * you might configure your system's trigger to look for a special string such as "[skip-ci]"
      * in the commit message, and then customize Rush's message to contain that string.
      */
-     "changeLogUpdateCommitMessage": "chore: Update changelogs [skip ci]"
+     "changeLogUpdateCommitMessage": "chore: update changelogs"
 
     /**
      * The commit message to use when commiting changefiles during 'rush change --commit'
