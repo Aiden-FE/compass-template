@@ -5,7 +5,7 @@
 
 |         分支          | 说明                          |   最后更新时间   |
 |:-------------------:|:----------------------------|:----------:|
-|    temp/monorepo    | 基于Rush的 Monorepo 项目模板       | 2023/07/24 |
+|    temp/monorepo    | 基于Rush的 Monorepo 项目模板       | 2023/08/16 |
 |     temp/utils      | 纯TS的实用程序基础库模板            | 2023/06/30 |
 |      temp/next      | Next 项目模板                   | 2023/07/29 |
 |     temp/react      | React 项目Vite TSX模板,SPA web  | 2023/07/02 |
