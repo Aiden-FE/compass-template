@@ -2,10 +2,7 @@ module.exports = {
   parserOptions: {
     project: ['./tsconfig.json', './tsconfig.node.json'],
   },
-  extends: [
-    '@compass-aiden/eslint-config/react',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['@compass-aiden/eslint-config/react', 'plugin:prettier/recommended'],
   rules: {
     'react/react-in-jsx-scope': 'off', // 不需要使用React导入
     'import/prefer-default-export': 'off', // Stencil 脚手架采用export class Name导出组件

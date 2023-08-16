@@ -26,7 +26,7 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "lint": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint src --fix --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --write src"
   },
   "browserslist": {
