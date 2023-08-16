@@ -5,7 +5,7 @@
 
 ### 支持React Hooks
 
-除 Context API 外可用 Hooks 均可从`@saasquatch/stencil-hooks`导入
+除 Context API 外的 Hooks 均可从`@saasquatch/stencil-hooks`导入
 
 示例:
 
@@ -227,11 +227,11 @@ export class CpExample {
 
 #### 父子状态
 
-通过Props与Event使用即可
+通过Stencil的Props与Event使用即可
 
 #### 祖先状态
 
-参考[React Hooks](#支持react-hooks)Context API用法
+参考[Context API](#支持react-hooks)用法
 
 #### 全局状态
 
@@ -239,10 +239,8 @@ export class CpExample {
 
 ```tsx
 import { Component, h, Host } from '@stencil/core';
-import { useEffect, useState, withHooks } from '@saasquatch/stencil-hooks';
-import { Context } from '@/interfaces';
-import { getContext, setupContext } from '@/utils';
-import { CONTEXT_CHANGED_EVENT, globalEmitter } from '@/utils/emitter';
+import { withHooks } from '@saasquatch/stencil-hooks';
+import { useAppContext } from '@/utils';
 
 @Component({
   tag: 'cp-example',
@@ -253,27 +251,19 @@ export class CpExample {
     withHooks(this);
   }
   render() {
-    const [context, setContext] = useState<Context>(getContext());
-
-    useEffect(() => {
-      const listenCtxChanged = (ctx) => {
-        // eslint-disable-next-line no-console
-        console.log('Debug: ', '收到上下文变更事件');
-        setContext(ctx);
-      };
-      /** 当上下文变更时同步上下文 */
-      globalEmitter.on(CONTEXT_CHANGED_EVENT, listenCtxChanged);
-      return () => globalEmitter.off(CONTEXT_CHANGED_EVENT, listenCtxChanged);
-    }, []);
+    const { context, setContext } = useAppContext();
     
     return (
       <Host>
         <div>
           <h5>演示全局上下文使用</h5>
-          当前上下文: {JSON.stringify(context)}
+          组件大小: {context.componentSize}
           <br />
-          <button onClick={() => updateContext()} type="button">
-            变更上下文
+          <button
+            onClick={() => setContext({ componentSize: context.componentSize === 'middle' ? 'small' : 'middle' })}
+            type="button"
+          >
+            变更组件大小
           </button>
         </div>
       </Host>
@@ -307,6 +297,74 @@ export class CpExample {
 ```
 
 ### 国际化
+
+使用默认 COMMON 命名空间与语言切换示例:
+
+```tsx
+import { useAppContext, useI18n } from '@/utils';
+import zhCN from '../../static/locales/zh-CN.json';
+import EN from '../../static/locales/en.json';
+
+@Component({
+  tag: 'cp-example',
+  shadow: true,
+})
+export class CpExample {
+  constructor() {
+    withHooks(this);
+  }
+  render() {
+    const { t } = useI18n();
+    const { setContext } = useAppContext();
+
+    return (
+      <div>
+        <h5>国际化演示</h5>
+        <p>{t('The current language is')}</p>
+        <button onClick={() => setContext({ language: zhCN })} type="button">
+          使用中文
+        </button>
+        <br />
+        <button onClick={() => setContext({ language: EN })} type="button">
+          使用英文
+        </button>
+      </div>
+    );
+  }
+  disconnectedCallback() {}
+}
+```
+
+使用指定命名空间示例:
+
+```tsx
+import { AvailableLanguagesNS, useI18n } from '@/utils';
+
+@Component({
+  tag: 'cp-example',
+  shadow: true,
+})
+export class CpExample {
+  constructor() {
+    withHooks(this);
+  }
+  render() {
+    // useI18n(AvailableLanguagesNS.LOGIN)
+    // useI18n([AvailableLanguagesNS.LOGIN])
+    const { t } = useI18n(AvailableLanguagesNS.LOGIN);
+
+    return (
+      <div>
+        <h5>国际化演示</h5>
+        <p>common命名空间始终可用: {t('The current language is')}</p>
+        <p>使用指定的Login命名空间: {t('Sign in')}</p>
+        <p>临时使用未指定的prompts命名空间: {t('Unknown error', { ns: AvailableLanguagesNS.PROMPTS })}</p>
+      </div>
+    );
+  }
+  disconnectedCallback() {}
+}
+```
 
 ### 支持 Eslint 更健壮的代码检查
 

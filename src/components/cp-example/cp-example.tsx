@@ -1,7 +1,6 @@
 import { Component, h } from '@stencil/core';
-import { useEffect, useState, withHooks } from '@saasquatch/stencil-hooks';
-import { Context } from '@/interfaces';
-import { CONTEXT_CHANGED_EVENT, getContext, globalEmitter, setupContext } from '@/utils';
+import { withHooks } from '@saasquatch/stencil-hooks';
+import { AvailableLanguagesNS, setupContext, useAppContext, useI18n } from '@/utils';
 import IconArrow from '../../assets/svg/arrow.svg';
 import zhCN from '../../static/locales/zh-CN.json';
 import EN from '../../static/locales/en.json';
@@ -17,27 +16,8 @@ export class CpExample {
   }
 
   render() {
-    const [context, setContext] = useState<Context>(getContext());
-    // const i18n = useTranslation();
-    useEffect(() => {
-      const listenCtxChanged = (ctx) => {
-        // eslint-disable-next-line no-console
-        console.log('Debug: ', '收到上下文变更事件', ctx);
-        setContext(ctx);
-        setTimeout(() => {
-          console.log('context: ', context);
-        }, 500);
-      };
-      /** 当上下文变更时同步上下文 */
-      globalEmitter.on(CONTEXT_CHANGED_EVENT, listenCtxChanged);
-      return () => globalEmitter.off(CONTEXT_CHANGED_EVENT, listenCtxChanged);
-    }, [context]);
-
-    function updateContext() {
-      setupContext({
-        componentSize: 'small',
-      });
-    }
+    const { t } = useI18n(AvailableLanguagesNS.LOGIN);
+    const { context, setContext } = useAppContext();
 
     return (
       <div class="cp-example">
@@ -59,8 +39,13 @@ export class CpExample {
           <h5>演示全局上下文使用</h5>
           当前上下文: {JSON.stringify(context)}
           <br />
-          <button onClick={() => updateContext()} type="button">
-            变更上下文
+          组件大小: {context.componentSize}
+          <br />
+          <button
+            onClick={() => setContext({ componentSize: context.componentSize === 'middle' ? 'small' : 'middle' })}
+            type="button"
+          >
+            变更组件大小
           </button>
         </div>
         <div>
@@ -71,7 +56,9 @@ export class CpExample {
         </div>
         <div>
           <h5>国际化演示</h5>
-          {/* <p>{i18n.t('The current language is')}</p> */}
+          <p>common命名空间始终可用: {t('The current language is')}</p>
+          <p>使用useI18n参数指定的Login命名空间: {t('Sign in')}</p>
+          <p>临时使用未指定的prompts命名空间: {t('Unknown error', { ns: AvailableLanguagesNS.PROMPTS })}</p>
           <button onClick={() => setupContext({ language: zhCN })} type="button">
             使用中文
           </button>

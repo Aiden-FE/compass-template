@@ -6,18 +6,10 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface CpDebug {
-    }
     interface CpExample {
     }
 }
 declare global {
-    interface HTMLCpDebugElement extends Components.CpDebug, HTMLStencilElement {
-    }
-    var HTMLCpDebugElement: {
-        prototype: HTMLCpDebugElement;
-        new (): HTMLCpDebugElement;
-    };
     interface HTMLCpExampleElement extends Components.CpExample, HTMLStencilElement {
     }
     var HTMLCpExampleElement: {
@@ -25,17 +17,13 @@ declare global {
         new (): HTMLCpExampleElement;
     };
     interface HTMLElementTagNameMap {
-        "cp-debug": HTMLCpDebugElement;
         "cp-example": HTMLCpExampleElement;
     }
 }
 declare namespace LocalJSX {
-    interface CpDebug {
-    }
     interface CpExample {
     }
     interface IntrinsicElements {
-        "cp-debug": CpDebug;
         "cp-example": CpExample;
     }
 }
@@ -43,7 +31,6 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "cp-debug": LocalJSX.CpDebug & JSXBase.HTMLAttributes<HTMLCpDebugElement>;
             "cp-example": LocalJSX.CpExample & JSXBase.HTMLAttributes<HTMLCpExampleElement>;
         }
     }

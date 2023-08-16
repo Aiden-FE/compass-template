@@ -16,9 +16,6 @@ setPluginConfigurationDefaults({
 
 export const config: Config = {
   namespace: 'web-components',
-  devServer: {
-    reloadStrategy: 'pageReload',
-  },
   plugins: [
     sass({
       injectGlobalPaths: ['src/assets/styles/bem.scss'],

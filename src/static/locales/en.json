@@ -1,5 +1,12 @@
 {
   "common": {
     "The current language is": "The current language is English"
+  },
+  "login": {
+    "Sign in": "Sign in",
+    "Sign out": "Sign out"
+  },
+  "prompts": {
+    "Unknown error": "Unknown error"
   }
 }

@@ -1,5 +1,12 @@
 {
   "common": {
     "The current language is": "当前语言是中文"
+  },
+  "login": {
+    "Sign in": "登录",
+    "Sign out": "登出"
+  },
+  "prompts": {
+    "Unknown error": "未知错误"
   }
 }
