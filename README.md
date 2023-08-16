@@ -13,7 +13,7 @@
 |    temp/vue-lib     | Vue 库项目基础模板                 | 2023/07/04 |
 |      temp/nest      | Nestjs 后端项目模板               |            |
 |     temp/styles     | 通用样式库模板                     | 2023/07/02 |
-| temp/web-components | Web components组件库模板         |            |
+| temp/web-components | Web components组件库模板         | 2023/08/16 |
 |  temp/uni-app-vue   | UniApp vue3跨端应用模板           |            |
 |    temp/taro-vue    | Taro vue3跨端应用模板             |            |
 
