@@ -14,13 +14,6 @@ ci环境使用此命令`node common/scripts/install-run-rush.js install`
 
 通过 `rush update` 恢复所有依赖
 
-_本地初次运行在 `rush update` 后,执行_
-
-```shell
-rush update-autoinstaller --name common-commands # 安装非业务项目的开发依赖
-rush install # 安装hooks
-```
-
 #### 管理依赖
 > https://rushjs.io/zh-cn/pages/commands/rush_add/
 
