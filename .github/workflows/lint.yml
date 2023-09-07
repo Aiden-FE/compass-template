@@ -1,0 +1,56 @@
+name: Lint Code Base
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  lint:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      # 设置 node
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 设置pnpm
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.27.1
+
+      # 设置 pnpm 缓存文件
+      - name: Cache pnpm
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+          key: pnpm-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      # 恢复项目依赖
+      - name: Install
+        env:
+          HUSKY: 0
+        run: |
+          pnpm install
+
+      # 检查项目
+      - name: Run lint
+        run: |
+          pnpm lint
+
+      # 测试项目
+      - name: Run test
+        run: |
+          pnpm test
+          pnpm test:e2e

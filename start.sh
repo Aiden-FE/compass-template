@@ -1,9 +1,5 @@
 set -e
 
-npm config set registry https://registry.npmmirror.com/
+pnpm install --production --frozen-lockfile
 
-npm install --production
-
-npx prisma generate
-
-node dist/apps/compass-service/main.js
+pnpm start:prod

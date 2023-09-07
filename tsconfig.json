@@ -6,7 +6,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2017",
+    "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
@@ -19,29 +19,11 @@
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
     "paths": {
-      "@shared": [
-        "shared"
+      "@app/common": [
+        "libs/common/src"
       ],
-      "@shared/*": [
-        "shared/*"
-      ],
-      "@app/db": [
-        "libs/db/src"
-      ],
-      "@app/db/*": [
-        "libs/db/src/*"
-      ],
-      "@app/email": [
-        "libs/email/src"
-      ],
-      "@app/email/*": [
-        "libs/email/src/*"
-      ],
-      "@app/redis-manager": [
-        "libs/redis-manager/src"
-      ],
-      "@app/redis-manager/*": [
-        "libs/redis-manager/src/*"
+      "@app/common/*": [
+        "libs/common/src/*"
       ]
     }
   }

@@ -1,0 +1,82 @@
+name: deploy
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    tags:
+      - v*
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'deploy'
+  cancel-in-progress: false
+
+jobs:
+  # Build job
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 签出分支
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Get the version
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      # 设置 node
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 设置pnpm
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.27.1
+
+      # 设置 pnpm 缓存文件
+      - name: Cache pnpm
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+          key: pnpm-cache-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      # 恢复项目依赖
+      - name: Install
+        env:
+          HUSKY: 0
+        run: |
+          pnpm install
+
+      # 构建整个仓库项目
+      - name: Run build
+        env:
+          NODE_ENV: production
+          NODE_OPTIONS: --max_old_space_size=8192
+        run: |
+          pnpm build
+
+      # https://github.com/marketplace/actions/build-and-push-docker-images
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # 构建并推送镜像
+      - name: Build and push to docker
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.DOCKERHUB_IMAGE_NAME }}:${{ env.VERSION }}
+            ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.DOCKERHUB_IMAGE_NAME }}:latest
