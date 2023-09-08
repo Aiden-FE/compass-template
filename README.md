@@ -165,4 +165,3 @@ export class ExampleController {
 * `secrets.DOCKERHUB_TOKEN` Dockerhub api token
 
 **供快速部署和参考使用** 如果该CI和部署地址非自己所要的可直接删除.github文件夹即可
-
