@@ -6,7 +6,9 @@ function mergeValidationErrorMessage(errs: ValidationError[]) {
   const errMsg: string[] = [];
   errs.forEach((errValid) => {
     errMsg.push(
+      // @ts-ignore
       ...Object.keys(errValid.constraints).reduce((msg, k) => {
+        // @ts-ignore
         msg.push(errValid.constraints[k]);
         return msg;
       }, []),
@@ -23,8 +25,10 @@ export default function validateMultipleDto(data: object, dtos: (new () => any)[
     });
     const errValidations = validateSync(d, VALIDATION_OPTION);
     if (!errValidations || errValidations.length === 0) {
+      // @ts-ignore
       valid.push(true);
     } else {
+      // @ts-ignore
       valid.push(...errValidations);
     }
     return valid;

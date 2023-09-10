@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { initYAMLConfig, VALIDATION_OPTION } from '@app/common';
+import { VALIDATION_OPTION } from '@app/common';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -39,5 +39,4 @@ async function bootstrap() {
   await app.listen(3000);
 }
 
-initYAMLConfig();
 bootstrap();

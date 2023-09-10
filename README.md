@@ -15,15 +15,18 @@
 
 ## 特性
 
-### 支持读取YAML配置文件
+### 支持读取.env配置文件
 
 ```typescript
-import { getYAMLConfig } from '@app/common';
+import { getEnvConfig } from '@app/common';
 
-console.log('配置文件: ', getYAMLConfig());
+console.log('所有配置变量: ', getEnvConfig());
+console.log('指定配置变量: ', getEnvConfig('NODE_ENV'));
 ```
 
-指定process.env.CONFIG_YAML变量时,采用process.cwd() + CONFIG_YAML的路径,否则开发环境读取 config.dev.yml,生产读取 config.prod.yml
+配置文件默认读取程序执行目录下的.env文件,需要修改配置路径提供ENV_FILE_PATH环境变量即可, 内部取值: `process.env.ENV_FILE_PATH || path.join(process.cwd(), '.env')`
+
+所有可用的环境变量请参考`libs/common/src/interfaces/environment.ts`文件内的EnvironmentVariables类型定义说明
 
 ### Typescript/Jest/Airbnb Eslint/Prettier
 

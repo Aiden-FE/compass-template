@@ -1,5 +1,3 @@
-export const IS_DEV = process?.env?.NODE_ENV === 'development';
-
 export const VALIDATION_OPTION = {
   transform: true, // 转换数据
   whitelist: true, // 剥离装饰器不验证的项目
