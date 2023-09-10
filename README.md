@@ -26,7 +26,7 @@ console.log('指定配置变量: ', getEnvConfig('NODE_ENV'));
 
 配置文件默认读取程序执行目录下的.env文件,需要修改配置路径提供ENV_FILE_PATH环境变量即可, 内部取值: `process.env.ENV_FILE_PATH || path.join(process.cwd(), '.env')`
 
-所有可用的环境变量请参考`libs/common/src/interfaces/environment.ts`文件内的EnvironmentVariables类型定义说明
+所有可用的环境变量请参考`libs/common/src/interfaces/environment.ts`文件内的 `EnvironmentVariablesDto` 类型定义说明
 
 ### Typescript/Jest/Airbnb Eslint/Prettier
 
