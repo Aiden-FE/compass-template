@@ -1,21 +1,21 @@
 <!-- TOC -->
 * [compass nest template](#compass-nest-template)
-  * [特性](#特性)
-    * [支持读取YAML配置文件](#支持读取yaml配置文件)
+  * [特性](#)
+    * [支持读取配置文件](#)
     * [Typescript/Jest/Airbnb Eslint/Prettier](#typescriptjestairbnb-eslintprettier)
-    * [接口多版本支持](#接口多版本支持)
-    * [接口限流保护](#接口限流保护)
-    * [约束接口进参,移除非白名单属性,自动转换数据为符合预期的类型](#约束接口进参移除非白名单属性自动转换数据为符合预期的类型)
-    * [支持Swagger API文档](#支持swagger-api文档)
-    * [基于Docker快速构建分发](#基于docker快速构建分发)
-    * [默认提供Github Actions文件进行自动lint和部署](#默认提供github-actions文件进行自动lint和部署)
+    * [接口多版本支持](#)
+    * [接口限流保护](#)
+    * [约束接口进参,移除非白名单属性,自动转换数据为符合预期的类型](#)
+    * [支持Swagger API文档](#swagger-api)
+    * [基于Docker快速构建分发](#docker)
+    * [默认提供Github Actions文件进行自动lint和部署](#github-actionslint)
 <!-- TOC -->
 
 # compass nest template
 
 ## 特性
 
-### 支持读取.env配置文件
+### 支持读取配置文件
 
 ```typescript
 import { getEnvConfig } from '@app/common';
