@@ -14,7 +14,7 @@ import { AppService } from './app.service';
         ttl: getEnvConfig('APP_THROTTLE_TTL'),
         // 单位时间内限制的次数
         limit: getEnvConfig('APP_THROTTLE_LIMIT'),
-      }
+      },
     ]),
   ],
   controllers: [AppController],

@@ -1,10 +1,10 @@
-import { cloneDeep, get } from 'lodash';
-import { EnvironmentVariables } from "@app/common/interfaces";
-import Ajv from "ajv";
+import { cloneDeep, get, merge } from 'lodash';
+import { EnvironmentVariables } from '@app/common/interfaces';
+import Ajv from 'ajv';
 import { parse as dotenvParse } from 'dotenv';
-import {readFileSync} from "fs";
+import { readFileSync } from 'fs';
 import { join } from 'path';
-import {Logger} from "@nestjs/common";
+import { Logger } from '@nestjs/common';
 
 const ajv = new Ajv({
   removeAdditional: true, // 移除未定义属性
@@ -26,8 +26,8 @@ const schema = {
     APP_THROTTLE_LIMIT: {
       type: 'integer',
       default: 60,
-    }
-  }
+    },
+  },
 };
 
 const validateEnv = ajv.compile(schema);
@@ -51,13 +51,16 @@ function initEnvConfig() {
     Logger.error(`配置数据验证失败,请检查是否符合Schema要求: ${schema}`);
     return;
   }
-  
-  config = data as unknown as EnvironmentVariables;
+
+  config = merge({}, process.env, data);
   isInit = true;
 }
 
 // 获取环境变量
-export function getEnvConfig<Key extends keyof EnvironmentVariables>(key: Key, defaultValue?: EnvironmentVariables[Key]): EnvironmentVariables[Key];
+export function getEnvConfig<Key extends keyof EnvironmentVariables>(
+  key: Key,
+  defaultValue?: EnvironmentVariables[Key],
+): EnvironmentVariables[Key];
 // 获取环境变量
 export function getEnvConfig(): EnvironmentVariables;
 // 获取环境变量

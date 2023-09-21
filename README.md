@@ -1,14 +1,14 @@
 <!-- TOC -->
 * [compass nest template](#compass-nest-template)
-  * [特性](#)
-    * [支持读取配置文件](#)
+  * [特性](#特性)
+    * [支持读取配置文件](#支持读取配置文件)
     * [Typescript/Jest/Airbnb Eslint/Prettier](#typescriptjestairbnb-eslintprettier)
-    * [接口多版本支持](#)
-    * [接口限流保护](#)
-    * [约束接口进参,移除非白名单属性,自动转换数据为符合预期的类型](#)
-    * [支持Swagger API文档](#swagger-api)
-    * [基于Docker快速构建分发](#docker)
-    * [默认提供Github Actions文件进行自动lint和部署](#github-actionslint)
+    * [接口多版本支持](#接口多版本支持)
+    * [接口限流保护](#接口限流保护)
+    * [约束接口进参,移除非白名单属性,自动转换数据为符合预期的类型](#约束接口进参移除非白名单属性自动转换数据为符合预期的类型)
+    * [支持Swagger API文档](#支持swagger-api文档)
+    * [基于Docker快速构建分发](#基于docker快速构建分发)
+    * [默认提供Github Actions文件进行自动lint和部署](#默认提供github-actions文件进行自动lint和部署)
 <!-- TOC -->
 
 # compass nest template
@@ -27,6 +27,28 @@ console.log('指定配置变量: ', getEnvConfig('NODE_ENV'));
 配置文件默认读取程序执行目录下的.env文件,需要修改配置路径提供ENV_FILE_PATH环境变量即可, 内部取值: `process.env.ENV_FILE_PATH || path.join(process.cwd(), '.env')`
 
 所有可用的环境变量请参考`libs/common/src/interfaces/environment.ts`文件内的 `EnvironmentVariablesDto` 类型定义说明
+
+初始化的定义如下所示,具体请参考实际类型定义内容:
+
+```typescript
+export interface EnvironmentVariablesDto {
+  /**
+   * 环境变量
+   * @default process.env.NODE_ENV | 'production'
+   */
+  NODE_ENV?: 'development' | 'production';
+  /**
+   * API节流间隔 毫秒单位
+   * @default 60000
+   */
+  APP_THROTTLE_TTL?: number;
+  /**
+   * 节流间隔内的限制次数
+   * @default 60
+   */
+  APP_THROTTLE_LIMIT?: number;
+}
+```
 
 ### Typescript/Jest/Airbnb Eslint/Prettier
 
@@ -87,12 +109,11 @@ export class ExampleController {
 }
 ```
 
-要修改默认配置前往`src/app.module.ts`文件,通过配置文件配置请修改`config.*.yml`文件:
+要修改默认配置前往`src/app.module.ts`文件,通过.env配置文件修改以下配置
 
-```yaml
-throttle:
-  ttl: 60000
-  limit: 10
+```dotenv
+APP_THROTTLE_TTL=60000
+APP_THROTTLE_LIMIT=60
 ```
 
 ### 约束接口进参,移除非白名单属性,自动转换数据为符合预期的类型
@@ -148,14 +169,13 @@ export class ExampleController {
 
 `npm run start:dev` 或其他start启动项目后,访问/api/docs路径
 
-
 ### 基于Docker快速构建分发
 
 `pnpm build` 构建产物
 
 `docker build . -t <image_name>` 构建镜像
 
-`docker run -d -p <port>:3000 --name <container_name> -v <config_yaml_file>:/root/compass-service/config.prod.yml <image_name>` (-p,--name, -v均为可选参数,) 运行镜像,配置文件格式参考 config.example.yml 文件说明
+`docker run -d -p <port>:3000 --name <container_name> -v <env_file>:/root/compass-service/.env <image_name>` (-p,--name, -v均为可选参数,) 运行镜像,配置文件格式参考 EnvironmentVariablesDto 类型定义
 
 ### 默认提供Github Actions文件进行自动lint和部署
 

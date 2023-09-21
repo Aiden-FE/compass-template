@@ -16,4 +16,6 @@ export interface EnvironmentVariablesDto {
   APP_THROTTLE_LIMIT?: number;
 }
 
-export type EnvironmentVariables = Required<EnvironmentVariablesDto>;
+// 与默认值合并后的环境变量声明
+export type EnvironmentVariables = EnvironmentVariablesDto &
+  Required<Pick<EnvironmentVariablesDto, 'NODE_ENV' | 'APP_THROTTLE_TTL' | 'APP_THROTTLE_LIMIT'>>;
