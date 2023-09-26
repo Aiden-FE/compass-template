@@ -9,6 +9,7 @@
     * [支持Swagger API文档](#支持swagger-api文档)
     * [基于Docker快速构建分发](#基于docker快速构建分发)
     * [默认提供Github Actions文件进行自动lint和部署](#默认提供github-actions文件进行自动lint和部署)
+    * [统一的响应拦截器,规范返回数据](#统一的响应拦截器规范返回数据)
 <!-- TOC -->
 
 # compass nest template
@@ -26,29 +27,12 @@ console.log('指定配置变量: ', getEnvConfig('NODE_ENV'));
 
 配置文件默认读取程序执行目录下的.env文件,需要修改配置路径提供ENV_FILE_PATH环境变量即可, 内部取值: `process.env.ENV_FILE_PATH || path.join(process.cwd(), '.env')`
 
-所有可用的环境变量请参考`libs/common/src/interfaces/environment.ts`文件内的 `EnvironmentVariablesDto` 类型定义说明
+所有可用的环境变量`.env.example`文件使用. 类型与schema约束分别位于`libs/common/src/interfaces/environment.ts`和`libs/common/src/config/env-config.ts`
 
-初始化的定义如下所示,具体请参考实际类型定义内容:
-
-```typescript
-export interface EnvironmentVariablesDto {
-  /**
-   * 环境变量
-   * @default process.env.NODE_ENV | 'production'
-   */
-  NODE_ENV?: 'development' | 'production';
-  /**
-   * API节流间隔 毫秒单位
-   * @default 60000
-   */
-  APP_THROTTLE_TTL?: number;
-  /**
-   * 节流间隔内的限制次数
-   * @default 60
-   */
-  APP_THROTTLE_LIMIT?: number;
-}
-```
+当需要新增环境变量时建议:
+1. .env.example 文件更新示例说明
+2. 类型文件更新定义
+3. schema定义更新,清洗转化数据
 
 ### Typescript/Jest/Airbnb Eslint/Prettier
 
@@ -175,7 +159,7 @@ export class ExampleController {
 
 `docker build . -t <image_name>` 构建镜像
 
-`docker run -d -p <port>:3000 --name <container_name> -v <env_file>:/root/compass-service/.env <image_name>` (-p,--name, -v均为可选参数,) 运行镜像,配置文件格式参考 EnvironmentVariablesDto 类型定义
+`docker run -d -p <port>:3000 --name <container_name> -v <node_modules_dir>:/root/compass-service/node_modules -v <env_file>:/root/compass-service/.env <image_name>` (-p,--name, -v均为可选参数,) 运行镜像,.env配置文件格式参考 .env.example
 
 ### 默认提供Github Actions文件进行自动lint和部署
 
@@ -188,3 +172,40 @@ export class ExampleController {
 * `secrets.DOCKERHUB_TOKEN` Dockerhub api token
 
 **供快速部署和参考使用** 如果该CI和部署地址非自己所要的可直接删除.github文件夹即可
+
+### 统一的响应拦截器,规范返回数据
+
+在`libs/common/src/interceptors/response.interceptor.ts`定义的默认拦截逻辑,示例如下:
+
+```typescript
+import { BusinessStatus, HttpResponse } from '@app/common';
+
+@Controller('example')
+export class ExampleController {
+  @Get('test')
+  test() {
+    return 'Hello world.'; // 实际响应: new HttpResponse({ data: 'Hello world.' })
+  }
+
+  @Get('test2')
+  test2() {
+    return new HttpResponse('Hello world.', { responseType: 'raw' }); // 实际响应: 'Hello world.'
+  }
+
+  @Get('test3')
+  test3() {
+    // 尽管是throw,但是客户端收到的返回依旧以HttpResponse配置为准,可以用来快捷中断程序逻辑执行,又控制响应的状态与数据
+    throw new HttpResponse({
+      data: 'Hello world.',
+      statusCode: BusinessStatus.BAD_REQUEST,
+      httpStatus: HttpStatus.FORBIDDEN,
+    });
+  }
+
+  @Get('test4')
+  test4() {
+    // 实际响应 new HttpResponse({ httpStatus: HttpStatus.INTERNAL_SERVER_ERROR, statusCode: BusinessStatus.INTERNAL_SERVER_ERROR, message: 'Server internal error' })
+    throw new Error('Unknown error');
+  }
+}
+```
