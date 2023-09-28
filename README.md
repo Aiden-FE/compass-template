@@ -209,3 +209,70 @@ export class ExampleController {
   }
 }
 ```
+
+### JWT Token处理
+
+#### 微服务模式
+
+放开 `src/main.ts` 内 `app.useGlobalGuards(new JWTAuthGuard(reflector));` 相关内容的注释
+
+调整 `libs/common/src/guards/jwt-auth.guard.ts` 注释内容,切换为rpc模式
+
+声明开放类或接口:
+```typescript
+import { MSPayload, Public } from '@app/common';
+
+@Public() // 这里声明整个类都是开放的
+@Controller()
+export class OauthController {
+  @MessagePattern({
+    method: 'POST',
+    url: '/oauth/test',
+  })
+  async test(@MSPayload('body') payload: PayloadDto) {
+    return payload;
+  }
+
+  @Public() // 这里仅声明接口是开放的
+  @MessagePattern({
+    method: 'POST',
+    url: '/oauth/test2',
+  })
+  async test2(@MSPayload('body') payload: PayloadDto) {
+    return payload;
+  }
+}
+```
+
+其中 MSPayload 装饰器帮助快捷获取微服务参数
+
+声明保护类或接口:
+```typescript
+import { Auth, PERMISSIONS } from '@app/common';
+
+@Auth() // 这里声明整个类都是需要授权信息的,但不指明具体权限,用户权限不为空即可
+@Controller()
+export class TestController {
+  @Auth(PERMISSIONS.TEST) // 这里声明需要TEST权限
+  @Get('test')
+  async test(@Payload() payload: PayloadDto) {
+    return payload;
+  }
+
+  @Auth([PERMISSIONS.TEST, PERMISSIONS.TEST2]) // 这里声明需要TEST以及TEST2双权限
+  @Get('test2')
+  async test2(@Payload() payload: PayloadDto) {
+    return payload;
+  }
+
+  @Auth([PERMISSIONS.TEST, PERMISSIONS.TEST2], 'OR') // 这里声明需要TEST或TEST2之一的权限
+  @Get('test3')
+  async test3(@Payload() payload: PayloadDto) {
+    return payload;
+  }
+}
+```
+
+#### 独立服务模式
+
+基本等同于微服务的使用方式,区别只是调整 `libs/common/src/guards/jwt-auth.guard.ts` 注释内容,使用http模式并调整user的获取方式即可

@@ -5,3 +5,12 @@ export const VALIDATION_OPTION = {
   // skipMissingProperties: true, // 跳过未定义或定义null的验证
   // disableErrorMessages: true, // 禁用详细错误信息
 };
+
+// 公开接口或类的元数据
+export const IS_PUBLIC_KEY = 'public';
+
+// 指定授权接口或类的元数据
+export const AUTH_KEY = 'AUTH';
+
+// 集中定义可用权限
+export enum PERMISSIONS {}

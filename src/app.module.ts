@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
-import { getEnvConfig } from '@app/common';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { getEnvConfig, ThrottlerBehindProxyGuard } from '@app/common';
 import { APP_GUARD } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -22,7 +22,7 @@ import { AppService } from './app.service';
     AppService,
     {
       provide: APP_GUARD,
-      useClass: ThrottlerGuard,
+      useClass: ThrottlerBehindProxyGuard,
     },
   ],
 })
