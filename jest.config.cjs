@@ -5,7 +5,7 @@ module.exports = {
   },
   testMatch: ['<rootDir>/src/**/*.spec.ts'],
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.node.json' }],
+    '^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.test.json' }],
   },
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],

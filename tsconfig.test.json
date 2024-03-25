@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "types": ["node", "jest"],
+    "baseUrl": ".",
+    "paths": {
+      "@": ["src"],
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*.spec.ts"]
+}

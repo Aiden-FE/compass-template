@@ -1,0 +1,28 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "types": ["node"]
+  },
+  "include": [
+    "src/node.ts",
+    "src/node-modules/**/*.ts",
+    "src/common-modules/**/*.ts",
+    "src/interfaces/**/*.ts",
+    {{#if enabledEslint}}
+    ".eslintrc.cjs",
+    {{/if}}
+    {{#if enabledJest}}
+    "jest.config.cjs",
+    {{/if}}
+    {{#if enabledCommitlint}}
+    "commitlint.config.js",
+    {{/if}}
+    "rollup.config.js"
+  ],
+  {{#if enabledJest}}
+  "exclude": ["src/**/*.spec.ts"]
+  {{else}}
+  "exclude": []
+  {{/if}}
+}

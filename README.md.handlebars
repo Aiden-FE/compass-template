@@ -1,0 +1,104 @@
+# {{projectName}}
+
+> {{projectDescription}}
+
+## Getting Started
+
+### web项目使用
+
+npm方式安装:
+
+`npm install {{projectName}}`
+
+```typescript
+// 自动识别导入esm文件
+import { formatDate } from '{{projectName}}';
+// 全量导入
+import * as allHelpers from '{{projectName}}';
+// 通过别名路径导入esm文件
+import { formatDate } from '{{projectName}}/esm';
+```
+
+浏览器script标签安装:
+
+```html
+<!-- 请根据个人需求采用unpkg或者jsdelivr链接 -->
+<script src="https://unpkg.com/{{projectName}}@latest/dist/{{projectName}}.umd.js"></script>
+<script>
+  console.log(window['{{projectName}}'].formatDate());
+</script>
+```
+
+### node项目使用
+
+npm方式安装:
+
+`npm install {{projectName}}`
+
+```typescript
+// 自动导入cjs文件
+const { createFile } = require('{{projectName}}');
+// 全量导入
+const { createFile } = require('{{projectName}}');
+
+/** 在type: module启用ESM环境下,请参考如下方式 */
+// 通过别名路径导入cjs文件,如果不能识别条件导出,tsconfig可设置 `{ "moduleResolution": "bundler" }`
+import { createFile } from '{{projectName}}/cjs';
+// 自动导入默认cjs文件, 当 tsconfig 配置包含 `{ "moduleResolution": "NodeNext" }`时可用
+import { createFile } from '{{projectName}}';
+```
+
+## Contributes
+
+### Install
+
+`pnpm install`
+
+### Base commands
+
+- `pnpm dev` 启用开发模式
+- `pnpm build` 生产构建
+{{#if enabledEslint}}
+- `pnpm lint` 代码校验
+{{/if}}
+{{#if enabledPrettier}}
+- `pnpm format` 代码格式化
+{{/if}}
+{{#if enabledJest}}
+- `pnpm test` 执行单元测试
+{{/if}}
+{{#if enabledTypedoc}}
+- `pnpm build:doc` 构建文档
+{{/if}}
+
+### 添加一个新的工具函数
+
+1. 请先确定该函数适用的平台 Web/Node/Common
+2. 通用函数请放入 `src/common-modules`
+3. Web平台函数放入 `src/web-modules`
+4. Node平台函数放入 `src/node-modules`
+{{#if enabledTypedoc}}
+5. 为函数添加一定的文档描述,如下示例
+
+```typescript
+// src/web-modules/example.ts
+
+/**
+ * @category Tools
+ */
+export default function example() {
+  console.log('可指定的category在 src/web.ts 或 src/node.ts 文件顶部声明');
+}
+```
+
+更多文档注解参考 [TypeDoc](https://typedoc.org/guides/overview/)
+{{/if}}
+
+{{#if enabledGithubActions}}
+### Publish library
+
+> 使用Github actions自动发布依赖提供 secrets.NPM_AUTH_TOKEN 变量
+
+1. 变更package.json内的version字段
+2. 提交合并请求至master即可
+{{/if}}

@@ -1,0 +1,59 @@
+name: Lint and test
+
+on:
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  lint:
+    name: Lint and test code
+    runs-on: ubuntu-latest
+    steps:
+      # 签出分支
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      # 设置node环境
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 设置pnpm
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8.7.1
+
+      # 设置 pnpm 缓存文件
+      - name: Cache pnpm
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+          key: pnpm-cache-$\{{ runner.os }}-$\{{ hashFiles('pnpm-lock.yaml') }}
+
+      # 恢复项目依赖
+      - name: Install
+        env:
+          # HUSKY: 0
+          SKIP_INSTALL_SIMPLE_GIT_HOOKS: 1
+          SKIP_SIMPLE_GIT_HOOKS: 1
+        run: |
+          pnpm install
+
+      {{#if enabledEslint}}
+      # 检查项目
+      - name: Run lint
+        run: |
+          pnpm lint
+      {{/if}}
+
+      {{#if enabledJest}}
+      # 测试项目
+      - name: Run test
+        run: |
+          pnpm test
+      {{/if}}
