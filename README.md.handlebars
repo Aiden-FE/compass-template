@@ -1,0 +1,104 @@
+# {{projectName}}
+> {{projectDescription}}
+
+## Getting Started
+
+`npm install {{projectName}}` 安装依赖
+{{#if enabledStylelint }}
+
+`npm run lint` 执行Stylelint检查
+{{/if}}
+
+`npm run dev` 进入开发模式
+
+`npm run build` 执行生产构建
+
+### Use bem.scss
+
+vite配置为例,其他项目类似,全局导入即可
+
+scss的可空变量如下, 可根据业务实际情况进行再次声明覆盖
+
+```scss
+$domain: {{domain}} !default;
+$block-separator: '-' !default;
+$element-separator: '__' !default;
+$modifier-separator: '_' !default;
+```
+
+```typescript
+export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @import "{{projectName}}/dist/static/bem.scss";
+        `
+      },
+    }
+  },
+})
+```
+
+模板内使用,以Vue为例
+```vue
+<template>
+  <div class="{{domain}}-container">
+    <button class="{{domain}}-container__button {{domain}}-container__button_active">Test</button>
+  </div>
+  <div class="demo-container"></div>
+</template>
+
+<style scoped lang="scss">
+@include b(container) { /** {{domain}}-container */
+  @include e(button) { /** {{domain}}-container__button */
+    @include m(active) {} /** {{domain}}-container__button_active */
+  }
+  /** 选择多个元素, {{domain}}-container__button,{{domain}}-container__input */
+  @include e((button, input)) {}
+}
+
+/** 重新定义domain, demo-container */
+@include b(container, demo) {}
+</style>
+```
+
+### Use styles
+
+```stylus
+// 导入所有css文件, 等同于 @import '{{projectName}}/assets/main.css';
+@import '{{projectName}}';
+// 导入特定文件
+@import '{{projectName}}/assets/base.css'; // 单独导入基础样式表
+```
+
+#### CSS variables and class
+
+##### dist/assets/main.css
+
+类:
+* 添加 .{{domain}}-clearfix 类清除浮动
+* 添加 .{{domain}}-selection 文本选择颜色控制
+* 添加 .{{domain}}-scrollbar 统一滚动条样式
+* 添加 .{{domain}}-scrollbar_leave-hidden 离开内容区滚动条自动隐藏
+
+CSS变量:
+* --{{domain}}-foreground-color 字体前景颜色
+* --{{domain}}-background-color 页面背景颜色
+* --{{domain}}-font-size-base   基础默认字体大小
+* --{{domain}}-line-height-base 基础默认行高
+* --{{domain}}-selection-color 选择区颜色
+* --{{domain}}-selection-bg-color 选择区背景色
+* --{{domain}}-scrollbar-bg-color 滚动条背景色
+* --{{domain}}-scrollbar-thumb-bg-color 滚动条滑块背景色
+* --{{domain}}-scrollbar-thumb-border-color 滚动条滑块边框色
+* --{{domain}}-scrollbar-track-bg-color 滚动条外层轨道背景色
+* --{{domain}}-scrollbar-size 滚动条y, x轴的宽高
+
+##### dist/assets/base.css
+
+CSS变量:
+* --{{domain}}-foreground-color 字体前景颜色
+* --{{domain}}-background-color 页面背景颜色
+* --{{domain}}-font-size-base   基础默认字体大小
+* --{{domain}}-line-height-base 基础默认行高

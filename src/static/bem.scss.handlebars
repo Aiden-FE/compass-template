@@ -34,15 +34,15 @@ $element-selector: '' !default;
 @mixin e($element) {
   $element-selector: $element !global;
   $selector: &; // 保存当前父级
-  $currentSelector: ""; // 存储遍历后的最新选择器
+  $current-selector: ""; // 存储遍历后的最新选择器
 
   // 枚举多参场景
   @each $unit in $element {
-    $currentSelector: #{$currentSelector + "." + $block-selector + $element-separator + $unit + ","};
+    $current-selector: #{$current-selector + "." + $block-selector + $element-separator + $unit + ","};
   }
 
   @at-root {
-    #{$currentSelector} {
+    #{$current-selector} {
       @content;
     }
   }
@@ -56,15 +56,15 @@ $element-selector: '' !default;
  */
 @mixin m($modifier) {
   $selector: &; // 保存当前父级
-  $currentSelector: ""; // 存储遍历后的最新选择器
+  $current-selector: ""; // 存储遍历后的最新选择器
 
   // 枚举多参场景
   @each $unit in $modifier {
-    $currentSelector: #{$currentSelector + & + $modifier-separator + $unit + ","};
+    $current-selector: #{$current-selector + & + $modifier-separator + $unit + ","};
   }
 
   @at-root {
-    #{$currentSelector} {
+    #{$current-selector} {
       @content;
     }
   }

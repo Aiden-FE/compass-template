@@ -5,11 +5,8 @@ import autoprefixer from "autoprefixer";
 import summary from 'rollup-plugin-summary'
 import serve from 'rollup-plugin-serve'
 import {builtinModules} from "node:module";
-import fs from 'node:fs';
 import process from 'node:process';
-
-const rawPack = fs.readFileSync('package.json', { encoding: 'utf-8' });
-const pack = JSON.parse(rawPack);
+import pack from './package.json' assert { type: 'json' };
 
 const isProd = !(process.env.npm_lifecycle_event === 'dev');
 
@@ -60,8 +57,6 @@ function getOutput(
 const entryList = [
   'src/main.scss',
   'src/base.scss',
-  'src/tools.scss',
-  'src/scrollbar.scss',
 ]
 
 export default [
