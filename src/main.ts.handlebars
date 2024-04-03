@@ -1,0 +1,23 @@
+import { Command } from 'commander';
+import figlet from 'figlet';
+import chalk from 'chalk';
+import { name, version } from '../package.json';
+import * as allCommands from './commands';
+import { Logger } from './utils';
+
+export default () => {
+  const program = new Command();
+
+  Object.keys(allCommands).forEach((key) => (allCommands as Record<string, Function>)[key](program));
+
+  program
+    .version(`v${version}`, '-v, --version')
+    .description('Command line interfaces')
+    .usage('<command> [option]')
+    .on('--help', () => {
+      Logger.log(`\r\n${figlet.textSync(name)}`);
+      // 新增说明信息
+      Logger.log(`\r\nRun ${chalk.cyan('{{commandName}} <command> --help')} show details\r\n`);
+    })
+    .parse(process.argv);
+};
