@@ -8,6 +8,7 @@
 | temp/utils  | 纯TS的实用程序工具库模板,支持Web与Node双平台工具导出 |  2024/03/25  |
 | temp/styles | 样式库基础模板                                       |  2024/03/26  |
 |  temp/cli   | 命令行项目模板                                       |  2024/04/03  |
+|  temp/next  | Next 项目模板                                        |  2024/06/07  |
 
 ### 使用动态模板
 
@@ -20,7 +21,6 @@
 |        分支         | 说明                           | 最后更新时间 |
 | :-----------------: | :----------------------------- | :----------: |
 |    temp/monorepo    | 基于Rush的 Monorepo 项目模板   |  2023/08/16  |
-|      temp/next      | Next 项目模板                  |  2023/07/29  |
 |     temp/react      | React 项目Vite TSX模板,SPA web |  2023/07/02  |
 |    temp/vue-web     | Vue web项目基础模板            |  2023/07/02  |
 |    temp/vue-lib     | Vue 库项目基础模板             |  2023/07/04  |
