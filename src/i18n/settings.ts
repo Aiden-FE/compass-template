@@ -1,13 +1,12 @@
 import { AvailableLanguages, Languages, AvailableLanguagesNS } from '@/config';
 
-// eslint-disable-next-line import/prefer-default-export
-export function getOptions(
-  lng = AvailableLanguages.ZH_CN,
+export default function getOptions(
+  lng = AvailableLanguages.ZH,
   ns: AvailableLanguagesNS | AvailableLanguagesNS[] = AvailableLanguagesNS.COMMON,
 ) {
   return {
     supportedLngs: Languages,
-    fallbackLng: AvailableLanguages.ZH_CN,
+    fallbackLng: AvailableLanguages.ZH,
     lng,
     fallbackNS: AvailableLanguagesNS.COMMON,
     defaultNS: AvailableLanguagesNS.COMMON,

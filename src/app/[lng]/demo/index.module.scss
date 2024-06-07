@@ -1,0 +1,9 @@
+@include b(block) {
+  @apply text-xl;
+  @include e(element) {
+    @apply text-base;
+    @include m(modifier) {
+      @apply text-xs;
+    }
+  }
+}

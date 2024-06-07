@@ -1,9 +1,9 @@
 import { AvailableLanguages } from '@/config';
 
 export interface PageProps {
-  params: { lng?: AvailableLanguages };
+  params: { lng: AvailableLanguages };
 }
 
-export interface ComponentProps {
-  lang?: AvailableLanguages;
+export interface AppComponentProps {
+  lng?: AvailableLanguages;
 }

@@ -6,8 +6,9 @@ import { AvailableLanguages, Languages } from '@/config';
 acceptLanguage.languages(Languages);
 
 export const config = {
-  // matcher: '/:lng*'
-  matcher: ['/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)'],
+  matcher: [
+    '/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js|.*\\.svg$).*)',
+  ],
 };
 
 const cookieName = 'i18next';
@@ -17,7 +18,7 @@ export function middleware(req: NextRequest) {
   let lng;
   if (req.cookies.has(cookieName)) lng = acceptLanguage.get(req.cookies.get(cookieName)!.value);
   if (!lng) lng = acceptLanguage.get(req.headers.get('Accept-Language'));
-  if (!lng) lng = AvailableLanguages.ZH_CN;
+  if (!lng) lng = AvailableLanguages.ZH;
 
   // Redirect if lng in path is not supported
   if (
