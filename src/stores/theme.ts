@@ -1,4 +1,5 @@
 import { createStore } from 'zustand/vanilla';
+import { AvailableTheme } from '@/config';
 
 export type ThemeState = {
   /**
@@ -6,7 +7,7 @@ export type ThemeState = {
    * - dark 暗色主题
    * - system 系统主题
    */
-  currentTheme: 'light' | 'dark' | 'system';
+  currentTheme: AvailableTheme;
   currentSystemTheme: 'light' | 'dark';
 };
 
@@ -37,6 +38,7 @@ export const createThemeStore = (initState: ThemeState = createDefaultThemeState
     ...initState,
     setTheme: (targetTheme) =>
       set((state) => {
+        localStorage.setItem('theme', targetTheme);
         if (targetTheme === 'system') {
           document.documentElement.setAttribute('data-theme', state.currentSystemTheme);
         } else {

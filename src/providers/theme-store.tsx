@@ -3,6 +3,7 @@
 import { type ReactNode, createContext, useRef, useContext, useEffect } from 'react';
 import { type StoreApi, useStore } from 'zustand';
 import { type ThemeStore, createThemeStore, createDefaultThemeState } from '@/stores/theme';
+import { AvailableTheme } from '@/config';
 
 export const ThemeStoreContext = createContext<StoreApi<ThemeStore> | null>(null);
 
@@ -27,7 +28,10 @@ export const ThemeStoreProvider = ({ children }: ThemeStoreProviderProps) => {
     prefersDarkMode.addEventListener('change', (event) => {
       storeRef.current?.getState().setCurrentSystemTheme(event.matches ? 'dark' : 'light');
     });
-    storeRef.current.getState().setTheme('system');
+    const localTheme = localStorage.getItem('theme');
+    if (localTheme) {
+      storeRef.current.getState().setTheme(localTheme as AvailableTheme);
+    }
   }, []);
 
   return <ThemeStoreContext.Provider value={storeRef.current}>{children}</ThemeStoreContext.Provider>;
