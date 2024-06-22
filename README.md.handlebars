@@ -161,7 +161,7 @@ export const ThemeStoreProvider = ({
   );
 };
 
-export const useThemeStore = <T,>(
+export const useThemeStore = <T = ThemeStore,>(
   selector: (store: ThemeStore) => T,
 ): T => {
   const themeStoreContext = useContext(ThemeStoreContext);

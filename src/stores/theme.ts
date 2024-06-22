@@ -1,4 +1,4 @@
-import { createStore } from 'zustand/vanilla'
+import { createStore } from 'zustand/vanilla';
 
 export type ThemeState = {
   /**
@@ -8,7 +8,7 @@ export type ThemeState = {
    */
   currentTheme: 'light' | 'dark' | 'system';
   currentSystemTheme: 'light' | 'dark';
-}
+};
 
 export type ThemeActions = {
   /** 设置应用主题 */
@@ -22,50 +22,48 @@ export type ThemeActions = {
    * @param {RegExp} matchRegex 匹配规则默认匹配 '--' 开头的属性
    */
   getCurrentThemeValues: (matchRegex?: RegExp) => Record<string, string>;
-}
+};
 
-export type ThemeStore = ThemeState & ThemeActions
+export type ThemeStore = ThemeState & ThemeActions;
 
-export const createDefaultThemeState = () => ({
-  currentTheme: 'system',
-  currentSystemTheme: 'light',
-} as ThemeState);
+export const createDefaultThemeState = () =>
+  ({
+    currentTheme: 'system',
+    currentSystemTheme: 'light',
+  }) as ThemeState;
 
-export const createThemeStore = (
-  initState: ThemeState = createDefaultThemeState(),
-) => {
-  return createStore<ThemeStore>()((set) => ({
+export const createThemeStore = (initState: ThemeState = createDefaultThemeState()) =>
+  createStore<ThemeStore>()((set) => ({
     ...initState,
-    setTheme: (targetTheme) => set((state) => {
-      if (targetTheme === 'system') {
-        document.documentElement.setAttribute('data-theme', state.currentSystemTheme);
-      } else {
-        document.documentElement.setAttribute('data-theme', targetTheme);
-      }
-      return {
-        currentTheme: targetTheme,
-      };
-    }),
-    setCurrentSystemTheme: (targetTheme) => set((state) => {
-      if (state.currentTheme === 'system') {
-        document.documentElement.setAttribute('data-theme', targetTheme);
-      }
-      return {
-        currentSystemTheme: targetTheme,
-      };
-    }),
-    getCurrentThemeValueByKey: (key) => {
-      return getComputedStyle(document.documentElement).getPropertyValue(key);
-    },
+    setTheme: (targetTheme) =>
+      set((state) => {
+        if (targetTheme === 'system') {
+          document.documentElement.setAttribute('data-theme', state.currentSystemTheme);
+        } else {
+          document.documentElement.setAttribute('data-theme', targetTheme);
+        }
+        return {
+          currentTheme: targetTheme,
+        };
+      }),
+    setCurrentSystemTheme: (targetTheme) =>
+      set((state) => {
+        if (state.currentTheme === 'system') {
+          document.documentElement.setAttribute('data-theme', targetTheme);
+        }
+        return {
+          currentSystemTheme: targetTheme,
+        };
+      }),
+    getCurrentThemeValueByKey: (key) => getComputedStyle(document.documentElement).getPropertyValue(key),
     getCurrentThemeValues: (matchRegex = /^--.*$/) => {
       const themeVariables = {} as Record<string, string>;
-      const computedStyle = getComputedStyle(document.documentElement)
+      const computedStyle = getComputedStyle(document.documentElement);
       document.documentElement.computedStyleMap().forEach((_, key) => {
         if (matchRegex.test(key)) {
           themeVariables[key] = computedStyle.getPropertyValue(key);
         }
-      })
+      });
       return themeVariables;
     },
   }));
-}

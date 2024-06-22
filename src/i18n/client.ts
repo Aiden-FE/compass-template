@@ -57,14 +57,14 @@ export function useClientTranslation(
   }
   return {
     ...ret,
-    changeLanguage: (targetLng: AvailableLanguages, options = {
+    changeLanguage: (targetLng: AvailableLanguages, opt = {
       cancelRouterPush: false,
     }) => {
       i18n.changeLanguage(targetLng);
-      if (options?.cancelRouterPush) {
+      if (opt?.cancelRouterPush) {
         return;
       }
-      return router.push(`/${targetLng}${pathname.replace(`/${params.lng}`, '')}`);
+      router.push(`/${targetLng}${pathname.replace(`/${params.lng}`, '')}`);
     }
   };
 }
