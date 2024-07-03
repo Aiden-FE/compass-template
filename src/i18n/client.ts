@@ -1,4 +1,5 @@
 'use client';
+
 import { usePathname, useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import i18next, { TOptions } from 'i18next';
@@ -13,7 +14,11 @@ const runsOnServerSide = typeof window === 'undefined';
 i18next
   .use(initReactI18next)
   .use(LanguageDetector)
-  .use(resourcesToBackend((language: string, namespace: string) => import(`../../public/locales/${language}/${namespace}.json`)))
+  .use(
+    resourcesToBackend(
+      (language: string, namespace: string) => import(`../../public/locales/${language}/${namespace}.json`),
+    ),
+  )
   .init({
     ...getOptions(),
     lng: undefined, // let detect the language on client side
@@ -57,14 +62,17 @@ export function useClientTranslation(
   }
   return {
     ...ret,
-    changeLanguage: (targetLng: AvailableLanguages, opt = {
-      cancelRouterPush: false,
-    }) => {
+    changeLanguage: (
+      targetLng: AvailableLanguages,
+      opt = {
+        cancelRouterPush: false,
+      },
+    ) => {
       i18n.changeLanguage(targetLng);
       if (opt?.cancelRouterPush) {
         return;
       }
       router.push(`/${targetLng}${pathname.replace(`/${params.lng}`, '')}`);
-    }
+    },
   };
 }

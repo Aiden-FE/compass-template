@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import { AvailableLanguages } from '@/config';
 
 export interface PageProps {
@@ -7,3 +8,5 @@ export interface PageProps {
 export interface AppComponentProps {
   lng?: AvailableLanguages;
 }
+
+export type MiddlewareCallback = (() => NextResponse<unknown>) | undefined;

@@ -8,11 +8,16 @@ const initI18next = async (lng?: AvailableLanguages, ns?: AvailableLanguagesNS |
   const i18nInstance = createInstance();
   await i18nInstance
     .use(initReactI18next)
-    .use(resourcesToBackend((language: string, namespace: string) => import(`../../public/locales/${language}/${namespace}.json`)))
+    .use(
+      resourcesToBackend(
+        (language: string, namespace: string) => import(`../../public/locales/${language}/${namespace}.json`),
+      ),
+    )
     .init(getOptions(lng, ns));
   return i18nInstance;
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export async function useServerTranslation(
   lng: AvailableLanguages,
   ns: AvailableLanguagesNS | AvailableLanguagesNS[] = AvailableLanguagesNS.COMMON,
