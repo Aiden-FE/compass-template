@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ResponseInterceptor, VALIDATION_OPTION } from '@app/common';
+import { ResponseInterceptor, VALIDATION_OPTION, LoggerMiddleware } from '@app/common';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -31,7 +31,7 @@ async function bootstrap() {
   // JWT 授权守卫 搭配@Public与@Auth使用 以及 JwtModule.register({ secret: getEnvConfig('APP_JWT_SECRET') })
   // const reflector = app.get(Reflector);
   // app.useGlobalGuards(new JWTAuthGuard(reflector)); // 使用前请调整该守卫对user信息的获取方式与判断逻辑
-
+  app.use(new LoggerMiddleware().use);
   // 注入文档
   const apiDocOptions = new DocumentBuilder()
     .setTitle('文档标题')

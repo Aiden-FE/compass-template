@@ -6,3 +6,4 @@ export * from './utils';
 export * from './interceptors';
 export * from './guards';
 export * from './decorators';
+export * from './middlewares';

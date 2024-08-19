@@ -1,15 +1,18 @@
 <!-- TOC -->
-* [compass nest template](#compass-nest-template)
-  * [特性](#特性)
-    * [支持读取配置文件](#支持读取配置文件)
-    * [Typescript/Jest/Airbnb Eslint/Prettier](#typescriptjestairbnb-eslintprettier)
-    * [接口多版本支持](#接口多版本支持)
-    * [接口限流保护](#接口限流保护)
-    * [约束接口进参,移除非白名单属性,自动转换数据为符合预期的类型](#约束接口进参移除非白名单属性自动转换数据为符合预期的类型)
-    * [支持Swagger API文档](#支持swagger-api文档)
-    * [基于Docker快速构建分发](#基于docker快速构建分发)
-    * [默认提供Github Actions文件进行自动lint和部署](#默认提供github-actions文件进行自动lint和部署)
-    * [统一的响应拦截器,规范返回数据](#统一的响应拦截器规范返回数据)
+- [compass nest template](#compass-nest-template)
+  - [特性](#特性)
+    - [支持读取配置文件](#支持读取配置文件)
+    - [Typescript/Jest/Airbnb Eslint/Prettier](#typescriptjestairbnb-eslintprettier)
+    - [接口多版本支持](#接口多版本支持)
+    - [接口限流保护](#接口限流保护)
+    - [约束接口进参,移除非白名单属性,自动转换数据为符合预期的类型](#约束接口进参移除非白名单属性自动转换数据为符合预期的类型)
+    - [支持Swagger API文档](#支持swagger-api文档)
+    - [基于Docker快速构建分发](#基于docker快速构建分发)
+    - [默认提供Github Actions文件进行自动lint和部署](#默认提供github-actions文件进行自动lint和部署)
+    - [统一的响应拦截器,规范返回数据](#统一的响应拦截器规范返回数据)
+    - [JWT Token处理](#jwt-token处理)
+      - [微服务模式](#微服务模式)
+      - [独立服务模式](#独立服务模式)
 <!-- TOC -->
 
 # compass nest template
@@ -31,8 +34,8 @@ console.log('指定配置变量: ', getEnvConfig('NODE_ENV'));
 
 当需要新增环境变量时建议:
 1. .env.example 文件更新示例说明
-2. 类型文件更新定义
-3. schema定义更新,清洗转化数据
+2. `libs/common/src/interfaces/environment.ts` 类型文件更新定义
+3. `libs/common/src/config/env-config.ts` schema定义更新,清洗转化数据
 
 ### Typescript/Jest/Airbnb Eslint/Prettier
 
@@ -93,7 +96,7 @@ export class ExampleController {
 }
 ```
 
-要修改默认配置前往`src/app.module.ts`文件,通过.env配置文件修改以下配置
+要修改默认配置前往`src/app.module.ts`文件,通过.env配置文件可修改以下配置
 
 ```dotenv
 APP_THROTTLE_TTL=60000
@@ -275,4 +278,8 @@ export class TestController {
 
 #### 独立服务模式
 
-基本等同于微服务的使用方式,区别只是调整 `libs/common/src/guards/jwt-auth.guard.ts` 注释内容,使用http模式并调整user的获取方式即可
+基本等同于微服务的使用方式,放开 `src/main.ts` 内 `app.useGlobalGuards(new JWTAuthGuard(reflector));` 相关内容的注释
+
+区别只是调整 `libs/common/src/guards/jwt-auth.guard.ts` 注释内容,使用http模式并调整user的获取方式即可
+
+Controller内取参与官方文档一致即可

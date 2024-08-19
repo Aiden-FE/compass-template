@@ -56,13 +56,6 @@ export default class JWTAuthGuard implements CanActivate {
       valid = option.permissions.some((key) => user.permissions.includes(key));
     }
     if (!valid) {
-      // 微服务可以抛出该错误
-      // throw new RpcException(
-      //   new HttpResponse({
-      //     httpStatus: HttpStatus.UNAUTHORIZED,
-      //     message: 'Unauthorized',
-      //   }).getMicroServiceResponse(),
-      // );
       throw new HttpException(
         new HttpResponse({
           httpStatus: HttpStatus.UNAUTHORIZED,
@@ -70,6 +63,13 @@ export default class JWTAuthGuard implements CanActivate {
         }).getMicroServiceResponse(),
         HttpStatus.UNAUTHORIZED,
       );
+      // 微服务可以抛出该错误
+      // throw new RpcException(
+      //   new HttpResponse({
+      //     httpStatus: HttpStatus.UNAUTHORIZED,
+      //     message: 'Unauthorized',
+      //   }).getMicroServiceResponse(),
+      // );
     }
     return true;
   }
