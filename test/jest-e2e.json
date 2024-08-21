@@ -12,6 +12,14 @@
   },
   "moduleNameMapper": {
     "@app/common/(.*)": "<rootDir>/../libs/common/src/$1",
-    "@app/common": "<rootDir>/../libs/common/src"
+    "@app/common": "<rootDir>/../libs/common/src",
+    "@app/redis/(.*)": "<rootDir>/../libs/redis/src/$1",
+    "@app/redis": "<rootDir>/../libs/redis/src",
+    "@app/email/(.*)": "<rootDir>/../libs/email/src/$1",
+    "@app/email": "<rootDir>/../libs/email/src",
+    "@app/google-recaptcha/(.*)": "<rootDir>/../libs/google-recaptcha/src/$1",
+    "@app/google-recaptcha": "<rootDir>/../libs/google-recaptcha/src",
+    "@app/mysql/(.*)": "<rootDir>/../libs/mysql/src/$1",
+    "@app/mysql": "<rootDir>/../libs/mysql/src"
   }
 }

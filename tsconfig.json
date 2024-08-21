@@ -24,6 +24,30 @@
       ],
       "@app/common/*": [
         "libs/common/src/*"
+      ],
+      "@app/redis": [
+        "libs/redis/src"
+      ],
+      "@app/redis/*": [
+        "libs/redis/src/*"
+      ],
+      "@app/email": [
+        "libs/email/src"
+      ],
+      "@app/email/*": [
+        "libs/email/src/*"
+      ],
+      "@app/google-recaptcha": [
+        "libs/google-recaptcha/src"
+      ],
+      "@app/google-recaptcha/*": [
+        "libs/google-recaptcha/src/*"
+      ],
+      "@app/mysql": [
+        "libs/mysql/src"
+      ],
+      "@app/mysql/*": [
+        "libs/mysql/src/*"
       ]
     }
   }

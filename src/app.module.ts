@@ -2,6 +2,9 @@ import { Module } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { getEnvConfig, ThrottlerBehindProxyGuard } from '@app/common';
 import { APP_GUARD } from '@nestjs/core';
+// import { MysqlModule } from '@app/mysql';
+// import { EmailModule } from '@app/email';
+// import { RedisModule } from '@app/redis';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -16,6 +19,11 @@ import { AppService } from './app.service';
         limit: getEnvConfig('APP_THROTTLE_LIMIT'),
       },
     ]),
+    // EmailModule.forRoot({}),
+    // RedisModule.forRoot({
+    //   url: 'redis://127.0.0.1:6379',
+    // }),
+    // MysqlModule.forRoot({})
   ],
   controllers: [AppController],
   providers: [

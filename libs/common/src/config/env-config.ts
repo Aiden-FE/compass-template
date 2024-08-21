@@ -27,6 +27,10 @@ const schema = {
       type: 'integer',
       default: 60,
     },
+    APP_PRIVATE_SECRET: {
+      type: 'string',
+      default: Date.now().toString(),
+    },
   },
 };
 

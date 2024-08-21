@@ -13,6 +13,10 @@
     - [JWT Token处理](#jwt-token处理)
       - [微服务模式](#微服务模式)
       - [独立服务模式](#独立服务模式)
+    - [支持连接到Redis](#支持连接到redis)
+    - [支持使用 Email](#支持使用-email)
+    - [支持Google reCAPTCHA v3 人机校验](#支持google-recaptcha-v3-人机校验)
+    - [支持Mysql](#支持mysql)
 <!-- TOC -->
 
 # compass nest template
@@ -283,3 +287,55 @@ export class TestController {
 区别只是调整 `libs/common/src/guards/jwt-auth.guard.ts` 注释内容,使用http模式并调整user的获取方式即可
 
 Controller内取参与官方文档一致即可
+
+### 支持连接到Redis
+
+基础 [redis](https://github.com/redis/node-redis) 实现,放开 `src/app.module.ts` redis注册并提供配置即可.
+
+### 支持使用 Email
+
+基于 [nodemailer](https://nodemailer.com/) 实现, 放开 `src/app.module.ts` email注册并提供配置即可.
+
+### 支持Google reCAPTCHA v3 人机校验
+
+客户端参考:
+```html
+<!-- 插入recaptcha脚本并指定key,如果是国内host需要替换为www.recaptcha.net -->
+<script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script>
+
+<script>
+  // 当点击某个提交按钮时进行人机静默校验,验证失败应该进行双重认证或拒绝访问
+  function onClick(e) {
+    e.preventDefault();
+    // 提示: reCAPTCHA_site_key为您在Google ReCaptcha注册的网站key
+    grecaptcha.ready(function() {
+      // action各种含义参考: https://developers.google.com/recaptcha/docs/v3?hl=zh-cn#interpreting_the_score
+      grecaptcha.execute('reCAPTCHA_site_key', {action: 'login'}).then(function(token) {
+        // 在此处添加您的逻辑,把表单数据跟token一起提供给后端校验,接口地址请根据实际路由调整
+        fetch('/api/v1/recaptcha/validate', {
+          method: 'POST',
+          body: JSON.stringify({ token }),
+        })
+          .then(resp => resp.json())
+          .then(result => {
+            if (result.statusCode === 100200 && result.data) {
+              console.log('签发的临时许可 token: %s, 请在五分钟内使用此token登录', result.data);
+            }
+          });
+      });
+    });
+  }
+</script>
+```
+
+服务端流程:
+
+* 在所需使用的路由Module中导入 GoogleRecaptchaModule 并提供密钥注册到路由中
+* 在 Service 中,导入 GoogleRecaptchaService 并使用其校验方法 verifyRecaptcha 来验证收到的token信息
+* 验证通过后下发一个五分钟有效的临时token
+* 用户在登录时可将用户信息与临时token一并提交登录接口
+* 登录接口验证token属于签发的授权token并账号密码正确即登录成功
+
+### 支持Mysql
+
+基于 [Mysql2](https://sidorares.github.io/node-mysql2/docs) 实现, 放开 `src/app.module.ts` mysql注册并提供配置即可.
