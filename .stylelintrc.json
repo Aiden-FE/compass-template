@@ -1,0 +1,34 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-html/vue",
+    "stylelint-config-standard-vue",
+    "stylelint-config-rational-order",
+    "stylelint-config-tailwindcss/scss"
+  ],
+  "overrides": [
+    {
+      "files": ["**/*.(scss|css|vue|html)"],
+      "customSyntax": "postcss-scss"
+    },
+    {
+      "files": ["**/*.(html|vue)"],
+      "customSyntax": "postcss-html"
+    }
+  ],
+  "ignoreFiles": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.tsx",
+    "**/*.ts",
+    "**/*.json",
+    "**/*.md",
+    "**/*.yaml",
+    "**/*.mdx",
+    "src/stories/*"
+  ],
+  "plugins": [],
+  "rules": {
+    "selector-class-pattern": null
+  }
+}

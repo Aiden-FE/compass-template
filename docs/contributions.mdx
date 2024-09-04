@@ -1,0 +1,188 @@
+import { Meta, Title, Subtitle } from '@storybook/blocks';
+
+<Meta title="物料中心研发指南" />
+<Title>物料中心研发指南</Title>
+<Subtitle>研发人员上手指南</Subtitle>
+
+- [环境要求](#环境要求)
+- [开发贡献](#开发贡献)
+  - [本地开发](#本地开发)
+  - [贡献指南](#贡献指南)
+    - [如何新增组件](#如何新增组件)
+    - [Icon 使用](#icon-使用)
+    - [SVG 图片资源的使用](#svg-图片资源的使用)
+    - [PostCSS scss autofixer tailwindcss](#postcss-scss-autofixer-tailwindcss)
+    - [使用 ConfigProvider 修改配置项 及 国际化使用示例](#使用-configprovider-修改配置项-及-国际化使用示例)
+    - [支持Eslint及Stylelint](#支持eslint及stylelint)
+
+## 环境要求
+
+- Node >= 18, 可通过nvm或其他node管理工具切换
+- pnpm >= 7, 不存在可 `npm i -g pnpm` 全局安装
+
+## 开发贡献
+
+### 本地开发
+
+`pnpm i` 恢复依赖项
+
+`pnpm storybook` 本地启动 storybook 组件文档
+
+`pnpm dev` 启动开发模式,可参考 `examples/usage.html` 直接调试组件 (不推荐,建议直接使用 storybook 调试,顺便就提供了用例)
+
+`pnpm lint` 主动检查并修复部分不合规的代码
+
+`pnpm format` 格式化代码
+
+`pnpm build` 生产构建
+
+`pnpm build-storybook` 构建storybook文档
+
+### 贡献指南
+
+#### 如何新增组件
+
+1. 在 `src/components` 目录下新建组件文件夹,如 `demo-example`
+2. 在组件目录下新建 `<component-name>.stories.ts` storybook文件,基础参考如下:
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/vue3';
+import DemoExample from './demo-example.vue';
+
+const meta = {
+  title: '基础组件/Example', // 以 '/' 分割层级关系
+  component: DemoExample,
+  tags: ['autodocs'], // 自动生成文档
+} satisfies Meta<typeof DemoExample>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+// 默认用例展示
+export const Default: Story = {
+  args: {},
+};
+```
+
+3. `<component-name>.stories.ts` 故事书中描述组件的各种功能用法,更多用法参考[官网文档](https://storybook.js.org/)
+4. 其他综合性文档也可以直接使用mdx实现,内容参考如下:
+
+```mdx
+import { Meta } from '@storybook/blocks';
+<Meta title="基础组件/Example" />;
+
+## Example
+
+其他文档内容,更多用法参考Storybook文档说明
+```
+
+5. 组件统一在 `src/components/index.ts` 中对外暴露
+6. <span style={{ color: 'red', fontWeight: 600 }}>请注意,组件实现时请时刻检查以下关键点</span>
+
+- [ ] 组件命名是否**词能达意**?使用者能否直接猜测出组件的大致用途?
+- [ ] 组件使用的必须参数是否**小于等于3个**?其他非必须的个性化参数不限
+- [ ] 组件是否**高内聚低耦合**?除全局配置及主题等内容,是否还依赖其他外部资源?
+- [ ] 组件展示内容是否源自可配置的语言包?国际化的key是否不依赖value也直接可读?
+- [ ] 组件主题色相关部分是否可通过 CSS 变量动态控制?
+
+#### Icon 使用
+
+项目内置了 [unplugin-icons](https://github.com/antfu/unplugin-icons), 请参考文档使用
+
+所有 icon 支持自动导入,无需手动 import,类似如下方模板代码直接使用即可
+
+在 [Icons for iconify](https://icon-sets.iconify.design) 可以直接搜索所有 icon 资源,antd 的 icon 也一样存在
+
+更多用法参考 [unplugin-icons](https://github.com/antfu/unplugin-icons) 官方文档即可
+
+```vue
+<template>
+  <i-ant-design-caret-down-outlined />
+  <i-mdi-account />
+  <i-fa-solid-dice-five />
+  <i-heroicons-outline-menu-alt-2 />
+  <i-ri-apps-2-line />
+  <i-mdi-dice-d12 />
+  <i-mdi-light-alarm />
+  <i-noto-v1-flag-for-flag-japan />
+  <i-ic-twotone-24mp />
+  <i-mdi:cactus />
+  <i-twemoji-1st-place-medal />
+</template>
+```
+
+#### SVG 图片资源的使用
+
+项目内置了 [vite-svg-loader](https://github.com/jpkleemans/vite-svg-loader) 支持.
+
+svg 资源默认放在 `src/assets/svg` 文件夹下.
+
+使用时如下:
+
+```vue
+<script setup>
+import MyIcon from '@/assets/svg/my-icon.svg'; // 默认会将svg资源以组件模式导入
+import MyIconURL from '@/assets/svg/my-icon.svg?url'; // 以url方式引用资源(组件库不推荐)
+import MyIconRaw from '@/assets/svg/my-icon.svg?raw'; // 以原始xml标签方式引用资源(组件库不推荐)
+</script>
+
+<template>
+  <MyIcon />
+  <img :src="MyIconURL" />
+  <MyIconRaw />
+</template>
+```
+
+#### PostCSS scss autofixer tailwindcss
+
+项目默认集成PostCSS scss autoprefixer tailwindcss
+
+```vue
+<script setup lang="ts"></script>
+
+<template>
+  <div class="app-example">
+    <h5>Tailwindcss使用示例</h5>
+    <div>
+      <div class="bg-blue-500 p-4 rounded-lg">
+        <p class="app-example__tailwind">Tailwindcss 样式控制</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.app-example {
+  &__tailwind {
+    @apply text-red-500; // 在style中使用
+  }
+}
+</style>
+```
+
+#### 使用 ConfigProvider 修改配置项 及 国际化使用示例
+
+在 `src/constants/locale.json` 内添加展示文本
+
+```json
+{
+  "This is a {pageName} page": "这是一个{pageName}页面"
+}
+```
+
+```vue
+<script setup lang="ts">
+import { useConfigProvider } from '@/components/config-provider';
+
+const { t } = useConfigProvider();
+</script>
+
+<template>可被业务通过 ConfigProvider 组件覆盖的默认展示: {{ t('This is a {pageName} page', { pageName: '示例' }) }}</template>
+
+<style lang="scss" scoped></style>
+```
+
+#### 支持Eslint及Stylelint
+
+开发模式启动时自动进行检查,主动检查可执行 `pnpm lint` 或者 `pnpm lint:style` 分别调用eslint 和 stylelint

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+    <script type="module">
+      import { createApp, defineComponent, reactive, ref } from 'vue';
+      import AllComponents from './src/main'; // FIXME: 复制后请调整相对路径
+      // 本地访问地址: http://localhost:5173/examples/<你复制后的文件名>.html
+      createApp(
+        defineComponent({
+          template: `如需本地调试,请复制index.html到examples文件夹,更改文件名并访问 http://127.0.0.1:5173/examples/<你复制后的文件名>.html`,
+          setup: () => {
+            return {};
+          },
+        }),
+      )
+        .use(AllComponents)
+        .mount('#app');
+    </script>
+  </body>
+</html>

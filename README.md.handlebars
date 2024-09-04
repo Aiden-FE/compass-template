@@ -1,0 +1,118 @@
+# {{projectName}}
+> {{projectDescription}}
+
+## 开发引导
+
+### 开发贡献
+
+> Node >= 18 or higher and pnpm >= 7
+
+`pnpm i` 恢复依赖项
+
+`pnpm dev` 启动开发模式
+
+`pnpm storybook` 本地启动 storybook 组件文档
+
+### 开发指南
+
+#### Icon 使用
+
+项目内置了 [unplugin-icons](https://github.com/antfu/unplugin-icons), 请参考文档使用
+
+所有 icon 支持自动导入,无需手动 import,类似如下方式直接使用即可:
+
+在 https://icon-sets.iconify.design/ 可以直接搜索所有 icon 资源,antd 的 icon 也一样存在
+
+更多用法参考 [unplugin-icons](https://github.com/antfu/unplugin-icons) 官方文档即可
+
+```vue
+<template>
+  <i-ant-design-caret-down-outlined />
+  <i-mdi-account />
+  <i-fa-solid-dice-five />
+  <i-heroicons-outline-menu-alt-2 />
+  <i-ri-apps-2-line />
+  <i-mdi-dice-d12 />
+  <i-mdi-light-alarm />
+  <i-noto-v1-flag-for-flag-japan />
+  <i-ic-twotone-24mp />
+  <i-mdi:cactus />
+  <i-twemoji-1st-place-medal />
+</template>
+```
+
+#### SVG 图片资源的使用
+
+项目内置了 [vite-svg-loader](https://github.com/jpkleemans/vite-svg-loader) 支持.
+
+svg 资源默认放在 `src/assets/svg` 文件夹下.
+
+使用时如下:
+
+```vue
+<script setup>
+import MyIcon from '@/assets/svg/my-icon.svg'; // 默认会将svg资源以组件模式导入
+import MyIconURL from '@/assets/svg/my-icon.svg?url'; // 以url方式引用资源
+import MyIconRaw from '@/assets/svg/my-icon.svg?raw'; // 以原始xml标签方式引用资源
+</script>
+
+<template>
+  <MyIcon />
+  <img :src="MyIconURL" />
+  <MyIconRaw />
+</template>
+```
+
+#### PostCSS scss autofixer tailwindcss
+
+项目默认集成PostCSS scss autoprefixer tailwindcss
+
+```vue
+<script setup lang="ts"></script>
+
+<template>
+  <div class="app-example">
+    <h5>Tailwindcss使用示例</h5>
+    <div>
+      <div class="bg-blue-500 p-4 rounded-lg">
+        <p class="app-example__tailwind">Tailwindcss 样式控制</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.app-example {
+  &__tailwind {
+    @apply text-red-500; // 在style中使用
+  }
+}
+</style>
+```
+
+#### 使用 ConfigProvider 修改配置项 及 国际化使用示例
+
+```vue
+<script setup lang="ts">
+import { useConfig, ConfigProvider } from '@/components/config-provider';
+
+const { t } = useConfig();
+
+const localeDemo = {
+  'This is a {pageName} page': 'This is a {pageName} page',
+};
+</script>
+
+<template>
+  <ConfigProvider :locale="localeDemo">
+    局部变更语言配置: {{ t('This is a {pageName} page', { pageName: 'example' }) }}
+  </ConfigProvider>
+  不使用 ConfigProvider 包裹,则是默认配置: {{ t('This is a {pageName} page', { pageName: '示例' }) }}
+</template>
+
+<style lang="scss" scoped></style>
+```
+
+#### 支持Eslint及Stylelint
+
+开发模式启动时自动进行检查,主动检查可执行 `pnpm lint` 或者 `pnpm lint:style` 分别调用eslint 和 stylelint

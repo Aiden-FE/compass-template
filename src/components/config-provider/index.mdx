@@ -1,0 +1,54 @@
+import { Meta, Title, Subtitle } from '@storybook/blocks';
+
+<Meta title="基础组件/ConfigProvider/ConfigProvider" />
+<Title>ConfigProvider</Title>
+<Subtitle>组件配置注入</Subtitle>
+
+可配置内容参考如下:
+
+```typescript
+export interface Config {
+  /** 语言包 */
+  locale: Record<string, string>;
+}
+```
+
+业务方使用参考如下:
+
+```vue
+<script setup lang="ts">
+import { ConfigProvider, Example } from '{packageName}';
+
+const localeDemo = {
+  'This is a { pageName } page': 'This is a { pageName } page',
+};
+</script>
+
+<template>
+  <div>
+    默认全局配置:
+    <Example />
+
+    <ConfigProvider :locale="localeDemo"> 局部配置: <Example /> </ConfigProvider>
+  </div>
+</template>
+```
+
+组件库项目内部读取配置参考如下:
+
+```vue
+<script setup lang="ts">
+import { useConfigProvider } from '@/components/config-provider';
+
+const {
+  t, // 国际化转换函数
+  config, // 配置数据
+} = useConfigProvider();
+</script>
+
+<template>
+  <div>
+    <p>{{ t('This is a {pageName} page', { pageName: '示例' }) }}</p>
+  </div>
+</template>
+```
