@@ -1,0 +1,69 @@
+/**
+ * @description 滚动条样式统一,如果需要滚动条自动隐藏请添加类名 .#{$domain}-scrollbar_leave-hidden, 如: .app-scrollbar_leave-hidden
+ */
+@import './vars';
+
+// CSS variables
+
+// 滚动条y, x的宽高
+$scrollbar-size: --#{$domain}-scrollbar-size;
+
+// 滚动条背景色
+$scrollbar-bg-color: --#{$domain}-scrollbar-bg-color;
+
+// 滚动条滑块背景色
+$scrollbar-thumb-bg-color: --#{$domain}-scrollbar-thumb-bg-color;
+
+// 滚动条滑块边框色
+$scrollbar-thumb-border-color: --#{$domain}-scrollbar-thumb-border-color;
+
+// 滚动条外层轨道背景色
+$scrollbar-track-bg-color: --#{$domain}-scrollbar-track-bg-color;
+$scrollbar: #{$domain}-scrollbar;
+
+// ::-webkit-scrollbar 滚动条整体部分
+// ::-webkit-scrollbar-button 滚动条两端的按钮
+// ::-webkit-scrollbar-track 外层轨道
+// ::-webkit-scrollbar-track-piece 内层滚动槽
+// ::-webkit-scrollbar-thumb 滚动的滑块
+// ::-webkit-scrollbar-corner 边角
+// ::-webkit-resizer 定义右下角拖动块的样式
+.#{$scrollbar} {
+  &::-webkit-scrollbar {
+    display: block;
+    width: var($scrollbar-size, 10px);
+    height: var($scrollbar-size, 10px);
+    background-color: var($scrollbar-bg-color, transparent);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid var($scrollbar-thumb-border-color, transparent);
+    background-clip: content-box;
+    background-color: var($scrollbar-thumb-bg-color, rgb(0 0 0 / 50%));
+    &:hover {
+      border-width: 0px;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var($scrollbar-track-bg-color, transparent);
+  }
+
+  &::-webkit-resizer,
+  &::-webkit-scrollbar-button,
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
+}
+
+.#{$scrollbar}_leave-hidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  &:hover {
+    &::-webkit-scrollbar {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "common": {
+    "--app-primary-color": "#00c0c9"
+  },
+  "light": {
+    "--app-foreground-color": "#212121",
+    "--app-background-color": "#FFFFFF"
+  },
+  "dark": {
+    "--app-foreground-color": "#FFFFFF",
+    "--app-background-color": "#000000",
+    "--app-scrollbar-thumb-bg-color": "#FFFFFF"
+  }
+}

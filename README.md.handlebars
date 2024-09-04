@@ -1,0 +1,240 @@
+# {{projectName}}
+> {{projectDescription}}
+
+## Features
+
+### 组件使用
+在 `src/components` 下的所有组件可以免 import 直接使用,建议组件命名大于一个单词,再加中划线连接
+
+文件结构示例如下:
+
+```
+src
+├── components
+│   └── app-example
+│       └── app-example.vue
+```
+
+用法示例:
+
+```vue
+<template>
+  <app-example />
+</template>
+```
+
+### Icon 使用
+
+项目内置了 [unplugin-icons](https://github.com/antfu/unplugin-icons), 请参考文档使用
+
+所有 icon 支持自动导入,无需手动 import,类似如下方式直接使用即可:
+
+在 https://icon-sets.iconify.design/ 可以直接搜索所有 icon 资源,antd 的 icon 也一样存在
+
+更多用法参考 [unplugin-icons](https://github.com/antfu/unplugin-icons) 官方文档即可
+
+```vue
+<template>
+  <i-ant-design-caret-down-outlined />
+  <i-mdi-account />
+  <i-fa-solid-dice-five />
+  <i-heroicons-outline-menu-alt-2 />
+  <i-ri-apps-2-line />
+  <i-mdi-dice-d12 />
+  <i-mdi-light-alarm />
+  <i-noto-v1-flag-for-flag-japan />
+  <i-ic-twotone-24mp />
+  <i-mdi:cactus />
+  <i-twemoji-1st-place-medal />
+</template>
+```
+
+### SVG 图片资源的使用
+
+项目内置了 [vite-svg-loader](https://github.com/jpkleemans/vite-svg-loader) 支持.
+
+svg 资源默认放在 `src/assets/svg` 文件夹下.
+
+使用时如下:
+
+```vue
+<script setup>
+import MyIcon from '@/assets/svg/my-icon.svg'; // 默认会将svg资源以组件模式导入
+import MyIconURL from '@/assets/svg/my-icon.svg?url'; // 以url方式引用资源
+import MyIconRaw from '@/assets/svg/my-icon.svg?raw'; // 以原始xml标签方式引用资源
+</script>
+
+<template>
+  <MyIcon />
+  <img :src="MyIconURL" />
+  <MyIconRaw />
+</template>
+```
+
+### 国际化
+
+所有国际化文件均放在 `src/assets/locales` 文件夹下.
+
+语言表的 key 建议为可读字符串,以便在不支持的语言环境或意外错误场景下显示可读内容
+
+使用示例如下:
+
+```vue
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+import { Languages } from '@/config';
+
+const { t, locale } = useI18n();
+
+function toggleLanguage(lang: Languages) {
+  locale.value = lang;
+}
+</script>
+
+<template>
+  <div>
+    <div>{{ t('The current language environment is {language}', { lang: locale }) }}</div>
+    <button @click="toggleLanguage(Languages.EN)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>切换为英文</button>
+    <button @click="toggleLanguage(Languages.zhCN)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>切换为中文</button>
+  </div>
+</template>
+```
+
+更多详细用法参考 [unplugin-vite](https://github.com/intlify/bundle-tools/blob/main/packages/unplugin-vue-i18n/README.md) 与 [vue-i8n](https://vue-i18n.intlify.dev/) 文档
+
+### 主题使用
+
+预置主题控制,默认跟随系统, 使用示例如下:
+
+```vue
+<script setup lang='ts'>
+import { Theme } from '@/config';
+import { useThemeStore } from '@/stores';
+
+const { currentTheme, currentThemeData } = storeToRefs(useThemeStore());
+const { toggle } = useThemeStore();
+</script>
+
+<template>
+  <div>当前主题是: {{ currentTheme }}</div>
+  <div>当前主题数据是: {{ currentThemeData }}</div>
+  <button @click="toggle(Theme.DEFAULT)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>默认跟随系统</button>
+  <button @click="toggle(Theme.LIGHT)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>亮色主题</button>
+  <button @click="toggle(Theme.DARK)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>暗色主题</button>
+</template>
+```
+
+### PostCSS Scss autofixer tailwindcss
+
+项目默认集成PostCSS Scss autoprefixer tailwindcss
+
+```vue
+<script setup lang="ts">
+</script>
+
+<template>
+  <div class="app-example">
+    <div class="app-example__tip">这是一段tailwindcss演示内容</div>
+    <button class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>test</button>
+    <button class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>test2</button>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.app-example {
+  &__tip {
+    @apply text-xs text-slate-400 italic;
+  }
+}
+</style>
+```
+
+### 全局订阅发布
+
+预设订阅发布服务,使用示例如下:
+
+a.vue:
+```vue
+<script setup lang="ts">
+import { useEmitterService } from '@/services';
+import { GlobalEvents } from '@/config';
+
+const { emit } = useEmitterService();
+emit(GlobalEvents.EVENT_KEY, { example: 'example' });
+</script>
+```
+
+b.vue:
+```vue
+<script setup lang="ts">
+import { useEmitterService } from '@/services';
+import { GlobalEvents } from '@/config';
+
+const { on, once } = useEmitterService();
+
+// 页面卸载前持续订阅
+on(GlobalEvents.EVENT_KEY, (data) => console.log('Data is: ', data));
+// 页面卸载前订阅一次
+once(GlobalEvents.EVENT_KEY, (data) => console.log('Data is: ', data));
+</script>
+```
+
+更多用法请查看`src/services/use-emitter.service.ts`及[emittery](https://github.com/sindresorhus/emittery)
+
+### Store使用
+
+在`src/stores`新建example.store.ts文件,文件参考如下:
+
+```typescript
+export default defineStore('example', () => {
+  const info = ref<Record<string, unknown>>(null);
+  
+  const currentInfo = computed(() => info);
+  
+  function mergeInfo(newInfo: Record<string, unknown>) {
+    info.value = {
+      ...info.value,
+      ...newInfo,
+    };
+  }
+  
+  return {
+    info,
+    currentInfo,
+    mergeInfo,
+  }
+})
+```
+
+在`src/stores/index.ts`内添加`export { default as useExampleStore } from './example.store';`导出
+
+在example.vue文件内使用:
+
+```vue
+<script lang='ts'>
+import { useExampleStore } from '@/stores';
+
+// 使用storeToRefs避免断开引用
+const { info, currentInfo } = storeToRefs(useExampleStore());
+// 函数引用无需使用storeToRefs包裹
+const { mergeInfo } = useExampleStore();
+</script>
+```
+
+### 预置工具库
+
+* dayjs 时间处理工具函数, 无需使用时执行`pnpm remove dayjs`卸载
+* @vueuse/core vue工具函数库, 无需使用时执行`pnpm remove @vueuse/core`卸载
+* lodash-es JavaScript工具函数, 无需使用时执行`pnpm remove lodash-es`卸载
+
+## 快速开始
+
+`pnpm run dev` 开发模式启动
+
+`pnpm run build` 构建生产项目
+
+`pnpm run test:unit` 运行单元测试
+
+`pnpm run lint` 运行代码检查
+
+`pnpm run format` 格式化代码

@@ -1,0 +1,59 @@
+/*
+ * @description 基础的全局样式
+ * 推荐样式书写排序规范
+ * Positioning Model > Box Model > Typographic > Visual 的顺序书写
+ * 布局,位置 相关属性包括：position / top / right / bottom / left / z-index / display / float / …
+ * 盒模型 相关属性包括：width / height / padding / margin / border / overflow / …
+ * 文本排版 相关属性包括：font / line-height / text-align / word-wrap / …
+ * 视觉外观 相关属性包括：color / background / list-style / transform / animation / transition / …
+ */
+
+@import './vars';
+
+// CSS variables =================> Start
+
+// 网站前景色
+$foreground-color: --#{$domain}-foreground-color;
+// 网站背景色
+$background-color: --#{$domain}-background-color;
+// 基础字体大小
+$font-size-base: --#{$domain}-font-size-base;
+// 行高
+$line-height-base: --#{$domain}-line-height-base;
+// 选择区颜色
+$selection-color: --#{$domain}-selection-color;
+// 选择区背景色
+$selection-bg-color: --#{$domain}-selection-bg-color;
+
+// CSS variables =================> End
+
+html {
+  overflow: hidden;
+  height: 100vh;
+  font-family:
+    BlinkMacSystemFont,
+    Helvetica Neue,
+    Helvetica,
+    Segoe UI,
+    Arial,
+    Roboto,
+    PingFang SC,
+    miui,
+    Hiragino Sans GB,
+    Microsoft Yahei,
+    sans-serif;
+  font-size: var($font-size-base, 14px);
+  line-height: var($line-height-base, 1.45);
+  color: var($foreground-color, #212121);
+  background-color: var($background-color, #fff);
+  // 文本选择样式
+  ::selection {
+    color: var($selection-color, #fff);
+    background: var($selection-bg-color, #1890ff);
+  }
+}
+
+body {
+  overflow: auto;
+  height: 100%;
+}
