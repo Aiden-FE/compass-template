@@ -9,6 +9,7 @@
 | temp/styles | 样式库基础模板                                       |  2024/03/26  |
 |  temp/cli   | 命令行项目模板                                       |  2024/04/03  |
 |  temp/next  | Next 项目模板                                        |  2024/07/03  |
+|  temp/vue   | Vue web项目基础模板                                  |  2024/09/04  |
 
 ### 使用动态模板
 
@@ -22,7 +23,6 @@
 | :-----------------: | :----------------------------- | :----------: |
 |    temp/monorepo    | 基于Rush的 Monorepo 项目模板   |  2023/08/16  |
 |     temp/react      | React 项目Vite TSX模板,SPA web |  2023/07/02  |
-|    temp/vue-web     | Vue web项目基础模板            |  2023/07/02  |
 |    temp/vue-lib     | Vue 库项目基础模板             |  2023/07/04  |
 |      temp/nest      | Nestjs 后端项目模板            |  2024/08/22  |
 | temp/web-components | Web components组件库模板       |  2023/08/16  |
