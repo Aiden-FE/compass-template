@@ -105,9 +105,9 @@ const localeDemo = {
 
 <template>
   <ConfigProvider :locale="localeDemo">
-    局部变更语言配置: {{ t('This is a {pageName} page', { pageName: 'example' }) }}
+    局部变更语言配置: \{{ t('This is a {pageName} page', { pageName: 'example' }) }}
   </ConfigProvider>
-  不使用 ConfigProvider 包裹,则是默认配置: {{ t('This is a {pageName} page', { pageName: '示例' }) }}
+  不使用 ConfigProvider 包裹,则是默认配置: \{{ t('This is a {pageName} page', { pageName: '示例' }) }}
 </template>
 
 <style lang="scss" scoped></style>
