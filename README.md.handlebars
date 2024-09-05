@@ -93,7 +93,7 @@ function toggleLanguage(lang: Languages) {
 
 <template>
   <div>
-    <div>{{ t('The current language environment is {language}', { lang: locale }) }}</div>
+    <div>\{{ t('The current language environment is {language}', { lang: locale }) }}</div>
     <button @click="toggleLanguage(Languages.EN)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>切换为英文</button>
     <button @click="toggleLanguage(Languages.zhCN)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>切换为中文</button>
   </div>
@@ -116,8 +116,8 @@ const { toggle } = useThemeStore();
 </script>
 
 <template>
-  <div>当前主题是: {{ currentTheme }}</div>
-  <div>当前主题数据是: {{ currentThemeData }}</div>
+  <div>当前主题是: \{{ currentTheme }}</div>
+  <div>当前主题数据是: \{{ currentThemeData }}</div>
   <button @click="toggle(Theme.DEFAULT)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>默认跟随系统</button>
   <button @click="toggle(Theme.LIGHT)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>亮色主题</button>
   <button @click="toggle(Theme.DARK)" class='bg-cyan-500 hover:bg-cyan-600 text-white px-2 py-0.5 rounded'>暗色主题</button>
