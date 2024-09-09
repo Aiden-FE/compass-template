@@ -1,0 +1,24 @@
+# TypeScript v1 declaration files
+typings/
+types/
+
+# Output
+dist
+coverage
+*.tgz
+.next
+.nuxt
+tmp
+out-tsc
+stats.html
+
+# lockfile
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Cache
+.npm
+.eslintcache
+temp
+node_modules
