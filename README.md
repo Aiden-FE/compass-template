@@ -11,6 +11,7 @@
 |      temp/next      | Next 项目模板                                        |  2024/07/03  |
 |      temp/vue       | Vue web项目基础模板                                  |  2024/09/04  |
 | temp/vue-components | Vue 组件库基础模板                                   |  2024/09/04  |
+|    temp/uni-app     | UniApp vue3跨端应用模板                              |  2024/09/09  |
 
 ### 使用动态模板
 
@@ -26,13 +27,11 @@
 |     temp/react      | React 项目Vite TSX模板,SPA web |  2023/07/02  |
 |      temp/nest      | Nestjs 后端项目模板            |  2024/08/22  |
 | temp/web-components | Web components组件库模板       |  2023/08/16  |
-|  temp/uni-app-vue   | UniApp vue3跨端应用模板        |              |
-|    temp/taro-vue    | Taro vue3跨端应用模板          |              |
 
 更多模版详情请查阅对应分支README说明
 
 ### 使用静态模板
 
-`npm install -g @compass-aiden/commander` 全局安装脚手架
+`npm install -g @compass-aiden/cli` 全局安装脚手架
 
-`compass create <my_project>` 创建项目,根据提示按需选择
+`compass pull` 选择自定义模板,作者名写 Aiden-FE ,仓库名为 compass-template, 模板名选择对应分支即可
