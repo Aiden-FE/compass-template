@@ -1,6 +1,6 @@
 import { hmac as HMAC } from 'node-forge';
-import { nanoid } from 'nanoid';
 import { getEnvConfig } from '@app/common';
+import { importESM } from './common';
 
 /** 不可逆数据加密 */
 export function encodeHMAC(msg: string, secret = getEnvConfig('APP_PRIVATE_SECRET')) {
@@ -15,6 +15,7 @@ export function encodeHMAC(msg: string, secret = getEnvConfig('APP_PRIVATE_SECRE
  * 生成uuid
  * @param [size=36]
  */
-export function generateUUID(size?: number) {
+export async function generateUUID(size?: number) {
+  const { nanoid } = await importESM('nanoid');
   return nanoid(size);
 }

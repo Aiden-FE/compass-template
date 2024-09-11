@@ -7,7 +7,7 @@ import { join } from 'path';
 import { Logger } from '@nestjs/common';
 
 const ajv = new Ajv({
-  removeAdditional: true, // 移除未定义属性
+  removeAdditional: false, // 移除未定义属性
   useDefaults: true, // 使用默认值
   coerceTypes: true, // 类型转换
 });
@@ -61,17 +61,18 @@ function initEnvConfig() {
 }
 
 // 获取环境变量
+export function getEnvConfig<Key extends keyof EnvironmentVariables, DefaultValue = unknown>(
+  key: Key,
+  defaultValue: DefaultValue,
+): EnvironmentVariables[Key] | DefaultValue;
 export function getEnvConfig<Key extends keyof EnvironmentVariables>(
   key: Key,
-  defaultValue?: EnvironmentVariables[Key],
 ): EnvironmentVariables[Key];
-// 获取环境变量
 export function getEnvConfig(): EnvironmentVariables;
-// 获取环境变量
-export function getEnvConfig<Key extends keyof EnvironmentVariables>(
+export function getEnvConfig<Key extends keyof EnvironmentVariables, DefaultValue = unknown>(
   key?: Key,
-  defaultValue?: EnvironmentVariables[Key],
-): EnvironmentVariables | EnvironmentVariables[Key] {
+  defaultValue?: DefaultValue,
+): EnvironmentVariables | EnvironmentVariables[Key] | DefaultValue {
   if (!isInit) {
     initEnvConfig();
   }

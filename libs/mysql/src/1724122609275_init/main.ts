@@ -11,19 +11,14 @@ import { getEnvConfig } from '@app/common';
 // 检查 --rollback 参数是否存在
 const hasRollback = process.argv.includes('--rollback');
 
-const host = getEnvConfig('MYSQL_HOST');
-const user = getEnvConfig('MYSQL_USER');
-const password = getEnvConfig('MYSQL_PASSWORD');
-const database = getEnvConfig('MYSQL_DATABASE');
+// @ts-ignore 请指定为实际的连接参数名
+let connectUrl = getEnvConfig('MYSQL_CONNECT_URL');
 
 async function main() {
-  const connection = await createConnection({
-    host,
-    user,
-    password,
-    database,
-    multipleStatements: true, // 允许多语句,以便读取sql文件执行
-  });
+  if (!connectUrl) return;
+  // 允许多语句,以便读取sql文件执行
+  connectUrl += '&multipleStatements=true';
+  const connection = await createConnection(connectUrl);
 
   try {
     const [result] = await connection.query(`SELECT id, version as v FROM migrations WHERE version = '0.0.1' LIMIT 1`);
@@ -43,13 +38,10 @@ async function main() {
 }
 
 async function rollback() {
-  const connection = await createConnection({
-    host,
-    user,
-    password,
-    database,
-    multipleStatements: true, // 允许多语句,以便读取sql文件执行
-  });
+  if (!connectUrl) return;
+  // 允许多语句,以便读取sql文件执行
+  connectUrl += '&multipleStatements=true';
+  const connection = await createConnection(connectUrl);
 
   await connection.query(readFileSync(join(__dirname, './rollback.sql'), { encoding: 'utf-8' }));
   await connection.end();

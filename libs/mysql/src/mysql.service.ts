@@ -5,10 +5,14 @@ import { Pool, createPool, PoolOptions, PoolConnection } from 'mysql2/promise';
 export class MysqlService implements OnModuleInit {
   public client: Pool;
 
-  constructor(private options: PoolOptions) {}
+  constructor(private options: PoolOptions | string) {}
 
   async onModuleInit() {
-    this.client = createPool(this.options);
+    if (typeof this.options === 'string') {
+      this.client = createPool(this.options);
+    } else {
+      this.client = createPool(this.options);
+    }
     Logger.log('Connected to MySQL database successfully', 'MySQLClient');
   }
 

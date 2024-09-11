@@ -4,7 +4,7 @@ import { MysqlService } from './mysql.service';
 
 @Module({})
 export class MysqlModule {
-  static forRoot(options: PoolOptions): DynamicModule {
+  static forRoot(options: PoolOptions | string): DynamicModule {
     return {
       global: true,
       module: MysqlModule,

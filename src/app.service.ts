@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { generateUUID } from '@app/common';
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  async getHello() {
+    return 'Hello World!' + await generateUUID();
   }
 }
