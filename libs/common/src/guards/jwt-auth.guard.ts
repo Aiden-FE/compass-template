@@ -1,9 +1,10 @@
-import { CanActivate, ExecutionContext, HttpStatus, HttpException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, HttpStatus, HttpException, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { FastifyRequest } from 'fastify';
 import { JwtService } from '@nestjs/jwt';
 import { AUTH_KEY, HttpResponse, IS_PUBLIC_KEY, UserContext } from '@app/common';
 
+@Injectable()
 export default class JWTAuthGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
