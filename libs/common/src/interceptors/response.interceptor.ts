@@ -1,7 +1,7 @@
 import { CallHandler, ExecutionContext, HttpStatus, Injectable, Logger, NestInterceptor } from '@nestjs/common';
 import { catchError, map, Observable, of } from 'rxjs';
 import { FastifyReply } from 'fastify';
-import { BusinessStatus, HttpResponse } from '@app/common';
+import { BusinessStatus, HttpResponse } from '../interfaces';
 
 @Injectable()
 export default class ResponseInterceptor implements NestInterceptor {
@@ -17,9 +17,10 @@ export default class ResponseInterceptor implements NestInterceptor {
         } else {
           resp = new HttpResponse({ data: result });
         }
-        return httpRespCtx.status(resp.getHttpStatus()).send(resp.getResponse());
+        httpRespCtx.status(resp.getHttpStatus());
+        return resp.getResponse();
       }),
-      catchError((err: unknown) => {
+      catchError((err: Error | unknown) => {
         const httpRespCtx = context.switchToHttp().getResponse<FastifyReply>();
         let resp: HttpResponse;
         // 通过 throw new HttpResponse 抛出的异常以 HttpResponse 配置为准
@@ -27,9 +28,9 @@ export default class ResponseInterceptor implements NestInterceptor {
           resp = err;
         } else {
           resp = new HttpResponse({
-            httpStatus: HttpStatus.INTERNAL_SERVER_ERROR,
+            httpStatus: (err as any)?.statusCode || HttpStatus.INTERNAL_SERVER_ERROR,
             statusCode: BusinessStatus.INTERNAL_SERVER_ERROR,
-            message: 'Server internal error',
+            message: (err as Error)?.message || 'Server internal error',
           });
           Logger.warn(err);
         }
@@ -59,7 +60,7 @@ export default class ResponseInterceptor implements NestInterceptor {
   //         resp = err;
   //       } else {
   //         resp = new HttpResponse({
-  //           httpStatus: HttpStatus.INTERNAL_SERVER_ERROR,
+  //           httpStatus: (err as any)?.statusCode || HttpStatus.INTERNAL_SERVER_ERROR,
   //           statusCode: BusinessStatus.INTERNAL_SERVER_ERROR,
   //           message: 'Server internal error',
   //         });

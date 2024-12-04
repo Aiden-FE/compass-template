@@ -1,21 +1,35 @@
-import { hmac as HMAC } from 'node-forge';
-import { getEnvConfig } from '@app/common';
+import * as crypto from 'node:crypto';
 import { importESM } from './common';
 
-/** 不可逆数据加密 */
-export function encodeHMAC(msg: string, secret = getEnvConfig('APP_PRIVATE_SECRET')) {
-  const hmac = HMAC.create();
-  hmac.start('sha1', secret);
-  hmac.update(msg);
-  hmac.update('806728901e95e380'); // 再次加盐,防止密钥丢失后破译隐私数据
-  return hmac.digest().toHex();
+/** 生成不可逆数据 */
+export function generateSHA256(data: string) {
+  return crypto.createHash('sha256').update(`${data}_${process.env.APP_SALT_SECRET}`).digest('hex').toString();
+}
+
+/** 生成不可逆md5 */
+export function generateMD5(data: string) {
+  return crypto.createHash('md5').update(`${data}_${process.env.APP_SALT_SECRET}`).digest('hex').toString();
 }
 
 /**
  * 生成uuid
  * @param [size=36]
  */
-export async function generateUUID(size?: number) {
+export async function generateUUID(size?: number): Promise<string> {
   const { nanoid } = await importESM('nanoid');
   return nanoid(size);
+}
+
+/** 加密数据 */
+export function encryptData(data: string) {
+  const buffer = Buffer.from(data, 'utf8');
+  const encrypted = crypto.publicEncrypt(process.env.APP_PUBLIC_SECRET || '', buffer);
+  return encrypted;
+}
+
+/** 解密数据 */
+export function decryptData(encryptedData: string) {
+  const buffer = Buffer.from(encryptedData, 'base64');
+  const decrypted = crypto.privateDecrypt(process.env.APP_PRIVATE_SECRET || '', buffer);
+  return decrypted.toString('utf8');
 }

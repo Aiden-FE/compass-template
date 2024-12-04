@@ -1,4 +1,6 @@
-export const VALIDATION_OPTION = {
+import { ValidationPipeOptions } from '@nestjs/common';
+
+export const VALIDATION_OPTION: ValidationPipeOptions = {
   transform: true, // 转换数据
   whitelist: true, // 剥离装饰器不验证的项目
   stopAtFirstError: true, // 遇见第一个错误时就停止验证

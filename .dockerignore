@@ -5,3 +5,15 @@ test
 libs
 .github
 .env
+.env.*
+.DS_Store
+.eslintrc.js
+.gitignore
+.prettierrc
+.turbo
+app.d.ts
+libs
+migrations
+README.md
+scripts
+tsconfig.*

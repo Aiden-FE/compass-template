@@ -6,7 +6,10 @@ import { EmailTransporter, EmailTransportParams } from './email.dto';
 export class EmailService implements OnModuleInit {
   public client: EmailTransporter;
 
-  constructor(private option: EmailTransportParams[0], private defaultOption?: EmailTransportParams[1]) {}
+  constructor(
+    private option: EmailTransportParams[0],
+    private defaultOption?: EmailTransportParams[1],
+  ) {}
 
   async onModuleInit() {
     this.client = createTransport(this.option, this.defaultOption);

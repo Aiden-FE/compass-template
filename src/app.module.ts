@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { getEnvConfig, ThrottlerBehindProxyGuard } from '@app/common';
 import { APP_GUARD } from '@nestjs/core';
+import { JwtModule } from '@nestjs/jwt';
+import { JWTAuthGuard, ThrottlerBehindProxyGuard } from '@app/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 // import { MysqlModule } from '@app/mysql';
 // import { EmailModule } from '@app/email';
 // import { RedisModule } from '@app/redis';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -14,16 +15,18 @@ import { AppService } from './app.service';
     ThrottlerModule.forRoot([
       {
         // 单位毫秒
-        ttl: getEnvConfig('APP_THROTTLE_TTL'),
+        ttl: process.env.APP_THROTTLE_TTL ? Number(process.env.APP_THROTTLE_TTL) : 1000 * 60,
         // 单位时间内限制的次数
-        limit: getEnvConfig('APP_THROTTLE_LIMIT'),
+        limit: process.env.APP_THROTTLE_LIMIT ? Number(process.env.APP_THROTTLE_LIMIT) : 60,
       },
     ]),
+    JwtModule.register({
+      global: true,
+      secret: process.env.APP_SALT_SECRET || '',
+    }),
     // EmailModule.forRoot({}),
-    // RedisModule.forRoot({
-    //   url: 'redis://127.0.0.1:6379',
-    // }),
-    // MysqlModule.forRoot({})
+    // RedisModule.forRoot({}),
+    // MysqlModule.forRoot({}),
   ],
   controllers: [AppController],
   providers: [
@@ -31,6 +34,10 @@ import { AppService } from './app.service';
     {
       provide: APP_GUARD,
       useClass: ThrottlerBehindProxyGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JWTAuthGuard,
     },
   ],
 })

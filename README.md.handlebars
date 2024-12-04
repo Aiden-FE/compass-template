@@ -1,23 +1,20 @@
-<!-- TOC -->
-- [{{projectName}}](#projectname)
+- [{{projectName}}](#{{projectName}})
   - [特性](#特性)
     - [支持读取配置文件](#支持读取配置文件)
-    - [Typescript/Jest/Airbnb Eslint/Prettier](#typescriptjestairbnb-eslintprettier)
+    - [高性能](#高性能)
     - [接口多版本支持](#接口多版本支持)
     - [接口限流保护](#接口限流保护)
-    - [约束接口进参,移除非白名单属性,自动转换数据为符合预期的类型](#约束接口进参移除非白名单属性自动转换数据为符合预期的类型)
+    - [接口入参校验及转换](#接口入参校验及转换)
+    - [日志中间件](#日志中间件)
+    - [统一返回处理](#统一返回处理)
     - [支持Swagger API文档](#支持swagger-api文档)
     - [基于Docker快速构建分发](#基于docker快速构建分发)
-    - [默认提供Github Actions文件进行自动lint和部署](#默认提供github-actions文件进行自动lint和部署)
-    - [统一的响应拦截器,规范返回数据](#统一的响应拦截器规范返回数据)
     - [JWT Token处理](#jwt-token处理)
-      - [微服务模式](#微服务模式)
-      - [独立服务模式](#独立服务模式)
     - [支持连接到Redis](#支持连接到redis)
     - [支持使用 Email](#支持使用-email)
     - [支持Google reCAPTCHA v3 人机校验](#支持google-recaptcha-v3-人机校验)
     - [支持Mysql](#支持mysql)
-<!-- TOC -->
+      - [迁移](#迁移)
 
 # {{projectName}}
 > {{projectDescription}}
@@ -26,30 +23,17 @@
 
 ### 支持读取配置文件
 
-```typescript
-import { getEnvConfig } from '@app/common';
+配置文件默认读取程序执行目录下的 `.env` 文件,需要修改配置路径提供 `APP_ENV_FILE_PATH` 环境变量即可, 默认路径为: `path.resolve(process.cwd(), '.env')`
 
-console.log('所有配置变量: ', getEnvConfig());
-console.log('获取指定配置变量: ', getEnvConfig('NODE_ENV'));
-console.log('获取指定配置变量,不存在时指定默认值: ', getEnvConfig('NODE_ENV', 'development'));
+所有可用的环境变量 `.env.example` 文件内已展示, 当需要新增环境变量时建议更新 `.env.example` 文件进行引导
+
+```typescript
+console.log(process.env.APP_DEBUG) // 直接读取环境变量即可
 ```
 
-配置文件默认读取程序执行目录下的.env文件,需要修改配置路径提供ENV_FILE_PATH环境变量即可, 默认路径为: `path.join(process.cwd(), '.env')`
+### 高性能
 
-所有可用的环境变量`.env.example`文件内已展示. 类型与schema约束分别位于`libs/common/src/interfaces/environment.ts`和`libs/common/src/config/env-config.ts`
-
-当需要新增环境变量时建议:
-1. .env.example 文件更新示例说明
-2. `libs/common/src/interfaces/environment.ts` 类型文件更新定义
-3. `libs/common/src/config/env-config.ts` schema定义更新,清洗转化数据
-
-### Typescript/Jest/Airbnb Eslint/Prettier
-
-* 支持Typescript环境
-* `npm run format` 进行代码格式化
-* `npm run lint` 进行代码检查,默认基于Airbnb规范
-* `npm run test` 进行单元测试
-* `npm run test:e2e` 进行端到端测试
+默认采用 Fastify 高性能框架
 
 ### 接口多版本支持
 
@@ -75,9 +59,12 @@ export class ExampleController {
 
 ### 接口限流保护
 
-默认一个IP一个端点每分钟仅允许调用60次,特例场景可以通过装饰器跳过限流或局部修改限流,示例如下:
+默认一个IP一个接口 1 分钟仅允许调用 60 次,特例场景可以通过装饰器跳过限流或局部修改限流,示例如下:
 
 ```typescript
+import { Controller, Get } from '@nestjs/common';
+import { SkipThrottle, Throttle } from '@nestjs/throttler';
+
 @Controller('example')
 export class ExampleController {
   // 该接口跳过节流保护
@@ -87,8 +74,8 @@ export class ExampleController {
     return 'Hello world.';
   }
 
-  // 该接口每分钟调用不超过3次
-  @Throttle(3, 60)
+  // 该接口每分钟调用不超过10次
+  @Throttle({ default: { limit: 10, ttl: 60 * 1000 } })
   @Get('test2')
   test(): string {
     return 'Hello world.';
@@ -102,21 +89,13 @@ export class ExampleController {
 }
 ```
 
-要修改默认配置前往`src/app.module.ts`文件,通过.env配置文件可修改以下配置
+如需对全局默认限流进行修改,请参考 .env.example 示例说明,提供 APP_THROTTLE_TTL 及 APP_THROTTLE_LIMIT 参数即可.
 
-```dotenv
-APP_THROTTLE_TTL=60000
-APP_THROTTLE_LIMIT=60
-```
+### 接口入参校验及转换
 
-### 约束接口进参,移除非白名单属性,自动转换数据为符合预期的类型
-
-当遇见多个Dto联合类型时,内置ValidationPipe失效,可按照下列示例处理:
-
+定义 dto 类:
 ```typescript
 import { IsNumber, IsString, IsOptional } from 'class-validator';
-import { Body } from '@nestjs/common';
-import { validateMultipleDto } from '@app/common';
 
 class ADto {
   @IsString()
@@ -134,57 +113,40 @@ class CDto {
 
   @IsOptional()
   @IsString()
-  address?: string
+  address?: string;
 }
+```
 
+应用 Dto:
+
+```typescript
 @Controller('example')
 export class ExampleController {
-  @Get('test')
-  test(@Body() body: ADto | BDto): string {
-    // 验证失败会抛出异常终止程序,第三个参数AND,OR来控制处理逻辑,默认是OR逻辑
-    validateMultipleDto(body, [ADto, BDto]);
-    return 'Hello world.';
-  }
-
   /**
    * @description 假如入参是 { name: 'test', test: 'test' }
    * 实际body会是 { name: 'test' }, test属性会被自动移除
    */
-  @Get('test2')
-  test2(@Body() body: CDto) {
+  @Get('test')
+  test(@Query() query: CDto) {
     return 'Hello world.';
   }
 }
 ```
 
+更多详细用法参考: [Nest Validator](https://docs.nestjs.com/techniques/validation#using-the-built-in-validationpipe)
 
-### 支持Swagger API文档
+### 日志中间件
 
-`npm run start:dev` 或其他start启动项目后,访问/api/docs路径
+默认打印接口请求,类似如下结构:
 
-### 基于Docker快速构建分发
+`[Nest] 53739  - 2024/12/03 13:57:15     LOG [LoggerMiddleware] HTTP/1.1 GET 127.0.0.1 /api/v1?query-test=test2 +14ms`
 
-`pnpm build` 构建产物
+### 统一返回处理
 
-`docker build . -t <image_name>` 构建镜像
+在`libs/common/src/interceptors/response.interceptor.ts`定义了默认拦截逻辑.
 
-`docker run -d -p <port>:3000 --name <container_name> -v <node_modules_dir>:/root/compass-service/node_modules -v <env_file>:/root/compass-service/.env <image_name>` (-p,--name, -v均为可选参数,) 运行镜像,.env配置文件格式参考 .env.example
+使用示例如下:
 
-### 默认提供Github Actions文件进行自动lint和部署
-
-详情参考: `.github/workflows/deploy.yml`
-
-在部署时需要变量和密钥如下所示:
-
-* `vars.DOCKERHUB_USERNAME` Dockerhub 用户名
-* `vars.DOCKERHUB_IMAGE_NAME` Dockerhub 镜像名
-* `secrets.DOCKERHUB_TOKEN` Dockerhub api token
-
-**供快速部署和参考使用** 如果该CI和部署地址非自己所要的可直接删除.github文件夹即可
-
-### 统一的响应拦截器,规范返回数据
-
-在`libs/common/src/interceptors/response.interceptor.ts`定义的默认拦截逻辑,示例如下:
 
 ```typescript
 import { BusinessStatus, HttpResponse } from '@app/common';
@@ -219,84 +181,124 @@ export class ExampleController {
 }
 ```
 
+### 支持Swagger API文档
+
+`npm run start:dev` 或其他start启动项目后,访问/api/docs路径
+
+### 基于Docker快速构建分发
+
+`pnpm build` 构建产物
+
+`docker build . -t <image_name>` 构建镜像
+
+`docker run -d -p <port>:8080 --name <container_name> -v <node_modules_dir>:/root/compass-service/node_modules -v <env_file>:/root/compass-service/.env <image_name>` (-p,--name, -v均为可选参数,) 运行镜像,.env配置文件格式参考 .env.example
+
 ### JWT Token处理
 
-#### 微服务模式
+前置处理:
 
 放开 `src/main.ts` 内 `app.useGlobalGuards(new JWTAuthGuard(reflector));` 相关内容的注释
 
-调整 `libs/common/src/guards/jwt-auth.guard.ts` 注释内容,切换为rpc模式
+调整 `libs/common/src/guards/jwt-auth.guard.ts` 注释内容,并完善相关 FIXME 逻辑
 
 声明开放类或接口:
+
 ```typescript
-import { MSPayload, Public } from '@app/common';
+import { Public } from '@app/common';
 
 @Public() // 这里声明整个类都是开放的
 @Controller()
 export class OauthController {
-  @MessagePattern({
-    method: 'POST',
-    url: '/oauth/test',
-  })
-  async test(@MSPayload('body') payload: PayloadDto) {
-    return payload;
+  @Get('test')
+  test() {
+    return 'ok';
   }
+}
 
-  @Public() // 这里仅声明接口是开放的
-  @MessagePattern({
-    method: 'POST',
-    url: '/oauth/test2',
-  })
-  async test2(@MSPayload('body') payload: PayloadDto) {
-    return payload;
+@Controller()
+export class DemoController {
+  @Public() //  放在这里声明接口是开放的
+  @Get('test2')
+  test() {
+    return 'ok';
   }
 }
 ```
 
-其中 MSPayload 装饰器帮助快捷获取微服务参数
+声明保护类或接口,并获取验签通过后的用户信息:
 
-声明保护类或接口:
 ```typescript
-import { Auth, PERMISSIONS } from '@app/common';
+import { Auth, PERMISSIONS, User, UserContext } from '@app/common';
 
-@Auth() // 这里声明整个类都是需要授权信息的,但不指明具体权限,用户权限不为空即可
+@Auth() // 这里声明整个类都是需要授权信息的,如不指明具体权限,用户权限不为空即可
 @Controller()
 export class TestController {
-  @Auth(PERMISSIONS.TEST) // 这里声明需要TEST权限
+  @Auth(PERMISSIONS.TEST) // 这里声明,则接口需要TEST权限
   @Get('test')
-  async test(@Payload() payload: PayloadDto) {
-    return payload;
+  test() {
+    return 'ok';
   }
 
   @Auth([PERMISSIONS.TEST, PERMISSIONS.TEST2]) // 这里声明需要TEST以及TEST2双权限
   @Get('test2')
-  async test2(@Payload() payload: PayloadDto) {
-    return payload;
+  test2() {
+    return 'ok';
   }
 
   @Auth([PERMISSIONS.TEST, PERMISSIONS.TEST2], 'OR') // 这里声明需要TEST或TEST2之一的权限
   @Get('test3')
-  async test3(@Payload() payload: PayloadDto) {
-    return payload;
+  test3() {
+    return 'ok';
+  }
+
+  // 这里未指定则权限不为空即可,并通过 User 装饰器获取验证通过后的用户信息
+  @Get('test4')
+  test4(@User() user: UserContext) {
+    return user;
   }
 }
 ```
 
-#### 独立服务模式
+签发 token 参考如下:
+```typescript
+@Injectable()
+export class ExampleService {
+  constructor(
+    private readonly jwtService: JwtService,
+  ) {}
 
-基本等同于微服务的使用方式,放开 `src/main.ts` 内 `app.useGlobalGuards(new JWTAuthGuard(reflector));` 相关内容的注释
-
-区别只是调整 `libs/common/src/guards/jwt-auth.guard.ts` 注释内容,使用http模式并调整user的获取方式即可
-
-Controller内取参与官方文档一致即可
+  getToken(user: UserContext) {
+    // JWT 授权过期时间配置参考 https://github.com/zeit/ms.js Eg: 60, "2 days", "10h", "7d".
+    return this.jwtService.sign(user, { expiresIn: process.env.APP_JWT_EXPIRES }),
+  }
+}
+```
 
 ### 支持连接到Redis
 
-基础 [redis](https://github.com/redis/node-redis) 实现,放开 `src/app.module.ts` redis注册并提供配置即可.
+基础 [redis](https://github.com/redis/node-redis) 实现
+
+如需使用放开 `src/app.module.ts` redis注册并提供配置即可.
+
+如无需使用请按如下步骤移除:
+1. `pnpm remove redis` 移除依赖项
+2. 移除 `libs/redis` 文件夹
+3. 移除 `package.json`内 moduleNameMapper下的 `^@app/redis(|/.*)$` 配置
+4. 移除 `nest-cli.json` 内的 `projects.redis` 配置
+5. 移除 `tsconfig.json` 的 `paths` 内的 `@app/redis` 相关配置
 
 ### 支持使用 Email
 
-基于 [nodemailer](https://nodemailer.com/) 实现, 放开 `src/app.module.ts` email注册并提供配置即可.
+基于 [nodemailer](https://nodemailer.com/) 实现
+
+如需放开 `src/app.module.ts` email注册并提供配置即可.
+
+如无需使用请按如下步骤移除:
+1. `pnpm remove nodemailer @types/nodemailer` 移除依赖项
+2. 移除 `libs/email` 文件夹
+3. 移除 `package.json`内 moduleNameMapper下的 `^@app/email(|/.*)$` 配置
+4. 移除 `nest-cli.json` 内的 `projects.email` 配置
+5. 移除 `tsconfig.json` 的 `paths` 内的 `@app/email` 相关配置
 
 ### 支持Google reCAPTCHA v3 人机校验
 
@@ -338,6 +340,33 @@ Controller内取参与官方文档一致即可
 * 用户在登录时可将用户信息与临时token一并提交登录接口
 * 登录接口验证token属于签发的授权token并账号密码正确即登录成功
 
+如无需使用请按如下步骤移除:
+1. 移除 `libs/google-recaptcha` 文件夹
+2. 移除 `package.json`内 moduleNameMapper下的 `^@app/google-recaptcha(|/.*)$` 配置
+3. 移除 `nest-cli.json` 内的 `projects.google-recaptcha` 配置
+4. 移除 `tsconfig.json` 的 `paths` 内的 `@app/google-recaptcha` 相关配置
+
 ### 支持Mysql
 
-基于 [Mysql2](https://sidorares.github.io/node-mysql2/docs) 实现, 放开 `src/app.module.ts` mysql注册并提供配置即可.
+基于 [Mysql2](https://sidorares.github.io/node-mysql2/docs) 实现
+
+如需使用放开 `src/app.module.ts` mysql注册并提供配置即可.
+
+如无需使用请按如下步骤移除:
+1. `pnpm remove mysql2` 移除依赖项
+2. 移除 `libs/mysql` 文件夹
+3. 移除 `package.json`内 moduleNameMapper下的 `^@app/mysql(|/.*)$` 配置
+4. 移除 `nest-cli.json` 内的 `projects.mysql` 配置
+5. 移除 `tsconfig.json` 的 `paths` 内的 `@app/mysql` 相关配置
+
+#### 迁移
+
+> 预置迁移脚本,执行脚本均位于 libs/mysql/src/scripts
+
+`pnpm migrate:create <name>` 创建迁移文件
+
+`pnpm migrate:up` 按照时序迁移至最新版本
+
+`pnpm migrate:down` 回滚至上一个版本
+
+`pnpm migrate:reset` 回滚至初始版本
