@@ -1,4 +1,4 @@
-import { HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 // 业务状态码
 export enum BusinessStatus {
@@ -92,6 +92,10 @@ export enum BusinessStatus {
   ER_REDIS_WRITE,
   /** 数据验证失败 */
   VALIDATION_FAILED,
+}
+
+export function getLikeBusinessStatus(httpStatus: number) {
+  return BusinessStatus[httpStatus + 100000] ? httpStatus + 100000 : undefined;
 }
 
 export interface BusinessResponse<Data = unknown> {
@@ -213,6 +217,14 @@ export class HttpResponse<Data = unknown> {
         statusCode: BusinessStatus.NOT_FOUND,
         httpStatus: HttpStatus.NOT_FOUND,
         message: 'Not found',
+      });
+    }
+    if (err instanceof HttpException) {
+      return new HttpResponse({
+        statusCode: getLikeBusinessStatus(err.getStatus()) ?? BusinessStatus.BAD_REQUEST,
+        httpStatus: err.getStatus(),
+        message: err.message,
+        data: err.getResponse(),
       });
     }
     return new HttpResponse({

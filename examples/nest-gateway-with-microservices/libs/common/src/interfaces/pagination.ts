@@ -30,9 +30,7 @@ export class PaginationQueryDto {
 export class PaginationBodyDto {
   constructor(data?: Partial<Pagination>) {
     this.page = data?.page ? Math.max(0, Math.floor(Number(data.page))) : 0;
-    this.pageSize = data?.pageSize
-      ? Math.max(1, Math.floor(Number(data.pageSize)))
-      : 20;
+    this.pageSize = data?.pageSize ? Math.max(1, Math.floor(Number(data.pageSize))) : 20;
   }
 
   @IsOptional()
