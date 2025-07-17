@@ -1,29 +1,17 @@
-# Nestjs 网关微服务模板
+# Nestjs 服务模板
 
-- [Nestjs 网关微服务模板](#nestjs-网关微服务模板)
-  - [快速开始](#快速开始)
+- [Nestjs 服务模板](#nestjs-服务模板)
   - [功能特性](#功能特性)
     - [支持环境变量](#支持环境变量)
     - [基于Fastify高性能的网关](#基于fastify高性能的网关)
+    - [接口多版本](#接口多版本)
+    - [接口限流保护](#接口限流保护)
     - [接口入参校验及转换](#接口入参校验及转换)
-    - [网关限流保护](#网关限流保护)
     - [日志中间件](#日志中间件)
     - [统一返回结构](#统一返回结构)
     - [鉴权处理](#鉴权处理)
     - [数据库迁移管理](#数据库迁移管理)
   - [依赖更新](#依赖更新)
-
-## 快速开始
-
-`cp .env.example .env` 按模板创建 '.env' 配置文件并按需调整
-
-`pnpm install` 恢复依赖
-
-`pnpm dev:gateway` 启动网关
-
-`pnpm dev:microservice-a` 启动微服务 A
-
-访问 'http://localhost:8080/api/health' 与 'http://localhost:8080/api/a/health' 可确认服务启动成功
 
 ## 功能特性
 
@@ -52,6 +40,60 @@ export class AppModule {}
 ### 基于Fastify高性能的网关
 
 网关采用 Fastify 底层实现
+
+### 接口多版本
+
+如下所示:
+
+```typescript
+import { Version } from '@nestjs/common';
+
+@Controller('example')
+export class ExampleController {
+  // 访问地址: /api/v1/example/test
+  @Get('test')
+  test(): string {
+    return 'This is v1 endpoint.';
+  }
+
+  // 访问地址: /api/v2/example/test
+  @Version('2')
+  @Get('test')
+  test2(): string {
+    return 'This is v2 endpoint.';
+  }
+}
+```
+
+### 接口限流保护
+
+默认配置为 1 分钟内最多请求 100 次,可针对不同接口配置不同的限流规则,详细用法参考[文档](https://docs.nestjs.com/security/rate-limiting#multiple-throttler-definitions)
+
+```typescript
+@Controller('example')
+export class ExampleController {
+  // 该接口跳过节流保护
+  @SkipThrottle()
+  @Get('test')
+  test(): string {
+    return 'Hello world.';
+  }
+
+  // 单独配置
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
+  @Get('test2')
+  test(): string {
+    return 'Hello world.';
+  }
+
+  // 默认采用全局节流配置
+  @Get('test3')
+  test(): string {
+    return 'Hello world.';
+  }
+}
+```
+
 
 ### 接口入参校验及转换
 
@@ -82,60 +124,24 @@ class CDto {
 应用 Dto:
 
 ```typescript
-import { MicroBody, MicroQuery } from '@app/common';
-
 @Controller()
 export class ExampleController {
   /**
    * @description 转换配置详见 @app/common 中的 VALIDATION_OPTION 配置
    */
-  @MessagePattern({ cmd: 'GET:/test' })
-  test(@MicroQuery() query: CDto) {
+  @Get('test')
+  test(@Query() query: CDto) {
     return 'Hello world.';
   }
 
-  @MessagePattern({ cmd: 'GET:/test2' })
-  test2(@MicroBody() body: CDto) {
+  @Get('test2')
+  test2(@Body() body: CDto) {
     return 'Hello world2.';
   }
 }
 ```
 
 更多详细用法参考: [Nest Validator](https://docs.nestjs.com/techniques/validation#using-the-built-in-validationpipe)
-
-### 网关限流保护
-
-网关侧统一限流, 默认配置为 1 分钟内最多请求 100 次,可针对不同接口配置不同的限流规则
-
-配置位于 `libs/common/src/constants/throttlers.ts` 内,default 为默认配置, 可通过环境变量THROTTLE_DEFAULT_TTL,THROTTLE_DEFAULT_LIMIT变更默认值.
-
-```typescript
-/**
- * 限流配置
- *
- * 默认配置为 1 分钟内最多请求 100 次
- *
- * 可针对不同接口配置不同的限流规则
- *
- * @example 规则配置示例
- * {
- *   ['接口路径(不含 ROUTE_BASE_PREFIX 前缀)']: {
- *     ttl: 1000 * 60, // 1 分钟
- *     limit: 2000, // 2000 次
- *   },
- * }
- */
-export const THROTTLE_ROUTES_CONFIG = {
-  default: {
-    ttl: process.env.THROTTLE_DEFAULT_TTL ? Number(process.env.THROTTLE_DEFAULT_TTL) : 1000 * 60,
-    limit: process.env.THROTTLE_DEFAULT_LIMIT ? Number(process.env.THROTTLE_DEFAULT_LIMIT) : 100,
-  },
-  '/health': {
-    ttl: 1000 * 60,
-    limit: 200,
-  },
-};
-```
 
 ### 日志中间件
 
@@ -146,12 +152,8 @@ export const THROTTLE_ROUTES_CONFIG = {
 ### 统一返回结构
 
 ```typescript
-import { MicroBody, MicroQuery, HttpResponse, BusinessStatus, HttpResponseException } from '@app/common';
 import { HttpStatus, HttpException } from '@nestjs/common';
 
-/**
- * 以下仅演示了微服务,网关 API 接口使用同理即可
- */
 @Controller()
 export class ExampleController {
   /**
@@ -162,8 +164,8 @@ export class ExampleController {
    *   message: 'Request successful'
    * }
    */
-  @MessagePattern({ cmd: 'GET:/test' })
-  test(@) {
+  @Get('test')
+  test() {
     return 'Hello world.';
   }
 
@@ -171,7 +173,7 @@ export class ExampleController {
    * @example 实际返回如下: HTTP 200
    * 'Hello world'
    */
-  @MessagePattern({ cmd: 'GET:/test2' })
+  @Get('test2')
   test2() {
     return new HttpResponse({
       data: 'Hello world',
@@ -187,7 +189,7 @@ export class ExampleController {
    *   message: 'Request successful'
    * }
    */
-  @MessagePattern({ cmd: 'POST:/test3' })
+  @Post('test3')
   test3() {
     return new HttpResponse({
       statusCode: BusinessStatus.CREATED,
@@ -204,7 +206,7 @@ export class ExampleController {
    *   details: 'created',
    * }
    */
-  @MessagePattern({ cmd: 'POST:/test4' })
+  @Post('test4')
   test4() {
     return new HttpResponse({
       data: 'Hello world',
@@ -222,7 +224,7 @@ export class ExampleController {
    *   message: 'Internal server error'
    * }
    */
-  @MessagePattern({ cmd: 'POST:/test5' })
+  @Post('test5')
   test5() {
     throw new Error('Hello world.');
   }
@@ -235,7 +237,7 @@ export class ExampleController {
    *   message: 'Hello world.'
    * }
    */
-  @MessagePattern({ cmd: 'POST:/test6' })
+  @Post('test6')
   test6() {
     throw new HttpException(
       'Hello world.',
@@ -253,7 +255,7 @@ export class ExampleController {
    *   message: 'Http Exception'
    * }
    */
-  @MessagePattern({ cmd: 'POST:/test7' })
+  @Post('test7')
   test7() {
     throw new HttpException(
       {
@@ -273,7 +275,7 @@ export class ExampleController {
    *   message: 'Http Exception'
    * }
    */
-  @MessagePattern({ cmd: 'POST:/test8' })
+  @Post('test8')
   test8() {
     throw new HttpResponseException({
       statusCode: BusinessStatus.BAD_REQUEST
@@ -291,32 +293,18 @@ export class ExampleController {
 - `@NoAuth()` 装饰器标记无需授权
 - `@Auth(PERMISSIONS.A_TEST)` 标记一个或多个权限
 - `jwtService.sign` 签发权限,并在后续请求的 headers.authorization 内提供
-- `libs/common/src/interceptors/request-forwarding.interceptor.ts` 按需调整权限获取逻辑
+- `libs/common/src/interceptors/response-standalone.interceptor.ts` 按需调整授权信息解析逻辑
 
 参考如下:
 
 ```typescript
-import { Controller, HttpStatus } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
-import {
-  Auth,
-  HttpResponse,
-  NoAuth,
-  PERMISSIONS,
-  HttpResponseException,
-  BusinessStatus,
-  MicroQuery,
-} from '@app/common';
-import { SkipThrottle } from '@nestjs/throttler';
-import { JwtService } from '@nestjs/jwt';
-
 @Controller()
 export class MicroserviceAController {
   constructor(private readonly jwtService: JwtService) {}
 
   @SkipThrottle()
   @NoAuth()
-  @MessagePattern({ cmd: 'GET:/health' })
+  @Get('health')
   health() {
     return new HttpResponse({
       data: 'ok',
@@ -325,7 +313,7 @@ export class MicroserviceAController {
   }
 
   @Auth(PERMISSIONS.A_TEST)
-  @MessagePattern({ cmd: 'GET:/auth' })
+  @Get('auth')
   auth() {
     return new HttpResponse({
       data: '需要权限的场景测试',
@@ -333,7 +321,7 @@ export class MicroserviceAController {
   }
 
   @NoAuth()
-  @MessagePattern({ cmd: 'GET:/no-auth' })
+  @Get('no-auth')
   noAuth() {
     return new HttpResponse({
       data: '无需权限的场景测试',
@@ -341,7 +329,7 @@ export class MicroserviceAController {
   }
 
   /** 未指定权限,但是也会要求存在用户信息方可访问 */
-  @MessagePattern({ cmd: 'GET:/error' })
+  @Get('error')
   error() {
     throw new HttpResponseException({
       statusCode: BusinessStatus.FORBIDDEN,
@@ -355,7 +343,7 @@ export class MicroserviceAController {
 
   /** 生成 token 示例 */
   @NoAuth()
-  @MessagePattern({ cmd: 'GET:/generate-token' })
+  @Get('generate-token')
   generateToken(@MicroQuery() query: object) {
     const token = this.jwtService.sign(query, {
       expiresIn: process.env.JWT_EXPIRES_IN ?? '1d',

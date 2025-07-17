@@ -22,6 +22,7 @@ import { AppController } from './app.controller';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    // 网关限流配置
     ThrottlerModule.forRoot({
       throttlers: [
         {
@@ -38,6 +39,7 @@ import { AppController } from './app.controller';
         },
       ],
     }),
+    // JWT 配置
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,
@@ -45,6 +47,7 @@ import { AppController } from './app.controller';
   ],
   controllers: [AppController],
   providers: [
+    // 全局异常过滤器
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
@@ -64,6 +67,7 @@ import { AppController } from './app.controller';
       provide: APP_INTERCEPTOR,
       useClass: ResponseStandaloneInterceptor,
     },
+    // 限流守卫
     {
       provide: APP_GUARD,
       useClass: ThrottlerGuard,
