@@ -4,6 +4,12 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { MicroserviceOptions } from '@nestjs/microservices';
 import { MicroserviceAModule } from './microservice-a.module';
 
+Logger.overrideLogger(
+  process.env.DEBUG === 'true'
+    ? ['verbose', 'debug', 'log', 'warn', 'error', 'fatal']
+    : ['log', 'warn', 'error', 'fatal'],
+);
+
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     MicroserviceAModule,

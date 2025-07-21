@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["ESNext", "DOM"]
+  },
+  "include": [
+    "src/browser.ts",
+    "src/browser-utils/**/*.ts",
+    "src/common-utils/**/*.ts",
+    "src/interfaces/**/*.ts",
+    "src/**/*.d.ts",
+    "**/*.json"
+  ],
+  "exclude": ["src/**/*.spec.ts"]
+}

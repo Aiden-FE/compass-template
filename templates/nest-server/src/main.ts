@@ -4,6 +4,12 @@ import { FastifyAdapter, type NestFastifyApplication } from '@nestjs/platform-fa
 import { ROUTE_BASE_PREFIX, VALIDATION_OPTION } from '@app/common';
 import { AppModule } from './app.module';
 
+Logger.overrideLogger(
+  process.env.DEBUG === 'true'
+    ? ['verbose', 'debug', 'log', 'warn', 'error', 'fatal']
+    : ['log', 'warn', 'error', 'fatal'],
+);
+
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,

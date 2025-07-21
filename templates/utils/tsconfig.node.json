@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "types": ["@types/node"]
+  },
+  "include": [
+    "src/node.ts",
+    "src/node-utils/**/*.ts",
+    "src/common-utils/**/*.ts",
+    "src/interfaces/**/*.ts",
+    "src/**/*.d.ts",
+    "rollup.config.js",
+    "**/*.json"
+  ],
+  "exclude": ["src/**/*.spec.ts"]
+}

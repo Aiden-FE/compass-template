@@ -4,6 +4,12 @@ import { ROUTE_BASE_PREFIX } from '@app/common';
 import { Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 
+Logger.overrideLogger(
+  process.env.DEBUG === 'true'
+    ? ['verbose', 'debug', 'log', 'warn', 'error', 'fatal']
+    : ['log', 'warn', 'error', 'fatal'],
+);
+
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,

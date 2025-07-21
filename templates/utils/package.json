@@ -1,0 +1,58 @@
+{
+  "name": "utils",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "TS 实用程序模板",
+  "main": "dist/browser.js",
+  "types": "dist/types/src/browser.d.ts",
+  "browser": "dist/browser.umd.js",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/src/browser.d.ts",
+        "default": "./dist/browser.js"
+      },
+      "require": {
+        "types": "./dist/types/src/node.d.ts",
+        "default": "./dist/node.mjs"
+      }
+    },
+    "./node": {
+      "types": "./dist/types/src/node.d.ts",
+      "default": "./dist/node.mjs"
+    },
+    "./browser": {
+      "types": "./dist/types/src/browser.d.ts",
+      "default": "./dist/browser.js"
+    }
+  },
+  "scripts": {
+    "serve": "npx -y serve",
+    "dev": "rollup -w -c rollup.config.js",
+    "build": "npm run clean && rollup -c rollup.config.js",
+    "format": "prettier --write ./src",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.4",
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.1",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "@types/node": "^24.0.15",
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.45.1",
+    "rollup-plugin-cleanup": "^3.2.1",
+    "rollup-plugin-summary": "^3.0.1",
+    "rollup-plugin-visualizer": "^6.0.3",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3"
+  }
+}

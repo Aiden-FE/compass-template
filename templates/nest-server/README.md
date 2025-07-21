@@ -12,6 +12,7 @@
     - [鉴权处理](#鉴权处理)
     - [数据库迁移管理](#数据库迁移管理)
   - [依赖更新](#依赖更新)
+  - [模板快速上手](#模板快速上手)
 
 ## 功能特性
 
@@ -390,3 +391,7 @@ MIGRATION_DB_CONNECTION=postgresql://username:password@localhost:5432/database_n
 `npx npm-check-updates -i --format group` 按需选择待更新的依赖
 
 > 如选择了 nestjs 相关更新,建议进一步查阅 [官方迁移指南](https://docs.nestjs.com/migration-guide)
+
+## 模板快速上手
+
+获取模板后根据 [支持环境变量](#支持环境变量) 说明先按需配置环境变量
