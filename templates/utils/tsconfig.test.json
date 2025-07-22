@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "composite": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "types": ["@types/node", "jest"],
     "baseUrl": ".",
     "paths": {
@@ -8,5 +10,5 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.spec.ts"]
+  "include": ["src/**/*.spec.ts", "src/**/*.ts"]
 }

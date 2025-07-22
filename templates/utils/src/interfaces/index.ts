@@ -1,1 +1,3 @@
-export interface CommonType {}
+export interface CommonType {
+  VERSION: string;
+}

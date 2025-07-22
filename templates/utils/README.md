@@ -44,5 +44,9 @@ UMD 使用方式:
 
 - 支持 browser,node 双包构建
 - 支持代码格式化
-- [ ] 支持单元测试
-- [ ] 支持 eslint
+- 支持单元测试
+- 支持 eslint
+
+## 依赖更新
+
+`npx npm-check-updates -i --format group` 按需选择待更新的依赖
