@@ -1,33 +1,13 @@
 {
-  "name": "utils",
+  "name": "commandline",
   "version": "1.0.0",
   "type": "module",
-  "description": "TS 实用程序模板",
-  "main": "dist/browser.js",
-  "types": "dist/types/src/browser.d.ts",
-  "browser": "dist/browser.umd.js",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/types/src/browser.d.ts",
-        "default": "./dist/browser.js"
-      },
-      "require": {
-        "types": "./dist/types/src/node.d.ts",
-        "default": "./dist/node.mjs"
-      }
-    },
-    "./node": {
-      "types": "./dist/types/src/node.d.ts",
-      "default": "./dist/node.mjs"
-    },
-    "./browser": {
-      "types": "./dist/types/src/browser.d.ts",
-      "default": "./dist/browser.js"
-    }
+  "description": "Command Line Interface Template",
+  "main": "dist/main.mjs",
+  "bin": {
+    "cli": "index.js"
   },
   "scripts": {
-    "serve": "npx -y serve",
     "dev": "rollup -w -c rollup.config.mjs",
     "build": "npm run clean && rollup -c rollup.config.mjs",
     "format": "prettier --write ./src",
@@ -47,6 +27,7 @@
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.4",
+    "@types/figlet": "^1.7.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.15",
     "eslint": "^9.31.0",
@@ -64,5 +45,13 @@
     "tslib": "^2.8.1",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.7.1",
+    "chalk": "^5.4.1",
+    "commander": "^14.0.0",
+    "figlet": "^1.8.2",
+    "nanospinner": "^1.2.2",
+    "ora": "^8.2.0"
   }
 }

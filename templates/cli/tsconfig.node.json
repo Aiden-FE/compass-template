@@ -5,13 +5,12 @@
     "types": ["@types/node"]
   },
   "include": [
-    "src/node.ts",
-    "src/node-utils/**/*.ts",
-    "src/common-utils/**/*.ts",
-    "src/interfaces/**/*.ts",
+    "src/*.ts",
+    "src/**/*.ts",
     "src/**/*.d.ts",
     "rollup.config.mjs",
-    "**/*.json"
+    "index.js",
+    "package.json"
   ],
   "exclude": ["src/**/*.spec.ts"]
 }
